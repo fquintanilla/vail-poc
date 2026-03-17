@@ -18,10 +18,11 @@ import { env } from "process";
  */
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const search = request.nextUrl.search;
 
   if (env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true") {
     const targetPath = pathname === "/" ? "/preview" : `/preview${pathname}`;
-    return NextResponse.rewrite(new URL(targetPath, request.url));
+    return NextResponse.rewrite(new URL(targetPath + search, request.url));
   }
 
   return NextResponse.next();
