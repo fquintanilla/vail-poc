@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ContentstackLivePreview } from "../components/ContentstackLivePreview";
+import { env } from "process";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -44,7 +45,16 @@ export default function RootLayout({
         <link rel="stylesheet" href="/styles/style.css" />
       </head>
       <body>
-        <main className="mainClass mt-5">{children}</main>
+        {env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true" ? (
+          <div
+            role="alert"
+            className="sticky top-0 z-50 w-full border-b border-amber-500/50 bg-amber-500/95 px-4 py-2 text-center text-sm font-medium text-amber-950 shadow-sm backdrop-blur-sm"
+          >
+            You are viewing the <strong>preview site</strong>. Content may be
+            unpublished or in draft.
+          </div>
+        ) : null}
+        <main className="mainClass">{children}</main>
         <ContentstackLivePreview />
       </body>
     </html>

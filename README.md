@@ -12,6 +12,7 @@ Vail/
 │   └── web/                    # Main Next.js app (localhost:3000)
 │       ├── src/
 │       │   └── app/            # App Router pages & layouts
+│       │       └── preview/    # Preview routes (draft/live content from Contentstack)
 │       ├── next.config.ts
 │       └── package.json
 ├── packages/
@@ -86,6 +87,54 @@ This project uses **Contentstack** for content. Important points for developers:
 
 - **Docs**  
   [Contentstack Docs](https://www.contentstack.com/docs) and [Content Delivery API](https://www.contentstack.com/docs/developers/content-delivery-api) are the source of truth for APIs and SDKs.
+
+## Preview mode
+
+The app supports **Contentstack Live Preview** so editors can see draft and unpublished content. Preview is driven by the **`/preview`** route and optional proxy.
+
+### The `/preview` folder
+
+- **`apps/web/src/app/preview/`** – Preview-specific routes. These pages use **live/draft** Contentstack data instead of cached published content.
+- **`apps/web/src/app/preview/page.tsx`** – Renders the home page with Live Preview query params. When Contentstack opens the site for preview, it can pass `live_preview`, `content_type_uid`, `entry_uid`, and `preview_timestamp`; the preview page forwards these to the stack and fetches draft content via `stack.livePreviewQuery()`.
+- **Non-preview routes** (e.g. `app/page.tsx`) use **cached** data via `getPageCached()` for fast SSG/ISR. Preview routes bypass cache and call `getPage(url, stack)` after configuring the stack with `livePreviewQuery()`.
+
+### Enabling preview
+
+1. In `apps/web/.env.local` set:
+   - `NEXT_PUBLIC_CONTENTSTACK_PREVIEW=true`
+   - `NEXT_PUBLIC_CONTENTSTACK_PREVIEW_TOKEN` – preview token from your Contentstack stack
+2. Restart the dev server. The layout shows a “You are viewing the preview site” banner when preview is on.
+3. Open the site from Contentstack’s preview URL (or go directly to `/preview` with the same query params Contentstack uses).
+
+### Preview query parameters
+
+Preview pages accept these search params (from Contentstack’s preview iframe or manual URLs):
+
+| Param               | Purpose                                      |
+| ------------------- | -------------------------------------------- |
+| `live_preview`      | Enables live preview for the request         |
+| `content_type_uid`  | Content type (e.g. `page`)                   |
+| `entry_uid`         | Entry UID being previewed                    |
+| `preview_timestamp` | Optional; used for draft versioning          |
+
+### Supporting future pages (SSG + preview)
+
+When adding new pages that should be **statically generated** but also **previewable**:
+
+1. **SSG / normal requests**  
+   Use `getPageCached(url)` (or equivalent cached fetcher) so the page is cacheable and fast.
+
+2. **Preview requests**  
+   In the **preview** route for that page (e.g. `app/preview/[...slug]/page.tsx` or a dedicated route under `app/preview/`):
+   - Read `live_preview`, `content_type_uid`, `entry_uid`, `preview_timestamp` from `searchParams`.
+   - If `live_preview` is set: call `getStack()`, then `stack.livePreviewQuery({ live_preview, contentTypeUid, entryUid, preview_timestamp })`, then fetch with `getPage(url, stack)` (or the appropriate getter). Do **not** use the cached getter in this branch.
+   - Reuse the same component that renders the page so layout and components stay in sync.
+
+3. **Optional: proxy for editors**  
+   `apps/web/src/proxy.ts` can rewrite requests to `/preview` when `NEXT_PUBLIC_CONTENTSTACK_PREVIEW=true`. Right now its `config.matcher` only includes `"/"`. To support more paths (e.g. `/about`, `/blog/[slug]`), add a middleware that calls this proxy and extend the matcher to those pathnames so Contentstack’s preview loads the correct `/preview/...` route.
+
+4. **Caching**  
+   Keep all “live” preview logic out of `getPageCached` and any `"use cache"` code paths. Use the cached path only for non-preview requests.
 
 ## Notes for Developers
 

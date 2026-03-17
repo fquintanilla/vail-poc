@@ -1,7 +1,16 @@
 import { HomeMain } from "@/components/home-main";
 import { Suspense } from "react";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    live_preview?: string;
+    content_type_uid?: string;
+    entry_uid?: string;
+    preview_timestamp?: string;
+  }>;
+}) {
   return (
     <Suspense
       fallback={
@@ -12,7 +21,7 @@ export default async function Home() {
         </main>
       }
     >
-      <HomeMain />
+      <HomeMain searchParams={searchParams} />
     </Suspense>
   );
 }
