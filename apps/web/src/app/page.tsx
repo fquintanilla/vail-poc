@@ -31,7 +31,7 @@ async function HomeMain({
   }
 
   return (
-    <section className="p-4">
+    <>
       {pageData?.title ? (
         <h1
           className="text-4xl font-bold mb-4"
@@ -49,7 +49,7 @@ async function HomeMain({
           locale={pageData.locale}
         />
       ) : null}
-    </section>
+    </>
   );
 }
 
