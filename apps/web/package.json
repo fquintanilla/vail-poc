@@ -1,0 +1,33 @@
+{
+  "name": "@repo/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@contentstack/delivery-sdk": "^4.11.0",
+    "@contentstack/live-preview-utils": "^4.2.1",
+    "@timbenniks/contentstack-endpoints": "^2.1.0",
+    "isomorphic-dompurify": "^2.35.0",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@repo/api": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "next": "16.1.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-markdown": "^10.1.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
