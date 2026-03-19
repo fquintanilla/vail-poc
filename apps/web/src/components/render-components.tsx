@@ -4,6 +4,7 @@ import Section from "./section";
 import AboutSectionBucket from "./about-section-bucket";
 import SectionBucket from "./section-bucket";
 import BlogSection from "./blog-section";
+import VailBanner from "./vail-banner";
 
 export default function RenderComponents(props: RenderProps) {
   const { pageComponents, entryUid, contentTypeUid, locale } = props;
@@ -15,6 +16,14 @@ export default function RenderComponents(props: RenderProps) {
       data-locale={locale}
     >
       {pageComponents.map((component, key: number) => {
+        if (component.vail_hero_banner) {
+          return (
+            <VailBanner
+              key={`component-${key}`}
+              banner={component.vail_hero_banner}
+            />
+          );
+        }
         if (component.hero_banner) {
           return (
             <HeroBanner
