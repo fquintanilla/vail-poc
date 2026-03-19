@@ -5,6 +5,7 @@ import AboutSectionBucket from "./about-section-bucket";
 import SectionBucket from "./section-bucket";
 import BlogSection from "./blog-section";
 import VailBanner from "./vail-banner";
+import { MediaTextBlock } from "./media-text-block";
 
 export default function RenderComponents(props: RenderProps) {
   const { pageComponents, entryUid, contentTypeUid, locale } = props;
@@ -16,6 +17,14 @@ export default function RenderComponents(props: RenderProps) {
       data-locale={locale}
     >
       {pageComponents.map((component, key: number) => {
+        if (component.media_text_block) {
+          return (
+            <MediaTextBlock
+              key={`component-${key}`}
+              mediaTextBlock={component.media_text_block}
+            />
+          );
+        }
         if (component.vail_hero_banner) {
           return (
             <VailBanner

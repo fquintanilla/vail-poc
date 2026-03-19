@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: "i8qy5y6gxkdgdcv9.public.blob.vercel-storage.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "azure-na-images.contentstack.com",
+        pathname: "/**",
+      },
     ],
   },
   cacheComponents: true, // Top-level in Next.js 16.1.x+

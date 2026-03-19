@@ -8,3 +8,4 @@ export * from "./pages";
 export * from "./section";
 export * from "./section-with-bucket";
 export * from "./vail-banner";
+export * from "./media-text-block";
