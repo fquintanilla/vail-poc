@@ -12,8 +12,6 @@ export function MediaTextBlock(props: MediaTextBlockProps) {
   const imageAlignment = mediaTextBlock.image_alignment;
   const isImageRight = imageAlignment?.toLowerCase() === "right";
 
-  console.log(imageAlignment, isImageRight, mediaTextBlock.headline);
-
   const textOrder = isImageRight ? "order-1 lg:order-1" : "order-2 lg:order-2";
   const mediaOrder = isImageRight ? "order-2 lg:order-2" : "order-1 lg:order-1";
 

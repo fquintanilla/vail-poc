@@ -6,6 +6,7 @@ import SectionBucket from "./section-bucket";
 import BlogSection from "./blog-section";
 import VailBanner from "./vail-banner";
 import { MediaTextBlock } from "./media-text-block";
+import { PromoCardGrid } from "./promo-card-grid";
 
 export default function RenderComponents(props: RenderProps) {
   const { pageComponents, entryUid, contentTypeUid, locale } = props;
@@ -17,6 +18,14 @@ export default function RenderComponents(props: RenderProps) {
       data-locale={locale}
     >
       {pageComponents.map((component, key: number) => {
+        if (component.promo_card_grid) {
+          return (
+            <PromoCardGrid
+              key={`component-${key}`}
+              promoCardGrid={component.promo_card_grid}
+            />
+          );
+        }
         if (component.media_text_block) {
           return (
             <MediaTextBlock
