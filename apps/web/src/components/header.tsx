@@ -4,6 +4,7 @@ import { Great_Vibes } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { NotificationBar } from "./notification-bar";
+import { ResortDropdown } from "./resort-dropdown";
 
 const script = Great_Vibes({
   weight: "400",
@@ -84,21 +85,6 @@ function CartIcon({ className }: { className?: string }) {
   );
 }
 
-function ChevronDownIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-    >
-      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export async function ResortHeader({ data }: ResortHeaderProps) {
   const searchHref = data.search_url ?? "#";
 
@@ -107,6 +93,7 @@ export async function ResortHeader({ data }: ResortHeaderProps) {
   return (
     <>
       <NotificationBar
+        dismissible={true}
         show={header?.notification_bar?.show_announcement ?? false}
         announcement_text={header?.notification_bar?.announcement_text ?? ""}
       />
@@ -146,21 +133,12 @@ export async function ResortHeader({ data }: ResortHeaderProps) {
                 {header?.title}
               </span>
             </Link>
+
             <span
               aria-hidden
               className="hidden h-6 w-px bg-white/25 sm:block"
             />
-            {data.show_resort_dropdown ? (
-              <button
-                aria-expanded={false}
-                aria-haspopup="true"
-                aria-label="Resort menu"
-                className="hidden items-center gap-1 text-white/80 hover:text-white sm:flex"
-                type="button"
-              >
-                <ChevronDownIcon className="size-4" />
-              </button>
-            ) : null}
+            <ResortDropdown items={header?.other_resorts} />
           </div>
 
           <nav

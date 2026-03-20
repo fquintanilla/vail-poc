@@ -29,6 +29,7 @@ export type Header = {
     show_announcement: boolean;
     announcement_text: string;
   };
+  other_resorts?: [{ resort: { title: string; href: string } }];
   navigation_menu: [
     {
       label: string;
