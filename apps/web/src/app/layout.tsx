@@ -2,6 +2,10 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ContentstackLivePreview } from "../components/ContentstackLivePreview";
 import { env } from "process";
+import { ResortHeader } from "@/components/header";
+import { DUMMY_RESORT_HEADER_DATA } from "../lib/dummy/header-data";
+import { Suspense } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,28 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css?family=Inter&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
-          integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossOrigin="anonymous"
-        />
-        <link rel="stylesheet" href="/styles/globals.css" />
-        <link rel="stylesheet" href="/styles/style.css" />
-      </head>
+      <head></head>
       <body>
         {env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true" ? (
           <div
@@ -54,6 +37,11 @@ export default function RootLayout({
             unpublished or in draft.
           </div>
         ) : null}
+
+        <Suspense fallback={<Skeleton className="h-14 w-full" />}>
+          <ResortHeader data={DUMMY_RESORT_HEADER_DATA} />
+        </Suspense>
+
         <main className="mainClass">{children}</main>
         <ContentstackLivePreview />
       </body>

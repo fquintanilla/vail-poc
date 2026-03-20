@@ -1,7 +1,7 @@
 "use cache";
 
 import { cacheLife, cacheTag } from "next/cache";
-import { getStack } from "@/lib/contentstack";
+import { getHeader, getStack } from "@/lib/contentstack";
 import { fetchPageByUrl } from "@/lib/contentstack";
 
 /**
@@ -17,4 +17,12 @@ export async function getPageCached(url: string) {
 
   const stack = getStack();
   return fetchPageByUrl(url, stack);
+}
+
+export async function getHeaderCached() {
+  cacheLife("contentstack");
+  cacheTag("contentstack", "header");
+
+  const stack = getStack();
+  return getHeader(stack);
 }

@@ -6,3 +6,4 @@ export * from "./pages";
 export * from "./vail-banner";
 export * from "./media-text-block";
 export * from "./promo-card-grid";
+export * from "./header";
