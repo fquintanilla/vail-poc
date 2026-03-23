@@ -1,4 +1,5 @@
 import { Image } from "./action";
+import { OtherResorts } from "./other-resorts";
 
 export type ResortHeaderNavLink = {
   nav_label: string;
@@ -29,7 +30,7 @@ export type Header = {
     show_announcement: boolean;
     announcement_text: string;
   };
-  other_resorts?: [{ resort: { title: string; href: string } }];
+  other_resort_sites?: OtherResorts;
   navigation_menu: [
     {
       label: string;

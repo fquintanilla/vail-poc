@@ -1,10 +1,14 @@
 import { Great_Vibes } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { HeaderCart } from "@/components/header/HeaderCart";
+import { HeaderSearch } from "@/components/header/HeaderSearch";
+import { HeaderUser } from "@/components/header/HeaderUser";
+import { HeaderWeather } from "@/components/header/HeaderWeather";
+import { NotificationBar } from "@/components/notification-bar";
+import { ResortDropdown } from "@/components/resort-dropdown";
 import { getHeaderCached } from "@/lib/server/contentstack-cached";
 import type { ResortHeaderData } from "@/lib/types";
-import { NotificationBar } from "./notification-bar";
-import { ResortDropdown } from "./resort-dropdown";
 
 const script = Great_Vibes({
   weight: "400",
@@ -16,79 +20,11 @@ type ResortHeaderProps = {
   data: ResortHeaderData;
 };
 
-function SunIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden
-      className={className}
-      fill="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zm10.48 0l1.79-1.79 1.41 1.41-1.79 1.8-1.41-1.42zM12 4V1h-1v3h1zm0 19v-3h-1v3h1zm8-9h3v-1h-3v1zM1 12h3v-1H1v1zm16.24-5.76l1.8-1.79 1.41 1.41-1.79 1.8-1.42-1.42zM4.93 19.07l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zm14.14 0l-1.79 1.8-1.41-1.41 1.8-1.79 1.4 1.4zM12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12z" />
-    </svg>
-  );
-}
-
-function SearchIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-    >
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.3-4.3" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function UserIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-        strokeLinecap="round"
-      />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
-}
-
-function CartIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-    >
-      <circle cx="9" cy="21" r="1" />
-      <circle cx="20" cy="21" r="1" />
-      <path
-        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export async function ResortHeader({ data }: ResortHeaderProps) {
   const searchHref = data.search_url ?? "#";
 
   const header = await getHeaderCached();
+  const otherResorts = header?.other_resort_sites?.[0]?.resort;
 
   return (
     <>
@@ -138,7 +74,7 @@ export async function ResortHeader({ data }: ResortHeaderProps) {
               aria-hidden
               className="hidden h-6 w-px bg-header-shine sm:block"
             />
-            <ResortDropdown items={header?.other_resorts} />
+            <ResortDropdown items={otherResorts} />
           </div>
 
           <nav
@@ -157,49 +93,29 @@ export async function ResortHeader({ data }: ResortHeaderProps) {
           </nav>
 
           <div className="ml-auto flex items-center gap-4 text-sm">
-            <div
-              className="hidden items-center gap-1.5 text-header-muted sm:flex"
-              title="Weather"
-            >
-              <SunIcon className="size-5 shrink-0 text-header-weather" />
-              <span className="font-medium tabular-nums">
-                {data.weather_temperature_text}
-              </span>
-            </div>
+            <HeaderWeather />
 
-            <Link
-              aria-label={data.search_aria_label}
-              className="p-1 text-header-muted hover:text-header-foreground"
+            <HeaderSearch
+              ariaLabel={data.search_aria_label}
               href={searchHref}
-            >
-              <SearchIcon className="size-5" />
-            </Link>
+            />
 
             <span
               aria-hidden
               className="hidden h-6 w-px bg-header-shine sm:block"
             />
 
-            <Link
-              className="hidden items-center gap-2 text-header-muted hover:text-header-foreground sm:flex"
+            <HeaderUser
+              ariaLabel={data.sign_in_label}
               href={data.sign_in_url}
-            >
-              <UserIcon className="size-5 shrink-0" />
-              <span>{data.sign_in_label}</span>
-            </Link>
+            />
 
             <span
               aria-hidden
               className="hidden h-6 w-px bg-header-shine sm:block"
             />
 
-            <Link
-              aria-label={data.cart_aria_label}
-              className="p-1 text-header-muted hover:text-header-foreground"
-              href={data.cart_url}
-            >
-              <CartIcon className="size-5" />
-            </Link>
+            <HeaderCart ariaLabel={data.cart_aria_label} href={data.cart_url} />
           </div>
         </div>
       </header>

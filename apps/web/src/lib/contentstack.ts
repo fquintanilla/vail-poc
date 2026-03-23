@@ -163,6 +163,7 @@ export async function getHeader(stack: ReturnType<typeof getStack>) {
     .contentType("header")
     .entry()
     .includeReference("navigation_menu.page_reference")
+    .includeReference("other_resort_sites")
     .query()
     .where(
       "taxonomies.brands",

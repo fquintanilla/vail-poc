@@ -47,6 +47,9 @@ importers:
       isomorphic-dompurify:
         specifier: ^2.35.0
         version: 2.36.0
+      lucide-react:
+        specifier: ^0.539.0
+        version: 0.539.0(react@19.2.3)
       next:
         specifier: 16.1.1
         version: 16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -3761,6 +3764,10 @@ snapshots:
   lucide-react@0.539.0(react@19.2.0):
     dependencies:
       react: 19.2.0
+
+  lucide-react@0.539.0(react@19.2.3):
+    dependencies:
+      react: 19.2.3
 
   magic-string@0.30.21:
     dependencies:
