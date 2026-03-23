@@ -2,6 +2,7 @@
   "name": "nextjs-foundations-starter",
   "private": true,
   "scripts": {
+    "start": "turbo run start",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "check-types": "turbo run check-types",

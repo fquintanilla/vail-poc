@@ -1,19 +1,19 @@
-import { Great_Vibes } from "next/font/google";
-import Image from "next/image";
-import Link from "next/link";
-import { getHeaderCached } from "@/lib/server/contentstack-cached";
-import type { ResortHeaderData } from "@/lib/types";
-import { NotificationBar } from "@/components/notification-bar";
-import { ResortDropdown } from "@/components/resort-dropdown";
-import { HeaderWeather } from "@/components/header/weather";
-import { HeaderSearch } from "@/components/header/search";
-import { HeaderUser } from "@/components/header/user";
-import { HeaderCart } from "@/components/header/cart";
+import { Great_Vibes } from 'next/font/google';
+import Image from 'next/image';
+import Link from 'next/link';
+import { HeaderCart } from '@/components/header/HeaderCart';
+import { HeaderSearch } from '@/components/header/HeaderSearch';
+import { HeaderUser } from '@/components/header/HeaderUser';
+import { HeaderWeather } from '@/components/header/HeaderWeather';
+import { NotificationBar } from '@/components/notification-bar';
+import { ResortDropdown } from '@/components/resort-dropdown';
+import { getHeaderCached } from '@/lib/server/contentstack-cached';
+import type { ResortHeaderData } from '@/lib/types';
 
 const script = Great_Vibes({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 type ResortHeaderProps = {
@@ -21,14 +21,14 @@ type ResortHeaderProps = {
 };
 
 export async function ResortHeader({ data }: ResortHeaderProps) {
-  const searchHref = data.search_url ?? "#";
+  const searchHref = data.search_url ?? '#';
 
   const header = await getHeaderCached();
 
   return (
     <>
       <NotificationBar
-        announcement_text={header?.notification_bar?.announcement_text ?? ""}
+        announcement_text={header?.notification_bar?.announcement_text ?? ''}
         dismissible={true}
         show={header?.notification_bar?.show_announcement ?? false}
       />
@@ -57,7 +57,7 @@ export async function ResortHeader({ data }: ResortHeaderProps) {
                   {header?.title
                     .split(/\s+/)
                     .map((w) => w[0])
-                    .join("")
+                    .join('')
                     .slice(0, 2)
                     .toUpperCase()}
                 </span>
