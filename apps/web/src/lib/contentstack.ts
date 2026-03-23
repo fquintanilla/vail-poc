@@ -113,6 +113,11 @@ export async function fetchPageByUrl(
     )
     .query()
     .where("url", QueryOperation.EQUALS, url)
+    .where(
+      "taxonomies.brands",
+      QueryOperation.EQUALS,
+      process.env.NEXT_PUBLIC_BRAND as string,
+    )
     .find<Page>();
 
   if (result.entries) {
@@ -159,6 +164,11 @@ export async function getHeader(stack: ReturnType<typeof getStack>) {
     .entry()
     .includeReference("navigation_menu.page_reference")
     .query()
+    .where(
+      "taxonomies.brands",
+      QueryOperation.EQUALS,
+      process.env.NEXT_PUBLIC_BRAND as string,
+    )
     .find<Header>();
 
   if (result.entries) {
