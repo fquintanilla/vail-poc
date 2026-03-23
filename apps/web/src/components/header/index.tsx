@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getHeaderCached } from "@/lib/server/contentstack-cached";
 import type { ResortHeaderData } from "@/lib/types";
-import { NotificationBar } from "./notification-bar";
-import { ResortDropdown } from "./resort-dropdown";
+import { NotificationBar } from "@/components/notification-bar";
+import { ResortDropdown } from "@/components/resort-dropdown";
 
 const script = Great_Vibes({
   weight: "400",
