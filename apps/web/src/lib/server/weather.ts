@@ -1,3 +1,4 @@
+"use server";
 import { cacheLife, cacheTag } from "next/cache";
 
 const WEATHER_LAT = "39.6428919";
