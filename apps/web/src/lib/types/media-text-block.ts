@@ -15,3 +15,19 @@ export type MediaTextBlock = {
   image: Image;
   $: AdditionalParam;
 };
+
+type JSONRTE = {
+  type: string;
+  children?: JSONRTE[];
+  text?: string;
+  [key: string]: any;
+};
+
+export type MediaTextBlockJsonRtf = {
+  image_alignment: "left" | "right";
+  headline: string;
+  body: JSONRTE;
+  call_to_action: Action;
+  image: Image;
+  $: AdditionalParam;
+};

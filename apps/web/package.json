@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@contentstack/delivery-sdk": "^4.11.0",
+    "@contentstack/json-rte-serializer": "^3.0.5",
     "@contentstack/live-preview-utils": "^4.2.1",
     "@radix-ui/react-dialog": "^1.1.15",
     "@repo/api": "workspace:*",

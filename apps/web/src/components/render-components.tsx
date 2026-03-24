@@ -2,6 +2,7 @@ import { RenderProps } from "@/lib/types";
 import VailBanner from "./vail-banner";
 import { MediaTextBlock } from "./media-text-block";
 import { PromoCardGrid } from "./promo-card-grid";
+import { MediaTextBlockJsonRtf } from "./media-text-json-rtf";
 
 export default function RenderComponents(props: RenderProps) {
   const { pageComponents, entryUid, contentTypeUid, locale } = props;
@@ -21,6 +22,7 @@ export default function RenderComponents(props: RenderProps) {
             />
           );
         }
+
         if (component.media_text_block) {
           return (
             <MediaTextBlock
@@ -29,6 +31,16 @@ export default function RenderComponents(props: RenderProps) {
             />
           );
         }
+
+        if (component.media_text_block_json_rtf) {
+          return (
+            <MediaTextBlockJsonRtf
+              key={`component-${key}`}
+              mediaTextBlockJsonRtf={component.media_text_block_json_rtf}
+            />
+          );
+        }
+
         if (component.vail_hero_banner) {
           return (
             <VailBanner
