@@ -1,10 +1,12 @@
 import { VailBanner } from "./vail-banner";
 import { MediaTextBlock } from "./media-text-block";
+import { MediaTextBlockJsonRtf } from "./media-text-block";
 import { PromoCardGrid } from "./promo-card-grid";
 
 export type Component = {
   vail_hero_banner: VailBanner;
   media_text_block: MediaTextBlock;
+  media_text_block_json_rtf: MediaTextBlockJsonRtf;
   promo_card_grid: PromoCardGrid;
 };
 
