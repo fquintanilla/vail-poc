@@ -26,9 +26,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme={env.NEXT_PUBLIC_THEME}>
-      <head></head>
-      <body>
-        {env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true" ? (
+      <head>
+        <link rel="stylesheet" href="/styles/main.bundle.css" />
+        <link rel="stylesheet" href="/styles/content.bundle.css" />
+        <link rel="stylesheet" href="/styles/header.bundle.css" />
+        <link rel="stylesheet" href="/styles/hero.bundle.css" />
+      </head>
+      <body className="personality_canvas personality_canvas--off ">
+        {/* {env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true" ? (
           <div
             role="alert"
             className="sticky top-0 z-50 w-full border-b border-amber-500/50 bg-amber-500/95 px-4 py-2 text-center text-sm font-medium text-amber-950 shadow-sm backdrop-blur-sm"
@@ -36,13 +41,20 @@ export default function RootLayout({
             You are viewing the <strong>preview site</strong>. Content may be
             unpublished or in draft.
           </div>
-        ) : null}
+        ) : null} */}
 
-        <Suspense fallback={<Skeleton className="h-14 w-full" />}>
+        {/* <Suspense fallback={<Skeleton className="h-14 w-full" />}>
           <ResortHeader data={DUMMY_RESORT_HEADER_DATA} />
-        </Suspense>
+        </Suspense> */}
 
-        <main className="mainClass">{children}</main>
+        <div
+          id="body-content"
+          className="main-container position-top sr-modal-hidden "
+          role="main"
+        >
+          <div className="container-fluid">{children}</div>
+        </div>
+
         <ContentstackLivePreview />
       </body>
     </html>
