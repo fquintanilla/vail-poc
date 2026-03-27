@@ -59,7 +59,7 @@ const VailBanner = (props: VailBannerProps) => {
               {...(banner.$?.banner_title as {})}
               className="font-sans font-semibold text-3xl text-muted-foreground uppercase tracking-wide sm:text-4xl"
             >
-              {banner.banner_title} xxxx
+              {banner.banner_title}
             </h1>
 
             <p
