@@ -12,6 +12,7 @@ nextjs-foundations-starter/
 │   ├── web/          # Primary Next.js app (port 3000)
 │   └── snow/         # Snow / Vail experience (port 3001)
 ├── packages/
+│   ├── tsconfig/     # Shared TypeScript bases (@repo/tsconfig)
 │   ├── ui/           # Shared design system: Tailwind tokens, globals.css (@repo/ui)
 │   └── api/          # Shared data helpers (@repo/api); extend as needed
 ├── turbo.json        # Turborepo task configuration
@@ -30,6 +31,10 @@ nextjs-foundations-starter/
 - **Prettier** - Code formatting
 - **pnpm** - Fast, disk-efficient package manager
 - **Vercel CLI** - Deploy, link projects, manage env vars
+
+## Node.js version
+
+The root `package.json` declares `"engines": { "node": "24.x" }`. Use **Node 24** locally, in CI, and in deployment (for example `nvm install 24` or the matching runtime on your host). Other Node majors are not supported for this workspace.
 
 ## Workflows
 
@@ -113,6 +118,8 @@ pnpm build --filter @repo/web
 pnpm build --filter @repo/snow
 ```
 
+Only the Next.js apps define a `build` script. Shared packages (`@repo/ui`, `@repo/api`) ship TypeScript source and are typechecked via `check-types`; they do not emit a separate `dist` for the apps (Next transpiles `@repo/ui` via `transpilePackages`).
+
 ## Package Dependencies
 
 ### Using Shared Packages
@@ -143,22 +150,41 @@ pnpm add <package> --filter @repo/ui
 
 # Add dev dependency to root
 pnpm add -D <package> -w
+
+# Shared TS config for a new workspace package
+pnpm add -D @repo/tsconfig@workspace:* --filter <your-package>
 ```
 
 ## TypeScript Configuration
 
-This project uses strict TypeScript with Matt Pocock's recommended settings:
+Shared compiler defaults live in **`@repo/tsconfig`** (`packages/tsconfig/`):
 
-- `strict: true` - Full strict mode
-- `noUncheckedIndexedAccess: true` - Safer array/object access
-- `noImplicitOverride: true` - Explicit override keyword required
-- `noPropertyAccessFromIndexSignature: true` - Bracket notation for index signatures
+| Preset            | File                 | Used by                          |
+| ----------------- | -------------------- | -------------------------------- |
+| Base              | `base.json`          | Extended by the presets below    |
+| Next.js apps      | `next-app.json`      | `apps/web`, `apps/snow`          |
+| React library     | `react-library.json` | `packages/ui`                    |
+| Non-React library | `node-library.json`  | `packages/api`                    |
 
-Path aliases are configured:
+Each app or package keeps its own `tsconfig.json` with `"extends"` pointing at the shared presets (relative paths like `../../packages/tsconfig/next-app.json` so the editor and `tsc` resolve them reliably) plus local `paths`, `include`, and `exclude`.
 
-- `@/*` - Local app imports
-- `@repo/ui/*` - Shared UI components
-- `@repo/api/*` - Mock data functions
+Strict options enabled in the base include:
+
+- `strict: true`
+- `noUncheckedIndexedAccess: true`
+- `noImplicitOverride: true`
+
+`noPropertyAccessFromIndexSignature` is intentionally **not** enabled: it forces bracket notation everywhere `ProcessEnv` (and similar index signatures) is used, which touches many files for little gain. You can enable it in `packages/tsconfig/base.json` if the team prefers that style.
+
+Path aliases (defined per app/package, not in the shared base):
+
+- `@/*` — local app imports (`apps/web`, `apps/snow`)
+- `@repo/ui/*` — shared UI (`packages/ui/src`)
+- `@repo/api/*` — shared API helpers
+
+### Root `pnpm.overrides`
+
+The root `package.json` pins `@types/react`, `@types/react-dom`, and `typescript` so every workspace package resolves the same versions and avoids duplicate or conflicting type definitions. Keep these aligned when upgrading TypeScript or React types.
 
 ## ESLint & Prettier
 
@@ -180,6 +206,7 @@ Defined in `turbo.json`:
 | `dev`         | No     | Start development servers |
 | `build`       | Yes    | Production build          |
 | `check-types` | Yes    | TypeScript type checking  |
+| `lint`        | Yes    | ESLint (per package)      |
 | `start`       | No     | Start production servers  |
 
 ## Common Patterns

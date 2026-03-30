@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "devDependencies": {
+    "@repo/tsconfig": "workspace:*",
     "typescript": "5.9.3"
   }
 }
