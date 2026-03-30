@@ -3,4 +3,4 @@
 @source "..";
 @source "../../../packages/ui/src";
 
-@import "@repo/ui/globals.css";
+@import "../../../../packages/ui/src/styles/globals.css";
