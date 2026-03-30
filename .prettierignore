@@ -1,0 +1,7 @@
+.next
+node_modules
+.turbo
+.agents
+pnpm-lock.yaml
+dist
+coverage

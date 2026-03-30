@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { MediaTextBlock, MediaTextBlockJsonRtf } from "@/lib/types";
+import type { MediaTextBlockJsonRtf } from "@/lib/types";
 import { jsonToHtml } from "@contentstack/json-rte-serializer";
 
 type MediaTextBlockJsonRtfProps = {
@@ -17,7 +17,7 @@ export function MediaTextBlockJsonRtf(props: MediaTextBlockJsonRtfProps) {
 
   const html = jsonToHtml(mediaTextBlock.body, {
     customTextWrapper: {
-      highlight: (children, value) => {
+      highlight: (children, _value) => {
         return `<span class="bg-yellow-300/60 text-yellow-950 px-1.5 py-0.5 rounded">${children}</span>`;
       },
     },

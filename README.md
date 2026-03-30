@@ -20,7 +20,7 @@ Vail/
 │   ├── ui/                     # Shared React components (@repo/ui)
 │   └── api/                    # Data layer (@repo/api)
 ├── turbo.json                  # Turborepo task configuration
-├── biome.jsonc                 # Linting & formatting (Biome)
+├── eslint.config.mjs           # ESLint (Next.js + TypeScript)
 ├── AGENTS.md                   # Agent/course rules & patterns
 └── package.json                # Root workspace
 ```
@@ -66,7 +66,8 @@ pnpm lint
 - [Contentstack](https://www.contentstack.com/) – Headless CMS
 - [Turborepo](https://turbo.build/repo) – Monorepo builds
 - [pnpm](https://pnpm.io/) – Package manager
-- [Biome](https://biomejs.dev/) – Lint & format
+- [ESLint](https://eslint.org/) – Lint (`eslint-config-next`)
+- [Prettier](https://prettier.io/) – Format
 - [TypeScript](https://www.typescriptlang.org/) – Strict mode
 - [Tailwind CSS 4](https://tailwindcss.com/) – Styling
 
@@ -151,9 +152,9 @@ When adding new pages that should be **statically generated** but also **preview
    - Avoid duplicating CMS client setup; centralize in a package or in `apps/web` and document in AGENTS.md if needed.
 
 3. **Quality checks**
-   - `pnpm check` – runs Biome (lint + format).
+   - `pnpm check` – ESLint at repo root plus `turbo run check-types`.
    - `pnpm check-types` – TypeScript for all packages.
-   - Fix lint/format with `pnpm format` before committing.
+   - `pnpm format` – Prettier; `pnpm lint:fix` – ESLint auto-fix where applicable.
 
 4. **TypeScript**
    - Strict mode and `noUncheckedIndexedAccess` are enabled.

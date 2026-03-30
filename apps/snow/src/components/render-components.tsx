@@ -3,7 +3,7 @@ import { SnowBanner } from "./snow-banner";
 import SnowRtf from "./snow-rtf";
 
 export default function RenderComponents(props: RenderProps) {
-  const { pageComponents, entryUid, contentTypeUid, locale } = props;
+  const { entryUid, contentTypeUid, locale } = props;
 
   return (
     <div

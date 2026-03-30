@@ -10,7 +10,6 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // biome-ignore lint/suspicious/noConsole: Intentional for error reporting demonstration
     console.error("Root error boundary caught:", error);
   }, [error]);
 

@@ -77,6 +77,6 @@ The client in `src/lib/server/vercel-daily-api.ts` uses `"use cache"` and cache 
 
 ## Learn More
 
-- [Root README / AGENTS.md](../../AGENTS.md) — Monorepo setup, Turborepo, Biome, shared packages
+- [Root README / AGENTS.md](../../AGENTS.md) — Monorepo setup, Turborepo, ESLint/Prettier, shared packages
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Deploy on Vercel](https://vercel.com/new)

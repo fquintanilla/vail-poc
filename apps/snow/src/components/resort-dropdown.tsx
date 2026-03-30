@@ -1,6 +1,6 @@
 "use client";
 
-import { OtherResort, OtherResorts } from "@/lib/types/other-resorts";
+import type { OtherResort } from "@/lib/types/other-resorts";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 type ResortDropdownProps = {

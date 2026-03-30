@@ -2,10 +2,6 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ContentstackLivePreview } from "@/components/ContentstackLivePreview";
 import { env } from "process";
-import { ResortHeader } from "@/components/header";
-import { DUMMY_RESORT_HEADER_DATA } from "@/lib/dummy/header-data";
-import { Suspense } from "react";
-import Skeleton from "react-loading-skeleton";
 
 export const metadata: Metadata = {
   title: "Create Next App",

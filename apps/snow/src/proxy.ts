@@ -10,16 +10,14 @@
  */
 
 import { type NextRequest, NextResponse } from "next/server";
-import { env } from "process";
 
 /**
  * Rewrites the request to /preview (or /preview + pathname) when
  * NEXT_PUBLIC_CONTENTSTACK_PREVIEW is "true"; otherwise continues the request.
  */
-export function proxy(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  const search = request.nextUrl.search;
-
+export function proxy(_request: NextRequest) {
+  // const pathname = _request.nextUrl.pathname;
+  // const search = request.nextUrl.search;
   // if (env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true") {
   //   const targetPath = pathname === "/" ? "/preview" : `/preview${pathname}`;
   //   return NextResponse.rewrite(new URL(targetPath + search, request.url));

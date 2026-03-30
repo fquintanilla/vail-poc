@@ -15,7 +15,7 @@ nextjs-foundations-starter/
 │   ├── ui/           # Shared design system: Tailwind tokens, globals.css (@repo/ui)
 │   └── api/          # Shared data helpers (@repo/api); extend as needed
 ├── turbo.json        # Turborepo task configuration
-├── biome.jsonc       # Linting and formatting (Biome + ultracite)
+├── eslint.config.mjs # ESLint flat config (Next.js + TypeScript)
 └── package.json      # Root workspace configuration
 ```
 
@@ -26,7 +26,8 @@ nextjs-foundations-starter/
 - **TypeScript** - Strict mode enabled
 - **Tailwind CSS 4** - Utility-first styling
 - **Turborepo** - Monorepo build orchestration
-- **Biome** - Fast linting and formatting (replaces ESLint/Prettier)
+- **ESLint** - Linting (`eslint-config-next`, flat config)
+- **Prettier** - Code formatting
 - **pnpm** - Fast, disk-efficient package manager
 - **Vercel CLI** - Deploy, link projects, manage env vars
 
@@ -88,13 +89,16 @@ vercel open
 # Type check all packages
 pnpm check-types
 
-# Lint with Biome
+# Lint (ESLint)
 pnpm lint
 
-# Format with Biome
+# Lint with fixes where safe
+pnpm lint:fix
+
+# Format (Prettier)
 pnpm format
 
-# Run all checks
+# ESLint + typecheck (all packages via Turbo)
 pnpm check
 ```
 
@@ -155,18 +159,14 @@ Path aliases are configured:
 - `@repo/ui/*` - Shared UI components
 - `@repo/api/*` - Mock data functions
 
-## Biome (Linting & Formatting)
+## ESLint & Prettier
 
-This project uses Biome instead of ESLint/Prettier. Configuration extends `ultracite` preset.
+Linting uses **ESLint 9** with `eslint-config-next` (Core Web Vitals + TypeScript) and a flat config in `eslint.config.mjs`. Formatting uses **Prettier** (`pnpm format`).
 
 ```bash
-# Check for issues
 pnpm lint
-
-# Auto-fix issues
+pnpm lint:fix
 pnpm format
-
-# Check everything (lint + format)
 pnpm check
 ```
 
@@ -251,9 +251,9 @@ pnpm install
 pnpm build
 ```
 
-### Biome Conflicts with Editor
+### Editor integration
 
-Disable ESLint/Prettier extensions and enable Biome extension in your editor.
+Use the ESLint and Prettier editor extensions; the repo root config is `eslint.config.mjs`.
 
 ## Course Integration
 
@@ -268,5 +268,6 @@ This starter is designed for the Next.js Foundations certification. As you progr
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Turborepo Documentation](https://turbo.build/repo/docs)
-- [Biome Documentation](https://biomejs.dev/)
+- [ESLint Documentation](https://eslint.org/docs/latest/)
+- [Prettier Documentation](https://prettier.io/docs/en/)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)

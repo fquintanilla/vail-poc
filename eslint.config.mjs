@@ -1,0 +1,42 @@
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+export default defineConfig([
+  {
+    settings: {
+      next: {
+        rootDir: ["apps/web/", "apps/snow/"],
+      },
+    },
+  },
+  globalIgnores([
+    "**/.next/**",
+    "**/node_modules/**",
+    "**/public/**",
+    ".turbo/**",
+    ".agents/**",
+    "pnpm-lock.yaml",
+  ]),
+  ...nextVitals,
+  ...nextTs,
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      "@next/next/no-html-link-for-pages": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
+      "react/no-unescaped-entities": "off",
+    },
+  },
+  {
+    files: ["apps/snow/src/app/layout.tsx"],
+    rules: {
+      "@next/next/no-css-tags": "off",
+    },
+  },
+]);
