@@ -1,8 +1,7 @@
 "use cache";
 
 import { cacheLife, cacheTag } from "next/cache";
-import { getHeader, getStack } from "@/lib/contentstack";
-import { fetchPageByUrl } from "@/lib/contentstack";
+import { fetchPageByUrl, getStack } from "@/lib/contentstack";
 
 /**
  * Fetches a page from Contentstack with caching. Use this when Live Preview is not active.
@@ -19,10 +18,3 @@ export async function getPageCached(url: string) {
   return fetchPageByUrl(url, stack);
 }
 
-export async function getHeaderCached() {
-  cacheLife("contentstack");
-  cacheTag("contentstack", "header");
-
-  const stack = getStack();
-  return getHeader(stack);
-}

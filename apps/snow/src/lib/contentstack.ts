@@ -6,7 +6,7 @@ import {
   getContentstackEndpoints,
   getRegionForString,
 } from "@timbenniks/contentstack-endpoints";
-import { Header, Page } from "@/lib/types";
+import { Page } from "@/lib/types";
 
 // Region and endpoint configuration - computed once at module load time
 const region = getRegionForString(
@@ -158,27 +158,3 @@ export async function getPage(
   return fetchPageByUrl(url, stack);
 }
 
-export async function getHeader(stack: ReturnType<typeof getStack>) {
-  const result = await stack
-    .contentType("header")
-    .entry()
-    .includeReference("navigation_menu.page_reference")
-    .includeReference("other_resort_sites")
-    .query()
-    .where(
-      "taxonomies.brands",
-      QueryOperation.EQUALS,
-      process.env.NEXT_PUBLIC_BRAND as string,
-    )
-    .find<Header>();
-
-  if (result.entries) {
-    const entry = result.entries[0]!;
-
-    if (process.env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true") {
-      contentstack.Utils.addEditableTags(entry, "header", true);
-    }
-
-    return entry;
-  }
-}

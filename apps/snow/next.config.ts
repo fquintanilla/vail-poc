@@ -29,11 +29,6 @@ const nextConfig: NextConfig = {
       revalidate: 900, // 15 minutes
       expire: 86400, // 24 hours
     },
-    weather: {
-      stale: 120, // 2 minutes
-      revalidate: 300, // 5 minutes
-      expire: 1800, // 30 minutes
-    },
   },
 };
 
