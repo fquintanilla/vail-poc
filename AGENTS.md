@@ -9,11 +9,11 @@ A Turborepo monorepo with two Next.js applications and shared packages:
 ```
 nextjs-foundations-starter/
 ├── apps/
-│   ├── web/          # Marketing site (port 3000)
-│   └── blog/         # Content hub (port 3001)
+│   ├── web/          # Primary Next.js app (port 3000)
+│   └── snow/         # Snow / Vail experience (port 3001)
 ├── packages/
-│   ├── ui/           # Shared React components (@repo/ui)
-│   └── api/          # Mock data layer with Faker (@repo/api)
+│   ├── ui/           # Shared design system: Tailwind tokens, globals.css (@repo/ui)
+│   └── api/          # Shared data helpers (@repo/api); extend as needed
 ├── turbo.json        # Turborepo task configuration
 ├── biome.jsonc       # Linting and formatting (Biome + ultracite)
 └── package.json      # Root workspace configuration
@@ -59,11 +59,11 @@ vercel env pull
 # Start both apps in dev mode
 pnpm dev
 # web: http://localhost:3000
-# blog: http://localhost:3001
+# snow: http://localhost:3001
 
 # Start a specific app
 pnpm dev --filter @repo/web
-pnpm dev --filter @repo/blog
+pnpm dev --filter @repo/snow
 ```
 
 ### Vercel CLI
@@ -106,6 +106,7 @@ pnpm build
 
 # Build specific app
 pnpm build --filter @repo/web
+pnpm build --filter @repo/snow
 ```
 
 ## Package Dependencies
@@ -259,7 +260,7 @@ Disable ESLint/Prettier extensions and enable Biome extension in your editor.
 This starter is designed for the Next.js Foundations certification. As you progress through lessons:
 
 1. **Don't modify shared packages** unless instructed
-2. **Focus on `apps/web` and `apps/blog`** for exercises
+2. **Focus on `apps/web` and `apps/snow`** for exercises
 3. **Use `@repo/api` functions** for mock data
 4. **Follow the lesson structure** - each builds on previous work
 
