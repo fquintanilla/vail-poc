@@ -26,6 +26,11 @@
       "sourceType": "github",
       "computedHash": "39ef4a7f0fdcf34a983035745fc16604ddd8b37c7671689d3c4a8009fdd302e3"
     },
+    "tailwindcss-advanced-layouts": {
+      "source": "josiahsiegel/claude-plugin-marketplace",
+      "sourceType": "github",
+      "computedHash": "fa08c5757b8f24df2d412543d370bc25d8c14eadeb27be4112b2354323f5889f"
+    },
     "tailwindcss-mobile-first": {
       "source": "josiahsiegel/claude-plugin-marketplace",
       "sourceType": "github",
