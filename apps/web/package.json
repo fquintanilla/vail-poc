@@ -6,7 +6,8 @@
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start --port 3000",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@contentstack/delivery-sdk": "^4.11.0",
@@ -26,7 +27,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.2",
-    "@types/node": "^20.19.37",
+    "@types/node": "^22.19.15",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/sanitize-html": "^2.16.1",

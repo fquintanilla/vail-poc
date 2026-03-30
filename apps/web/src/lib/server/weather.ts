@@ -49,11 +49,8 @@ export async function getWeather(): Promise<HeaderWeatherData> {
   cacheLife("weather");
   cacheTag("weather-current");
 
-  console.log("******** DEBUG:getWeather");
-
   const apiKey = process.env.OPENWEATHER_API_KEY?.trim();
   if (!apiKey) {
-    console.log("******** DEBUG:getWeather:no api key");
     return { available: false };
   }
 
