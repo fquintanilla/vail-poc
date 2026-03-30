@@ -11,6 +11,11 @@
       "sourceType": "github",
       "computedHash": "972ff8c61bef9fdf6e4b0664f231412544fa1c411b2a2751f32355d0df6bd490"
     },
+    "contentstack-cli-assistant": {
+      "source": "timbenniks/contentstack-agent-skills",
+      "sourceType": "github",
+      "computedHash": "28329e55ef181a40aa34625800ae0a14e913c271f6220f96b6c2aef18e23db24"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
