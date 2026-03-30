@@ -34,7 +34,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="/styles/hero.bundle.css" />
       </head>
 
-      <body className="personality_canvas personality_canvas--off font-sans antialiased">
+      <body className="font-sans antialiased">
         {/* {env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true" ? (
           <div
             role="alert"
