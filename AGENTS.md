@@ -117,12 +117,13 @@ pnpm build --filter @repo/snow
 
 ### Using Shared Packages
 
-Import from `@repo/ui` for components:
+Shared styles and design tokens (Tailwind v4) come from `@repo/ui` in each app’s `globals.css`:
 
-```tsx
-import { Button } from "@repo/ui/button";
-import { Card } from "@repo/ui/card";
+```css
+@import "@repo/ui/globals.css";
 ```
+
+TypeScript path `@repo/ui/*` maps to `packages/ui/src/*`. When you add components (e.g. via shadcn in `packages/ui`), keep `package.json` `exports` in sync so subpath imports resolve in all tools.
 
 Import from `@repo/api` for mock data:
 
@@ -226,8 +227,8 @@ export function Button({ children, ...props }) {
   );
 }
 
-// apps/web/app/page.tsx
-import { Button } from "@repo/ui/button";
+// apps/web/src/app/page.tsx (after adding a component under packages/ui/src)
+import { Button } from "@repo/ui/components/button";
 ```
 
 ## Troubleshooting
