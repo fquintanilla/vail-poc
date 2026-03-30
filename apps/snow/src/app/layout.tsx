@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import "./globals.css";
 import { ContentstackLivePreview } from "@/components/ContentstackLivePreview";
 import { env } from "process";
+import { fontPrompt } from "@/lib/fonts";
+import "@/app/globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,14 +22,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme={env.NEXT_PUBLIC_THEME}>
+    <html
+      lang="en"
+      data-theme={env.NEXT_PUBLIC_THEME}
+      className={fontPrompt.variable}
+    >
       <head>
         <link rel="stylesheet" href="/styles/main.bundle.css" />
         <link rel="stylesheet" href="/styles/content.bundle.css" />
         <link rel="stylesheet" href="/styles/header.bundle.css" />
         <link rel="stylesheet" href="/styles/hero.bundle.css" />
       </head>
-      <body className="personality_canvas personality_canvas--off ">
+
+      <body className="personality_canvas personality_canvas--off font-sans antialiased">
         {/* {env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true" ? (
           <div
             role="alert"

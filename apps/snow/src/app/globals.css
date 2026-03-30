@@ -4,6 +4,8 @@
   --breakpoint-sm: 768px;
   --breakpoint-md: 992px;
   --breakpoint-lg: 1200px;
+  /* Set by next/font in layout.tsx via --font-prompt */
+  --font-sans: var(--font-prompt), ui-sans-serif, system-ui, sans-serif;
 }
 
 @source "..";
