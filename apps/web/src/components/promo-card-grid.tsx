@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import parse from "html-react-parser";
+import sanitizeHtml from "sanitize-html";
 
 import type { PromoCardGrid } from "@/lib/types";
 
@@ -45,7 +45,7 @@ export function PromoCardGrid(props: PromoCardGridProps) {
                   {...(card.$?.card_body as {})}
                   className="text-left font-sans text-base leading-relaxed text-neutral-600"
                 >
-                  {parse(card.card_body)}
+                  {sanitizeHtml(card.card_body)}
                 </div>
                 <Link
                   href={card.call_to_action.href}

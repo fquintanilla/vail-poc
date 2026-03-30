@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import parse from "html-react-parser";
 import type { MediaTextBlock } from "@/lib/types";
+import sanitizeHtml from "sanitize-html";
 
 type MediaTextBlockProps = {
   mediaTextBlock: MediaTextBlock;
@@ -30,7 +30,7 @@ export function MediaTextBlock(props: MediaTextBlockProps) {
               {...(mediaTextBlock.$?.body as {})}
               className="mt-4 max-w-xl text-pretty font-sans text-base leading-relaxed text-neutral-600 sm:text-lg"
             >
-              {parse(mediaTextBlock.body)}
+              {sanitizeHtml(mediaTextBlock.body)}
             </div>
             <Link
               href={mediaTextBlock.call_to_action.href}
