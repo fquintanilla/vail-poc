@@ -16,6 +16,11 @@
       "sourceType": "github",
       "computedHash": "28329e55ef181a40aa34625800ae0a14e913c271f6220f96b6c2aef18e23db24"
     },
+    "contentstack-vibe-docs": {
+      "source": "timbenniks/contentstack-vibe-docs",
+      "sourceType": "github",
+      "computedHash": "852ad25b6e300f18d7256d02204444a6f2c63424b2f64607c1d3409c561da3e5"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
