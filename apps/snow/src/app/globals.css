@@ -3,7 +3,6 @@
 @plugin "@tailwindcss/typography";
 
 @source "..";
-@source "../../../packages/ui/src";
 
 @theme {
   --breakpoint-sm: 768px;
@@ -14,25 +13,25 @@
 }
 
 @layer components {
-  .container {
+  .snow-container {
     margin-inline: auto;
     padding-inline: 15px;
   }
 
   @media (min-width: 768px) {
-    .container {
+    .snow-container {
       width: 750px;
     }
   }
 
   @media (min-width: 992px) {
-    .container {
+    .snow-container {
       width: 970px;
     }
   }
 
   @media (min-width: 1200px) {
-    .container {
+    .snow-container {
       width: 1170px;
     }
   }
