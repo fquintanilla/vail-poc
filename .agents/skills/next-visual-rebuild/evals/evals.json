@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "We are moving a resort marketing site from Sitecore to Contentstack. I need a presentational hero for Next 16 before we map fields. Destination: `apps/web/src/components/rebuild/Hero/index.tsx`. I have mobile, tablet, desktop PNGs in my Desktop folder named hero-m.png, hero-t.png, hero-d.png. No legacy HTML. Static headline + subcopy + primary CTA + background image area; no carousel. Walk through your full intake if anything is missing, then implement.",
-      "expected_output": "Agent follows intake order (path confirmed, three screenshots requested in mobile→tablet→desktop order, optional HTML asked, interactivity asked, content pieces asked). Generated Hero under given path; Server Component default; optional props; conditional rendering; Tailwind 4; no CMS/fetch. Ends with standardized final review.",
+      "expected_output": "Agent uses conversational intake: Step 1 only first turn; screenshots asked one breakpoint per turn (or accepts bundle); never lists all six steps at once. Then remaining steps one per turn. Pre-flight before code. Hero under path; RSC default; optional props; Tailwind 4; no CMS/fetch. Final review.",
       "files": []
     },
     {
@@ -29,6 +29,12 @@
       "id": 5,
       "prompt": "Migrate our Sitecore search component logic to Contentstack and wire Live Preview.",
       "expected_output": "Skill should NOT fully trigger this as a visual rebuild—or agent declines CMS/logic migration and redirects to appropriate task; if skill triggers, agent refuses scope and explains non-goals.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Rebuild ImageTextCallout at apps/snow/src/app/rebuild-components/ImageTextCallout/index.tsx. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before you write any file.",
+      "expected_output": "Intake includes optional structured prompts; pre-flight block with Rebuild plan headings; Open questions if screenshots conflict imagePosition/theme; user confirmation before code; props reflect hints (e.g. theme variant classes, column order).",
       "files": []
     }
   ]

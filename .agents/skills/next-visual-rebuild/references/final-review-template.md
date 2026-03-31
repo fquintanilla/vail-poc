@@ -11,6 +11,14 @@ Use the same headings so repeated runs produce comparable reports.
 
 - Single file / split files — **why**
 
+## Pre-flight alignment
+
+- User confirmed the rebuild plan (yes / adjustments noted)
+
+## Structured prompts applied
+
+- None / list keys used (`theme`, `imagePosition`, …)
+
 ## Assumptions
 
 - (bullets; or "None")
