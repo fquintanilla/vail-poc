@@ -1,0 +1,25 @@
+{
+  "_comment": "20 queries for description tuning (skill-creator). Mix of should_trigger / should_not_trigger. Pair with scripts.run_loop when ready.",
+  "queries": [
+    {"query": "Sitecore hero is going away — rebuild it as a dumb React component for our Next 16 app from these three wireframe captures (phone/tablet/desktop). Put it under src/components/migration/Hero/index.tsx. No CMS yet.", "should_trigger": true},
+    {"query": "We need a presentational PromoBanner in App Router with Tailwind 4 before Contentstack types exist; screenshots only, destination apps/web/src/components/PromoBanner/index.tsx", "should_trigger": true},
+    {"query": "Visual reconstruction task: match this legacy marketing layout from PNGs (mobile first). Don't hook fetch or Contentstack. Output to components/insights/Teaser/index.tsx", "should_trigger": true},
+    {"query": "Card grid from desktop+tablet+mobile screenshots for our Vail POC — presentation only, optional title/description/image per card, apps/web/src/components/CardGrid/index.tsx", "should_trigger": true},
+    {"query": "Rebuild the footer chrome as static JSX from design screenshots; Sitecore dump attached but trust the images. Next 16 tailwind v4 monorepo.", "should_trigger": true},
+    {"query": "Migration asked: parity component from SXA markup — but I only want the UI shell in Next, no Sitecore logic, path components/legacy/AlertBar/index.tsx", "should_trigger": true},
+    {"query": "Before we wire entry UIDs: implement this banner from Figma exports as phone/tablet/desktop references in the repo. Strict presentational.", "should_trigger": true},
+    {"query": "Create a dumb locale switcher UI from screenshots only — no routing logic, just presentation under components/LocaleSwitcher/index.tsx", "should_trigger": true},
+    {"query": "I have HTML/CSS from production — rebuild as clean Next server component using Tailwind; screenshots also attached. Dest src/components/EyebrowHero/index.tsx", "should_trigger": true},
+    {"query": "POC: feature strip component from captures; optional CTA and eyebrow props; no data layer", "should_trigger": true},
+    {"query": "Add getEntry fetch for our hero in layout.tsx and connect Contentstack Live Preview for the homepage.", "should_trigger": false},
+    {"query": "Write a Vitest test for getWeather cache tags.", "should_trigger": false},
+    {"query": "Refactor our turborepo pipeline and cacheLife profiles in next.config only.", "should_trigger": false},
+    {"query": "Implement Sitecore layout service parsing and transform to React props.", "should_trigger": false},
+    {"query": "Set up Segment analytics on the new Next app.", "should_trigger": false},
+    {"query": "Build a chart dashboard from CSV — not a marketing component rebuild.", "should_trigger": false},
+    {"query": "screenshot of a button — make a single shadcn Button story", "should_trigger": false},
+    {"query": "Run contentstack migration CLI to import entries from Sitecore export.", "should_trigger": false},
+    {"query": "Pixel-perfect clone of the entire legacy homepage including all JS behaviors and API calls.", "should_trigger": false},
+    {"query": "Generate OpenAPI client for our backend.", "should_trigger": false}
+  ]
+}

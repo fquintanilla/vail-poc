@@ -1,0 +1,37 @@
+# Final code review (copy this structure every run)
+
+Use the same headings so repeated runs produce comparable reports.
+
+## Files created
+
+- `path/to/Component/index.tsx` (…)
+- (optional) `path/to/Component/ComponentClient.tsx` (…)
+
+## Structure decision
+
+- Single file / split files — **why**
+
+## Assumptions
+
+- (bullets; or "None")
+
+## Uncertainties / follow-ups
+
+- Items that need designer or stakeholder confirmation
+
+## Dependencies
+
+- None / **Proposed:** `package` — reason (approved: yes/no)
+
+## Accessibility
+
+- Notable choices (landmarks, headings, focus, alt strategy)
+
+## Responsive behavior
+
+- How mobile / tablet / desktop map to Tailwind breakpoints
+
+## Before wiring to Contentstack
+
+- What props to map to CMS fields
+- What to validate in Live Preview

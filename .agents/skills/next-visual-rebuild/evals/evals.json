@@ -1,0 +1,35 @@
+{
+  "skill_name": "next-visual-rebuild",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We are moving a resort marketing site from Sitecore to Contentstack. I need a presentational hero for Next 16 before we map fields. Destination: `apps/web/src/components/rebuild/Hero/index.tsx`. I have mobile, tablet, desktop PNGs in my Desktop folder named hero-m.png, hero-t.png, hero-d.png. No legacy HTML. Static headline + subcopy + primary CTA + background image area; no carousel. Walk through your full intake if anything is missing, then implement.",
+      "expected_output": "Agent follows intake order (path confirmed, three screenshots requested in mobile→tablet→desktop order, optional HTML asked, interactivity asked, content pieces asked). Generated Hero under given path; Server Component default; optional props; conditional rendering; Tailwind 4; no CMS/fetch. Ends with standardized final review.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Rebuild this promo banner from screenshots only — same strict presentation-only rules. Path: `src/components/rebuild/PromoStripe/index.tsx`. Screenshots attached in chat (mobile, tablet, desktop). The old Sitecore HTML is a mess; I pasted it anyway — you decide if it helps. I think we need a small client-side accordion for the FAQ inside the stripe; propose a lib if you need one.",
+      "expected_output": "Screenshots prioritized over noisy HTML; user asked to approve any dependency; if accordion approved vs rejected, behavior matches. Intake order preserved. Client component only if interaction justified.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Quick job: put a card grid component at `components/cards/FeatureCardGrid/index.tsx`. I only have a desktop screenshot right now.",
+      "expected_output": "Agent does NOT proceed silently with one screenshot — stops and requests mobile and tablet before code gen, per strict workflow.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Use next-visual-rebuild flow for `apps/snow/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, single CTA. If eyebrow or CTA prop is undefined, those elements must not appear in the DOM. No placeholders.",
+      "expected_output": "Optional prop pattern enforced; no empty headings or CTA wrappers. Self-audit + final review sections present. Single file default unless split justified.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Migrate our Sitecore search component logic to Contentstack and wire Live Preview.",
+      "expected_output": "Skill should NOT fully trigger this as a visual rebuild—or agent declines CMS/logic migration and redirects to appropriate task; if skill triggers, agent refuses scope and explains non-goals.",
+      "files": []
+    }
+  ]
+}
