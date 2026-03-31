@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "We are moving a resort marketing site from Sitecore to Contentstack. I need a presentational hero for Next 16 before we map fields. Destination: `apps/web/src/components/rebuild/Hero/index.tsx`. I have mobile, tablet, desktop PNGs in my Desktop folder named hero-m.png, hero-t.png, hero-d.png. No legacy HTML. Static headline + subcopy + primary CTA + background image area; no carousel. Walk through your full intake if anything is missing, then implement.",
-      "expected_output": "Agent uses conversational intake: Step 1 only first turn; screenshots asked one breakpoint per turn (or accepts bundle); never lists all six steps at once. Then remaining steps one per turn. Pre-flight before code. Hero under path; RSC default; optional props; Tailwind 4; no CMS/fetch. Final review.",
+      "expected_output": "Agent uses conversational intake: Step 1 only first turn; Step 2 asks mobile+tablet+desktop in one message; intake turns short without deep screenshot analysis until pre-flight; never lists all six steps at once. Pre-flight before code. Hero under path; RSC default; optional props; Tailwind 4; no CMS/fetch. Final review.",
       "files": []
     },
     {
@@ -34,7 +34,7 @@
     {
       "id": 6,
       "prompt": "Rebuild ImageTextCallout at apps/snow/src/app/rebuild-components/ImageTextCallout/index.tsx. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before you write any file.",
-      "expected_output": "Intake includes optional structured prompts; pre-flight block with Rebuild plan headings; Open questions if screenshots conflict imagePosition/theme; user confirmation before code; props reflect hints (e.g. theme variant classes, column order).",
+      "expected_output": "Step 2 requests all three screenshots in one turn; intake light until pre-flight; structured prompts in Step 6; Rebuild plan then confirmation before code; props reflect hints.",
       "files": []
     }
   ]

@@ -8,7 +8,7 @@
 
 ## What to measure
 
-1. **Process adherence** — Does the run use **one intake step per turn** (no wall of Steps 1–6), screenshots **mobile then tablet then desktop** unless user bundles all three, then HTML/CSS → interactivity → content pieces → structured prompts, then **pre-flight summary + confirmation** before coding?
+1. **Process adherence** — Does the run use **one intake step per turn** (no wall of Steps 1–6), **Step 2 asks for all three screenshots in one message**, intake stays **light** (no deep image analysis until pre-flight), then **pre-flight + confirmation** before coding?
 2. **Non-goals** — No fetch, no CMS hooks, no analytics in output?
 3. **Conditional rendering** — Missing props omit UI (spot-check generated JSX)?
 4. **Single-file default** — Unjustified splits = regression.

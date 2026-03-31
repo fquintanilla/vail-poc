@@ -1,6 +1,6 @@
 ---
 name: next-visual-rebuild
-description: Rebuild existing website UI as clean presentational Next.js 16 components with Tailwind CSS 4 from screenshots (and optional legacy HTML/CSS). Optional structured hints (e.g. eyebrow, heading, imagePosition left/right, theme light/dark). Strict **step-by-step conversational intake**—one question group per turn (mobile screenshot, then tablet, then desktop, then next steps); never dump all intake steps at once. Summarize plan and get user confirmation before coding; ask on any material doubt. No CMS wiring, no data fetching, no business-logic migration. Use when migrating from Sitecore (or similar) to Contentstack and the user needs pixel-informed presentational components, mobile/tablet/desktop captures, hero/banner/promo/card sections for App Router, or presentation-only builds before CMS hookup. Also for repeatable screenshot-driven UI in Next 16 monorepos. Do not use for API routes, Contentstack SDK integration, analytics, or replicating Sitecore server logic.
+description: Rebuild existing website UI as clean presentational Next.js 16 components with Tailwind CSS 4 from screenshots (and optional legacy HTML/CSS). Optional structured hints (e.g. eyebrow, heading, imagePosition left/right, theme light/dark). **Step-by-step conversational intake:** one main step per turn; **collect only** during Steps 1–6 (no deep screenshot analysis until pre-flight); ask for **all three** screenshots (mobile, tablet, desktop) in **one** Step 2 message; never dump Steps 1–6 together. Pre-flight summary + user confirmation before coding. No CMS wiring, fetch, or Sitecore logic migration. Use for Sitecore-to-Contentstack-style visual rebuilds, hero/banner/promo from captures, Next 16 App Router. Do not use for Contentstack SDK wiring, analytics, or server logic parity.
 ---
 
 # Next.js 16 visual component rebuild (Sitecore → Contentstack prep)
@@ -27,10 +27,22 @@ To keep runs **highly similar** across sessions:
 3. **Always** apply [Evidence priority](#evidence-priority) in the listed order when deciding structure and styles.
 4. **Always** complete [Self-audit](#self-audit) and [Final code review](#final-code-review) using the same section headings and the report shape in `references/final-review-template.md`.
 5. **Always** log assumptions with the format in `references/assumption-log.md`.
-6. When inferring from screenshots, **state breakpoints and layout decisions explicitly** (e.g. “From desktop screenshot: two-column grid from `lg`; tablet stacks with `md:` adjustments.”).
+6. When inferring from screenshots, **state breakpoints and layout decisions explicitly**—but **only** in **pre-flight** and later (not during Steps 1–6 intake).
 7. Prefer **one primary file** at the user destination unless a split is justified (see [Output architecture](#output-architecture)).
 
 If information is missing for any intake step, **stop and ask**—do not guess critical paths or interaction requirements.
+
+## Collect first, analyze later (latency and focus)
+
+During **Steps 1–6**, behave as **intake only**:
+
+- **Do not** deeply analyze screenshots, compare breakpoints, infer grid structure, or write long design commentary.
+- **Do not** read image pixels beyond a **one-line acknowledgment** (e.g. “Got all three—continuing to Step 3.”).
+- **Do** store mentally / rely on the thread for answers and move to the next step quickly.
+
+**Full** visual analysis, layout decisions, Tailwind strategy, conflicts between screenshot vs markup vs prompts, and **Open questions** belong in the **pre-flight** block **after** Step 6—and in implementation **after** user confirmation.
+
+This keeps each intake turn short and avoids “thinking” on every step like a final implementation pass.
 
 ## Conversational intake (one step per turn)
 
@@ -38,24 +50,26 @@ Intake must feel like a **guided chat**, not a form dumped in one message.
 
 **Do:**
 
-- Send **only one main intake step** per assistant turn. Label it: `Step X of 6 — <short title>` (for screenshots, use `Step 2 of 6 — Mobile`, then `Step 2 of 6 — Tablet`, then `Step 2 of 6 — Desktop` so progress stays clear).
-- **Wait for the user’s reply** before sending the next step’s questions.
-- Keep prompts **brief**—only what that step needs.
-- After **Step 6** (or explicit skip), send the **Rebuild plan** pre-flight block **alone**, then wait for confirmation before coding.
+- Send **only one main intake step** per assistant turn. Label it: `Step X of 6 — <short title>`.
+- **Wait for the user’s reply** before sending the next step.
+- Keep each message **short** (few sentences + bullets if needed).
+- For **optional** steps (3–6), offer **fast exits**, e.g. “Reply **none** / **skip** if you don’t have HTML” or “**A)** no interaction **B)** needs interaction—describe.” (Plain text; no dependency on client UI affordances.)
+- After **Step 6**, send the **Rebuild plan** pre-flight block **alone**, **then** do consolidated analysis—still wait for confirmation before coding.
 
 **Do not:**
 
-- List **all** steps (1–6) in a single message “so the user knows what’s coming.”
-- Ask for Step 3+ before Step 1 and Step 2 are satisfied (screenshots rule below).
-- Combine the pre-flight block with Step 6 in the same turn unless the user has already answered every prior step in prior messages.
+- List **all** steps (1–6) in a single message.
+- Ask for Step 3+ before Step 1 and Step 2 are satisfied.
+- Combine the pre-flight block with Step 6 in the same turn unless the user already finished every prior step in earlier messages.
+- Spend intake turns on analysis that belongs in pre-flight.
 
-**Screenshots (Step 2) — progressive:** Treat breakpoints as **three micro-prompts in three turns** by default:
+**Screenshots (Step 2) — single message:** In **one** Step 2 turn, request **all three** attachments in **this order** and state they are the primary evidence:
 
-1. First turn after path is set: ask **only** for the **mobile** screenshot (say that tablet and desktop come next).
-2. After the user provides mobile: ask **only** for **tablet**.
-3. After the user provides tablet: ask **only** for **desktop**.
+1. Mobile  
+2. Tablet  
+3. Desktop  
 
-If the user voluntarily attaches **all three** in response to the mobile request, accept them, acknowledge, and **skip** the remaining screenshot sub-prompts; then continue with **Step 3**.
+User may attach three files in one reply or in follow-up messages in the same step—do not advance to Step 3 until all three are present (or user says one is unavailable—in which case note it for pre-flight **Open questions** and still proceed).
 
 ## Required intake flow
 
@@ -72,11 +86,9 @@ Confirm whether the project uses `src/` and align with repo conventions.
 
 **This turn must contain nothing except Step 1** (plus brief greeting if needed).
 
-### Step 2 — Screenshots (required, fixed order; one breakpoint per turn by default)
+### Step 2 — Screenshots (required; all three in one request)
 
-Follow the **progressive** mobile → tablet → desktop flow in [Conversational intake](#conversational-intake-one-step-per-turn). Screenshots are the **primary visual evidence**.
-
-If you already have mobile only, the next assistant message starts with `Step 2 of 6 — Tablet screenshot` (or similar)—stay sequential.
+Ask once for **mobile, tablet, and desktop** screenshots, **in that order**, in the **same** Step 2 message. See [Conversational intake](#conversational-intake-one-step-per-turn). **Do not** analyze them here—acknowledge receipt briefly and go to Step 3.
 
 ### Step 3 — Optional legacy HTML / CSS
 
@@ -128,7 +140,7 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
 
 ## Pre-flight analysis and user confirmation (before code)
 
-**Mandatory gate.** After Steps 1–6 are complete (and optional steps skipped or answered “none”), **do not generate code yet**.
+**Mandatory gate.** After Steps 1–6 are complete (and optional steps skipped or answered “none”), **do not generate code yet**. This is the **first** place where you perform full cross-screenshot analysis and consolidation.
 
 1. **Synthesize** everything received: destination path, breakpoint evidence, optional markup verdict, interactivity/dependency needs, content slots, structured prompts (if any).  
 2. **Summarize in a short, fixed block** for the user (use the same headings every run):
@@ -233,21 +245,19 @@ If the repo uses `@repo/ui` or shared Tailwind tokens, **prefer** matching exist
 
 Execute **in order**:
 
-1. Collect destination path  
-2. Collect mobile → tablet → desktop screenshots  
-3. Ask for optional HTML/CSS  
-4. Evaluate whether HTML/CSS is useful (discard noise)  
-5. Interactivity and dependencies  
-6. Optional content structure  
-7. Optional structured prompts — theme, `imagePosition`, slots  
-8. **[Pre-flight analysis and user confirmation](#pre-flight-analysis-and-user-confirmation-before-code)** — summarize, open questions, **wait for go-ahead**  
-9. Analyze screenshots per breakpoint (detailed, for implementation)  
-10. Infer semantic structure and responsive behavior  
-11. Decide whether to propose a dependency (get approval if yes)—if not settled in intake, resolve here before coding  
-12. Generate code at the provided path  
-13. Add extra files only if justified, same folder only  
-14. [Self-audit](#self-audit)  
-15. [Final code review](#final-code-review)  
+1. Collect destination path (intake: light)  
+2. Collect **all three** screenshots in **one** Step 2 message—mobile, tablet, desktop order (intake: acknowledge only)  
+3. Ask for optional HTML/CSS (collect only)  
+4. Interactivity and dependencies  
+5. Optional content structure  
+6. Optional structured prompts — theme, `imagePosition`, slots  
+7. **[Pre-flight](#pre-flight-analysis-and-user-confirmation-before-code)** — full analysis: screenshots per breakpoint, whether HTML/CSS is useful, conflicts, open questions; **wait for go-ahead**  
+8. After confirmation: detailed layout/Tailwind plan if not fully settled in pre-flight  
+9. Resolve dependency approval if still open  
+10. Generate code at the provided path  
+11. Add extra files only if justified, same folder only  
+12. [Self-audit](#self-audit)  
+13. [Final code review](#final-code-review)  
 
 ## Self-audit
 
@@ -293,6 +303,7 @@ Minimum content:
 
 ## Changelog
 
-- 2026-03-31 — Conversational intake: one main step per turn; screenshots mobile→tablet→desktop across separate turns (or accept all three if user bundles); forbid dumping Steps 1–6 in one message.
+- 2026-03-31 — **Collect-then-analyze:** no deep screenshot work during Steps 1–6; analysis in pre-flight (after Step 6). Step 2 asks for **all three** screenshots in **one** message. Optional fast-reply hints (`none`, A/B). Frontmatter updated.
+- 2026-03-31 — Conversational intake: one main step per turn; forbid dumping Steps 1–6 in one message.
 - 2026-03-31 — Optional Step 6 structured prompts (`theme`, `imagePosition`, slots); mandatory pre-flight summary + user confirmation; evidence priority updated; `references/structured-prompts.md`.
 - 2026-03-31 — Initial skill: intake flow, evidence priority, supporting skills, evals stub.
