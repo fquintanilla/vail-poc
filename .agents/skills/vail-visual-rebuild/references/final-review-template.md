@@ -11,9 +11,20 @@ Use the same headings so repeated runs produce comparable reports.
 
 - Single file / split files — **why**
 
+## Implementation quality pass
+
+- Supporting skills read / applied: (list: e.g. accessibility-a11y, next-best-practices, …)
+- `cn` object-form conditionals: (yes / N/A)
+- CVA used: (yes — variants: … / no — single theme only)
+
 ## Pre-flight alignment
 
 - User confirmed the rebuild plan (yes / adjustments noted)
+
+## Legacy style inputs (Step 3)
+
+- HTML/CSS: (none / used / partial)  
+- Written style notes: (none / summarized — e.g. container, palette, spacing)
 
 ## Structured prompts applied
 

@@ -1,13 +1,13 @@
 ---
 name: vail-visual-rebuild
-description: Rebuild existing website UI as clean presentational Next.js 16 components with Tailwind CSS 4 from screenshots (and optional legacy HTML/CSS). Optional structured hints (e.g. eyebrow, heading, imagePosition left/right, theme light/dark). **Step-by-step conversational intake:** one main step per turn; **collect only** during Steps 1–6 (no deep screenshot analysis until pre-flight); ask for **all three** screenshots (mobile, tablet, desktop) in **one** Step 2 message; never dump Steps 1–6 together. Pre-flight summary + user confirmation before coding. No CMS wiring, fetch, or Sitecore logic migration. Use for Sitecore-to-Contentstack-style visual rebuilds, hero/banner/promo from captures, Next 16 App Router. Do not use for Contentstack SDK wiring, analytics, or server logic parity.
+description: Rebuild existing website UI as clean presentational Next.js 16 components with Tailwind CSS 4 from screenshots, optional legacy HTML/CSS, and optional **written style notes** (colors, padding, container classes, typography from the old site).  Optional structured hints (e.g. eyebrow, heading, imagePosition left/right, theme light/dark). **Step-by-step conversational intake:** one main step per turn; **collect only** during Steps 1–6 (no deep screenshot analysis until pre-flight); ask for **all three** screenshots (mobile, tablet, desktop) in **one** Step 2 message; never dump Steps 1–6 together. Pre-flight summary + user confirmation before coding. No CMS wiring, fetch, or Sitecore logic migration. Use for Sitecore-to-Contentstack-style visual rebuilds, hero/banner/promo from captures, Next 16 App Router. Do not use for Contentstack SDK wiring, analytics, or server logic parity.
 ---
 
 # Next.js 16 visual component rebuild (Sitecore → Contentstack prep)
 
 ## Purpose
 
-Recreate **existing website components as presentational Next.js 16 code** using **Tailwind CSS 4**, driven primarily by **mobile, tablet, and desktop screenshots**, with **optional** legacy HTML/CSS only when useful.
+Recreate **existing website components as presentational Next.js 16 code** using **Tailwind CSS 4**, driven primarily by **mobile, tablet, and desktop screenshots**, with **optional** legacy HTML/CSS and **optional written style notes** from the user (see Step 3) when useful.
 
 This skill is **not** a logic or CMS migration skill. Output must stay easy to **manually wire to Contentstack later**.
 
@@ -53,7 +53,7 @@ Intake must feel like a **guided chat**, not a form dumped in one message.
 - Send **only one main intake step** per assistant turn. Label it: `Step X of 6 — <short title>`.
 - **Wait for the user’s reply** before sending the next step.
 - Keep each message **short** (few sentences + bullets if needed).
-- For **optional** steps (3–6), offer **fast exits**, e.g. “Reply **none** / **skip** if you don’t have HTML” or “**A)** no interaction **B)** needs interaction—describe.” (Plain text; no dependency on client UI affordances.)
+- For **optional** steps (3–6), offer **fast exits**, e.g. “Reply **none** / **skip** if you have no HTML/CSS **and no style notes**” or “**A)** no interaction **B)** needs interaction—describe.” (Plain text; no dependency on client UI affordances.)
 - After **Step 6**, send the **Rebuild plan** pre-flight block **alone**, **then** do consolidated analysis—still wait for confirmation before coding.
 
 **Do not:**
@@ -68,6 +68,8 @@ Intake must feel like a **guided chat**, not a form dumped in one message.
 1. Mobile  
 2. Tablet  
 3. Desktop  
+
+**Recommended viewport widths (soft guidance, not blocking):** Ask the user to capture at **approximately** **375px** (mobile), **1024px** (tablet), and **1440px** (desktop) when they can—DevTools responsive mode or equivalent. This tends to improve **spacing and type scale inference** because evidence aligns with common Tailwind breakpoints (`md`/`lg`) and reduces run-to-run variance. If their design uses different canonical widths, they may state actual widths in the reply; note them in pre-flight for implementation.
 
 User may attach three files in one reply or in follow-up messages in the same step—do not advance to Step 3 until all three are present (or user says one is unavailable—in which case note it for pre-flight **Open questions** and still proceed).
 
@@ -88,17 +90,31 @@ Confirm whether the project uses `src/` and align with repo conventions.
 
 ### Step 2 — Screenshots (required; all three in one request)
 
-Ask once for **mobile, tablet, and desktop** screenshots, **in that order**, in the **same** Step 2 message. See [Conversational intake](#conversational-intake-one-step-per-turn). **Do not** analyze them here—acknowledge receipt briefly and go to Step 3.
+Ask once for **mobile, tablet, and desktop** screenshots, **in that order**, in the **same** Step 2 message. See [Conversational intake](#conversational-intake-one-step-per-turn)—include the **recommended widths** (375 / 1024 / 1440) as optional guidance. **Do not** analyze them here—acknowledge receipt briefly and go to Step 3.
 
-### Step 3 — Optional legacy HTML / CSS
+### Step 3 — Optional legacy markup, CSS, **or written style notes**
 
-**Only after** all three screenshots are collected (or user supplied all at once). Ask if the user can provide relevant HTML and/or CSS from the current site. **One turn;** Step 3 only.
+**Only after** all three screenshots are collected (or user supplied all at once). **One turn;** Step 3 only.
 
-If provided:
+Ask whether the user can share **any** of the following (all optional; any combination is fine):
 
-- Use only when **structurally meaningful** and relevant to the **visible** component.
-- Do **not** trust it automatically; strip CMS noise, wrapper junk, and Sitecore artifacts unless clearly useful.
-- If markup **conflicts** with screenshots, **screenshots win**.
+1. **HTML and/or CSS** from the current / Sitecore-rendered page (snippets or files).  
+2. **Written style guidance**—clear, implementation-oriented notes that are **not** full source files, for example:
+   - layout wrappers (`container`, `max-w-*`, centered column width)  
+   - **colors** (hex/RGB, CSS variables, or “primary is …”)  
+   - **spacing** (padding/margin scale, section vertical rhythm)  
+   - **typography** (font family, sizes, weights, tracking for eyebrow/heading/body)  
+   - **borders, radius, shadows**  
+   - **breakpoint behavior** they remember from the old build (“sidebar drops below at 768px”)  
+   - **Tailwind / utility class names** copied from DevTools if that is all they have  
+
+**During intake:** store these notes verbatim (acknowledge briefly); **do not** deeply reconcile them with screenshots until pre-flight.
+
+**When implementing:**
+
+- Treat **user-authored style notes** as **high-signal** when they describe the legacy component: map them to Tailwind v4 classes or project tokens (`@repo/ui` / `globals.css`) where possible.
+- For **HTML/CSS**: use only when **structurally meaningful**; strip CMS noise and Sitecore artifacts unless clearly useful.
+- **Conflict resolution:** If written notes or markup **contradict** the screenshots on something visible (layout side, background color, spacing), **screenshots win** for composition—**flag the conflict** in pre-flight **Open questions** and ask unless the user already said “trust the notes over pixels.”
 
 ### Step 4 — Interactivity and dependencies
 
@@ -142,14 +158,14 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
 
 **Mandatory gate.** After Steps 1–6 are complete (and optional steps skipped or answered “none”), **do not generate code yet**. This is the **first** place where you perform full cross-screenshot analysis and consolidation.
 
-1. **Synthesize** everything received: destination path, breakpoint evidence, optional markup verdict, interactivity/dependency needs, content slots, structured prompts (if any).  
+1. **Synthesize** everything received: destination path, breakpoint evidence, optional markup + **style notes** verdict, interactivity/dependency needs, content slots, structured prompts (if any).  
 2. **Summarize in a short, fixed block** for the user (use the same headings every run):
 
    ```markdown
    ## Rebuild plan (confirm before implementation)
 
    - **Destination:** …
-   - **Evidence:** mobile / tablet / desktop screenshots (+ legacy HTML: used / ignored / partial)
+   - **Evidence:** mobile / tablet / desktop screenshots (+ legacy HTML/CSS: used / ignored / partial; **style notes:** summarized bullets or *none*)
    - **Structured prompts:** … or *none*
    - **Layout & responsiveness:** …
    - **Theme / variants:** … (e.g. light/dark, image left/right)
@@ -169,12 +185,13 @@ If the user says “proceed” without answering an open question, **re-ask** or
 Apply in this **exact** order when resolving design decisions:
 
 1. Mobile, tablet, and desktop screenshots (layout, spacing, composition, default visual theme)  
-2. **Structured prompts** (when provided): `theme`, `imagePosition`, and explicit slot names—**unless they visibly conflict with screenshots**; on conflict, **stop and ask**  
-3. Coherent, useful legacy HTML/CSS (when provided)  
-4. Project conventions and installed skills (see [Supporting skills](#supporting-skills-internal))  
-5. Careful inference—**document every inference** as an assumption  
+2. **User-provided style notes** from Step 3 (colors, padding, container rules, typography, DevTools class hints)—use to **inform** Tailwind and tokens; on **visible** conflict with screenshots, prefer screenshots and **surface** in Open questions unless the user prioritized notes  
+3. **Structured prompts** (Step 6): `theme`, `imagePosition`, slot names—on conflict with screenshots, **ask**  
+4. Coherent, useful legacy HTML/CSS (when provided)  
+5. Project conventions and installed skills (see [Supporting skills](#supporting-skills-internal))  
+6. Careful inference—**document every inference** as an assumption  
 
-On conflict between screenshots and legacy markup: **screenshots win**. On conflict between screenshots and structured prompts: **ask the user** before coding.
+On conflict between screenshots and legacy markup: **screenshots win** for layout/composition. On conflict between screenshots and **written style notes**: default same; **ask** if the mismatch is large or ambiguous.
 
 ## Responsive rules
 
@@ -190,10 +207,55 @@ On conflict between screenshots and legacy markup: **screenshots win**. On confl
 - Prefer **readable JSX** over cloning legacy DOM.
 - English for **all code, comments in code, file names, and prop names**.
 
+<a id="implementation-quality-pass-before-shipping-code"></a>
+
+## Implementation quality pass (mandatory before shipping code)
+
+After the user confirms the **Rebuild plan**, **before** writing the final component file(s), do **all** of the following (brief notes in the final review are enough to show you did):
+
+1. **Read** (pull into context) these skills and apply their guidance to the implementation, not only to prose:
+   - `accessibility-a11y` — roles, labels, focus, contrast-sensitive states  
+   - `next-best-practices` — RSC/client boundary, `Image`, file structure  
+   - `tailwind-design-system` + `tailwindcss-mobile-first` + `tailwindcss-advanced-layouts` — tokens, breakpoints, grid/flex  
+   - `vercel-react-best-practices` — bundle and rerender hygiene where relevant  
+   - `frontend-design` — composition, hierarchy, non-generic polish when evidence supports it  
+   - `tailwind-theme-builder` — when the repo uses `@theme` / CSS variables (`@repo/ui`)  
+2. If the repo already uses **`@repo/ui`**, prefer importing **`cn`** from `@repo/ui/lib/utils` (or the project’s shared helper)—do not duplicate merge helpers.
+
+Skipping this pass is a **process failure**; the deliverable is not complete until it is done.
+
+## `cn` and conditional classes
+
+- Use **`cn` from the project** (typically `clsx` + `tailwind-merge` via `@repo/ui/lib/utils`).
+- Prefer **one `cn()` call** with **base strings** plus an **object map** for booleans / variant flags—easier to scan than long ternary chains.
+
+**Example pattern (follow this style):**
+
+```tsx
+className={cn(
+  "mb-4 grow",
+  "text-[13px] leading-[20px] md:leading-[23px]",
+  "text-black",
+  { "text-red-600": isDark },
+)}
+```
+
+- Avoid repeating the same condition many times (`theme === "light" ? "…" : "…"` on every node) when a shared variant map or CVA cleans it up (see below).
+
+## Variants: `class-variance-authority` (CVA)
+
+- When the component has **multiple visual variants** (e.g. `theme: light | dark`, `size`, `emphasis`, `imagePosition` driving shared surfaces), use **`cva`** (`class-variance-authority`) to **centralize** class strings and **`cn`** for one-off composition.
+- **Compound variants** are appropriate when two props interact (e.g. `theme` + `layout`).
+- **Goal:** duplicate fewer class fragments; change one variant definition instead of hunting ternaries.
+- If **`class-variance-authority` is already a dependency** of the app or `@repo/ui` (common in this monorepo), **use it without asking** for a new install. If it is **not** in the workspace, follow [Dependency policy](#dependency-policy) and ask before adding.
+
+Keep `cva` definitions **next to** the component (same file) unless the team prefers `variants.ts` in the folder.
+
 ## Dependency policy
 
 - Default: **no new** `package.json` dependencies.
-- Propose a dependency only with user approval and a one-sentence justification.
+- **Exception:** `class-variance-authority` when already available via workspace packages (e.g. `@repo/ui`)—import and use.
+- Propose any **other** dependency only with user approval and a one-sentence justification.
 
 ## Output architecture
 
@@ -226,7 +288,7 @@ On conflict between screenshots and legacy markup: **screenshots win**. On confl
 
 ## Supporting skills (internal)
 
-Strengthen output using these installed skills **without** exposing a multi-skill UX to the user—read them when relevant:
+These are **not optional decoration**—they are **required inputs** during [Implementation quality pass](#implementation-quality-pass-before-shipping-code). Use them **without** exposing a multi-skill UX to the end user.
 
 | Skill | Use for |
 | --- | --- |
@@ -247,29 +309,32 @@ Execute **in order**:
 
 1. Collect destination path (intake: light)  
 2. Collect **all three** screenshots in **one** Step 2 message—mobile, tablet, desktop order (intake: acknowledge only)  
-3. Ask for optional HTML/CSS (collect only)  
+3. Ask for optional HTML/CSS **and/or written style notes** (collect only)  
 4. Interactivity and dependencies  
 5. Optional content structure  
 6. Optional structured prompts — theme, `imagePosition`, slots  
-7. **[Pre-flight](#pre-flight-analysis-and-user-confirmation-before-code)** — full analysis: screenshots per breakpoint, whether HTML/CSS is useful, conflicts, open questions; **wait for go-ahead**  
+7. **[Pre-flight](#pre-flight-analysis-and-user-confirmation-before-code)** — full analysis: screenshots per breakpoint, HTML/CSS + **style notes** usefulness, conflicts, open questions; **wait for go-ahead**  
 8. After confirmation: detailed layout/Tailwind plan if not fully settled in pre-flight  
 9. Resolve dependency approval if still open  
-10. Generate code at the provided path  
-11. Add extra files only if justified, same folder only  
-12. [Self-audit](#self-audit)  
-13. [Final code review](#final-code-review)  
+10. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — read supporting skills; apply `cn` + CVA rules  
+11. Generate code at the provided path  
+12. Add extra files only if justified, same folder only  
+13. [Self-audit](#self-audit)  
+14. [Final code review](#final-code-review)  
 
 ## Self-audit
 
 Before finishing, verify:
 
+- **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** was executed (list supporting skills consulted in the final review).  
 - Semantic HTML and heading logic  
 - Basic accessibility (interactive controls, images alt strategy, visible focus where needed)  
 - Mobile-first breakpoints match stated screenshot analysis  
 - Visual alignment with evidence (honest about coverage gaps)  
-- Tailwind clarity (no unmotivated magic numbers when tokens exist)  
+- Tailwind clarity; **`cn`** uses object maps for conditionals where it reduces duplication; **`cva`** used when variant surface is non-trivial  
+- `next/image`: avoid `unoptimized` unless the user approved or evidence requires it; prefer configured `remotePatterns`  
 - Server vs client correctness  
-- No unapproved dependencies  
+- No unapproved **new** dependencies (CVA ok when already in workspace)  
 - No unnecessary file splits  
 - Optional props and conditional rendering consistent  
 - Imports and naming clean  
@@ -303,6 +368,9 @@ Minimum content:
 
 ## Changelog
 
+- 2026-03-31 — Step 2: **recommended** screenshot widths ~375 / 1024 / 1440 for more stable spacing inference (soft guidance).
+- 2026-03-31 — Step 3 expanded: optional **written style notes** (colors, padding, container, typography, etc.) alongside HTML/CSS; evidence priority updated.
+- 2026-03-31 — Mandatory **implementation quality pass** (read supporting skills); **`cn`** object-map pattern; **CVA** for multi-variant styling when appropriate; self-audit extended (`unoptimized` Image, CVA/cn checks).
 - 2026-03-31 — Renamed skill and folder: `vail-visual-rebuild` (was `next-visual-rebuild`).
 - 2026-03-31 — **Collect-then-analyze:** no deep screenshot work during Steps 1–6; analysis in pre-flight (after Step 6). Step 2 asks for **all three** screenshots in **one** message. Optional fast-reply hints (`none`, A/B). Frontmatter updated.
 - 2026-03-31 — Conversational intake: one main step per turn; forbid dumping Steps 1–6 in one message.
