@@ -2,6 +2,7 @@ import type { Viewport } from "next";
 import { ContentstackLivePreview } from "@/components/ContentstackLivePreview";
 import { env } from "process";
 import { fontPrompt } from "@/lib/fonts";
+import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 
 export const viewport: Viewport = {
@@ -22,11 +23,9 @@ export default function RootLayout({
       className={fontPrompt.variable}
     >
       <body className="font-sans antialiased">
-        <main>
-          <span>Homepage</span>
-          {children}
-        </main>
+        {children}
         <ContentstackLivePreview />
+        <Analytics />
       </body>
     </html>
   );

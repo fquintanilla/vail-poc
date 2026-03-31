@@ -1,27 +1,19 @@
-import { HomeMain } from "@/components/home-main";
+import { PreviewSkeleton } from "@/components/cns/PreviewSkeleton";
+import { HomePageShell } from "@/components/HomePageShell";
+import { PreviewPageProps } from "@/lib/types/app";
 import { Suspense } from "react";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{
-    live_preview?: string;
-    content_type_uid?: string;
-    entry_uid?: string;
-    preview_timestamp?: string;
-  }>;
-}) {
+export default function PreviewHomePage({ searchParams }: PreviewPageProps) {
   return (
-    <Suspense
-      fallback={
-        <main className="max-w-(--breakpoint-md) mx-auto">
-          <section className="p-4">
-            <p className="text-muted-foreground">Loading…</p>
-          </section>
-        </main>
-      }
-    >
-      <HomeMain searchParams={searchParams} />
+    <Suspense fallback={<PreviewSkeleton />}>
+      <PreviewHomePageContent searchParams={searchParams} />
     </Suspense>
   );
+}
+
+async function PreviewHomePageContent({ searchParams }: PreviewPageProps) {
+  const sp = await searchParams;
+  console.log("sp", sp);
+
+  return <HomePageShell livePreview />;
 }
