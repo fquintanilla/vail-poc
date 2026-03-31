@@ -13,11 +13,13 @@ Use the same headings so repeated runs produce comparable reports.
 
 ## Implementation quality pass
 
-- **Skill files read (paths):** list each `.agents/skills/<slug>/SKILL.md` actually loaded, or note any missing file in this repo
-- **Applied to code (not prose only):** (one line: e.g. a11y labels/focus, Next Image/sizes, tokens from globals)
+- **Global principles (`SKILL.md`):** confirm rebuild vs integration boundary, DOM=focus order, `@theme` prefix map, phased skills, **visual extraction** (screenshot-backed type/color/spacing in pre-flight + code)—yes / gaps noted
+- **Skill files read (paths):** list each `.agents/skills/<slug>/SKILL.md` actually loaded (expect: `accessibility-a11y`, `next-best-practices`, `tailwind-design-system`, `tailwind-theme-builder`, `tailwindcss-advanced-layouts`, `tailwindcss-mobile-first`, `vercel-react-best-practices`, `frontend-design`), or note any missing file in this repo
+- **Phased use (not load-and-forget):** one line per stage—e.g. mobile-first + layouts in plan/classes; Next/RSC + `next/*` first; a11y on markup; tokens/theme on utilities; Vercel React if client; frontend-design on polish
+- **Applied to code (not prose only):** (one line tying the above to what shipped)
 - `cn` object-form conditionals for layout/boolean flags: (yes / N/A — why)
 - CVA used for multi-node variants (e.g. theme): (yes — variants: … / no — justify per non-negotiable rules)
-- Non-negotiables spot-check: section `aria-labelledby`+heading `id` if applicable; external `rel`; no `unoptimized` unless documented
+- Non-negotiables spot-check: section `aria-labelledby`+heading `id` if applicable; **`next/image`**; **CTA `<a>`** (no URL parsers); **no** sanitize / `dangerouslySetInnerHTML` in rebuild file; **DOM order = focus order** (no `order-*` on main columns—see `SKILL.md` “Focus order and DOM”); **`<figure>`** when applicable; **`as const` + `isDark`/CVA**; no `unoptimized` unless documented; note **integration** follow-ups (`Link`, `rel`, rich HTML) if needed
 
 ## Pre-flight alignment
 
@@ -50,12 +52,19 @@ Use the same headings so repeated runs produce comparable reports.
 
 ## Responsive behavior
 
-- How mobile / tablet / desktop map to Tailwind breakpoints
+- How mobile / tablet / desktop map to Tailwind breakpoints **in this app** (read `@theme`: e.g. snow tablet ~1024px → **`md:`** when `md` = 992px and `lg` = 1200px—not `lg:` for tablet)
+
+## Visual fidelity (screenshots)
+
+- Pre-flight **visual tokens** summarized for each breakpoint (or “unchanged across widths”)
+- Where code uses **arbitrary values** (`text-[…]`, `bg-[#…]`, etc.), one line tying each to **what was visible** in captures
+- Assumptions when pixels were ambiguous (cross-link **Assumptions** above if needed)
 
 ## Before wiring to Contentstack
 
 - What props to map to CMS fields
 - What to validate in Live Preview
+- **Final component layer:** swap **`<a>` → `Link`** where needed, add **`rel` / `target`**, **sanitize** rich HTML / wire **JSON RTE**—not done in the rebuild file
 
 ## Copy-paste usage example
 

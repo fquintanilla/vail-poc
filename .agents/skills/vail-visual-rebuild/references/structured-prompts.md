@@ -10,7 +10,7 @@ Users may pass a **bulleted or key-value list** of hints. These are **optional**
 | `heading` | main title | Optional string prop |
 | `description` | body copy | Optional string prop |
 | `image` | illustration/photo | Optional `Image` props or `{ src, alt }` |
-| `imagePosition` | `left` \| `right` | Grid/flex order; mobile often stacks image first—confirm stack order vs screenshots |
+| `imagePosition` | `left` \| `right` | **DOM order** must match reading/focus order—use **JSX branch order** (image block vs copy block), **not** CSS `order-*` to swap columns. Confirm mobile stack vs screenshots. |
 | `theme` | `light` \| `dark` | Apply distinct class sets or `data-theme` on a root wrapper; respect project tokens |
 
 ## Extensions

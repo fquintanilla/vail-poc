@@ -293,6 +293,18 @@ kill $VIEWER_PID 2>/dev/null
 
 This is the heart of the loop. You've run the test cases, the user has reviewed the results, and now you need to make the skill better based on their feedback.
 
+### Global principles before reactive patches
+
+Do **not** grow the skill mainly by **appending** a new MUST every time a run goes wrong. That produces long, duplicated, and contradictory instructions.
+
+**Prefer:**
+
+1. **Extract a principle** — What *class* of mistake is this? State the underlying rule (e.g. “integration owns sanitization,” “DOM order must match focus order”) in **one canonical section** (e.g. “Global principles” or “Non-goals”) near the top of `SKILL.md`.
+2. **Point, don’t repeat** — Elsewhere (checklists, self-audit, code-generation bullets), use **short** lines: “Satisfy [Global principles](#…)” or “See § X” instead of pasting the full rule again.
+3. **Consolidate** — If the same idea already appears in three places, **merge** into the canonical section and delete the copies.
+
+**Reactive patches** (a lone bullet buried mid-file) are a last resort when the rule truly applies only in one narrow step.
+
 ### How to think about improvements
 
 1. **Generalize from the feedback.** The big picture thing that's happening here is that we're trying to create skills that can be used a million times (maybe literally, maybe even more who knows) across many different prompts. Here you and the user are iterating on only a few examples over and over again because it helps move faster. The user knows these examples in and out and it's quick for them to assess new outputs. But if the skill you and the user are codeveloping works only for those examples, it's useless. Rather than put in fiddly overfitty changes, or oppressively constrictive MUSTs, if there's some stubborn issue, you might try branching out and using different metaphors, or recommending different patterns of working. It's relatively cheap to try and maybe you'll land on something great.
