@@ -6,7 +6,7 @@ import {
   getContentstackEndpoints,
   getRegionForString,
 } from "@timbenniks/contentstack-endpoints";
-import { Page } from "@/lib/types";
+import { Page } from "@/lib/types/pages";
 
 // Region and endpoint configuration - computed once at module load time
 const region = getRegionForString(
@@ -157,4 +157,3 @@ export async function getPage(
   const stack = stackInstance ?? getStack();
   return fetchPageByUrl(url, stack);
 }
-
