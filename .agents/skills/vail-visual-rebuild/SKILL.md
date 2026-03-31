@@ -1,5 +1,5 @@
 ---
-name: next-visual-rebuild
+name: vail-visual-rebuild
 description: Rebuild existing website UI as clean presentational Next.js 16 components with Tailwind CSS 4 from screenshots (and optional legacy HTML/CSS). Optional structured hints (e.g. eyebrow, heading, imagePosition left/right, theme light/dark). **Step-by-step conversational intake:** one main step per turn; **collect only** during Steps 1–6 (no deep screenshot analysis until pre-flight); ask for **all three** screenshots (mobile, tablet, desktop) in **one** Step 2 message; never dump Steps 1–6 together. Pre-flight summary + user confirmation before coding. No CMS wiring, fetch, or Sitecore logic migration. Use for Sitecore-to-Contentstack-style visual rebuilds, hero/banner/promo from captures, Next 16 App Router. Do not use for Contentstack SDK wiring, analytics, or server logic parity.
 ---
 
@@ -303,6 +303,7 @@ Minimum content:
 
 ## Changelog
 
+- 2026-03-31 — Renamed skill and folder: `vail-visual-rebuild` (was `next-visual-rebuild`).
 - 2026-03-31 — **Collect-then-analyze:** no deep screenshot work during Steps 1–6; analysis in pre-flight (after Step 6). Step 2 asks for **all three** screenshots in **one** message. Optional fast-reply hints (`none`, A/B). Frontmatter updated.
 - 2026-03-31 — Conversational intake: one main step per turn; forbid dumping Steps 1–6 in one message.
 - 2026-03-31 — Optional Step 6 structured prompts (`theme`, `imagePosition`, slots); mandatory pre-flight summary + user confirmation; evidence priority updated; `references/structured-prompts.md`.

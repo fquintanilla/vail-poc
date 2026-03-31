@@ -1,5 +1,5 @@
 {
-  "skill_name": "next-visual-rebuild",
+  "skill_name": "vail-visual-rebuild",
   "evals": [
     {
       "id": 1,
@@ -21,7 +21,7 @@
     },
     {
       "id": 4,
-      "prompt": "Use next-visual-rebuild flow for `apps/snow/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, single CTA. If eyebrow or CTA prop is undefined, those elements must not appear in the DOM. No placeholders.",
+      "prompt": "Use vail-visual-rebuild flow for `apps/snow/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, single CTA. If eyebrow or CTA prop is undefined, those elements must not appear in the DOM. No placeholders.",
       "expected_output": "Optional prop pattern enforced; no empty headings or CTA wrappers. Self-audit + final review sections present. Single file default unless split justified.",
       "files": []
     },

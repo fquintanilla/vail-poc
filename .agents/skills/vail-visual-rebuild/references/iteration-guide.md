@@ -1,4 +1,4 @@
-# Iterating on `next-visual-rebuild`
+# Iterating on `vail-visual-rebuild`
 
 ## Goals when changing the skill
 
