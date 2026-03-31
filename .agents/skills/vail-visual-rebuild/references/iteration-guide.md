@@ -8,11 +8,11 @@
 
 ## What to measure
 
-1. **Process adherence** — Does the run use **one intake step per turn** (no wall of Steps 1–6), **Step 2 asks for all three screenshots in one message**, intake stays **light** (no deep image analysis until pre-flight), then **pre-flight + confirmation** before coding?
+1. **Process adherence** — Does the run use **one intake step per turn** (no wall of Steps 1–6), **Step 2 asks for all three screenshots in one message**, intake stays **light** (no deep image analysis until pre-flight), then **pre-flight + confirmation** before coding? **After confirmation**, did the agent **read the listed `.agents/skills/.../SKILL.md` files** before writing TSX, and does the **first** code pass already reflect **CVA + `cn` objects**, a11y, and Next `Image` rules?
 2. **Non-goals** — No fetch, no CMS hooks, no analytics in output?
 3. **Conditional rendering** — Missing props omit UI (spot-check generated JSX)?
 4. **Single-file default** — Unjustified splits = regression.
-5. **Closing report** — Present every time with consistent sections?
+5. **Closing report** — Present every time with consistent sections, including **## Copy-paste usage example** with a short JSX snippet (`placehold.co` for demo images when needed)?
 
 ## Qualitative review (recommended)
 
@@ -38,4 +38,4 @@ After substantive edits to `SKILL.md`, add a one-line note under `## Changelog` 
 
 ## Changelog
 
-- (Add entries here when you iterate.)
+- 2026-03-31 — Process checks now include mandatory `.agents/skills/.../SKILL.md` reads and first-pass CVA / `cn` / a11y / Image compliance.
