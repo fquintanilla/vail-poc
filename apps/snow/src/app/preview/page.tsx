@@ -1,4 +1,4 @@
-import { PreviewSkeleton } from "@/components/cns/PreviewSkeleton";
+import { PreviewSkeleton } from "@/components/CMS/PreviewSkeleton";
 import { HomePageShell } from "@/components/HomePageShell";
 import { PreviewPageProps } from "@/lib/types/app";
 import { Suspense } from "react";
