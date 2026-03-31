@@ -20,11 +20,6 @@ const nextConfig: NextConfig = {
         hostname: "azure-na-images.contentstack.com",
         pathname: "/**",
       },
-      {
-        protocol: "https",
-        hostname: "placehold.co",
-        pathname: "/**",
-      },
     ],
   },
   cacheComponents: true, // Top-level in Next.js 16.1.x+
