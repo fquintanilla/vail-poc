@@ -3,26 +3,26 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "We are moving a resort marketing site from Sitecore to Contentstack. I need a presentational hero for Next 16 before we map fields. Destination: `apps/web/src/components/rebuild/Hero/index.tsx`. I have mobile, tablet, desktop PNGs in my Desktop folder named hero-m.png, hero-t.png, hero-d.png. No legacy HTML. Static headline + subcopy + primary CTA + background image area; no carousel. Walk through your full intake if anything is missing, then implement.",
-      "expected_output": "Agent uses conversational intake: Step 1 only first turn; Step 2 asks mobile+tablet+desktop in one message; intake turns short without deep screenshot analysis until pre-flight; never lists all six steps at once. Pre-flight before code. Hero under path; RSC default; optional props; Tailwind 4; no CMS/fetch. Final review.",
+      "prompt": "We are rebuilding a marketing hero from an existing site into a reusable Next 16 component. Destination: `apps/web/src/components/rebuild/Hero/index.tsx`. I have mobile, tablet, and desktop screenshots plus a few notes about spacing and CTA copy. No legacy HTML. Static headline, description, primary CTA, and image area. Walk through whatever intake you need and then implement a presentational component we can wire later.",
+      "expected_output": "Agent uses conversational intake without dumping every step at once, keeps analysis light until pre-flight, confirms plan before code, and produces a reusable presentation-only component rather than a one-off hero patch.",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "Rebuild this promo banner from screenshots only — same strict presentation-only rules. Path: `src/components/rebuild/PromoStripe/index.tsx`. Screenshots attached in chat (mobile, tablet, desktop). The old Sitecore HTML is a mess; I pasted it anyway — you decide if it helps. I think we need a small client-side accordion for the FAQ inside the stripe; propose a lib if you need one.",
-      "expected_output": "Screenshots prioritized over noisy HTML; user asked to approve any dependency; if accordion approved vs rejected, behavior matches. Intake order preserved. Client component only if interaction justified.",
+      "prompt": "Rebuild this promo stripe from screenshots into `src/components/rebuild/PromoStripe/index.tsx`. Screenshots are attached in chat. I also pasted some very noisy legacy CMS HTML and CSS variables, but it may be unreliable. There is a collapsible FAQ area inside the stripe. Suggest whether we need a dependency or whether a simple local solution is enough.",
+      "expected_output": "Screenshots stay primary, noisy legacy markup is used only if structurally helpful, dependency choice is reasoned rather than automatic, and the result stays generic enough for similar promo stripe components.",
       "files": []
     },
     {
       "id": 3,
-      "prompt": "Quick job: put a card grid component at `components/cards/FeatureCardGrid/index.tsx`. I only have a desktop screenshot right now.",
-      "expected_output": "Agent does NOT proceed silently with one screenshot — stops and requests mobile and tablet before code gen, per strict workflow.",
+      "prompt": "Quick job: put a feature card grid component at `components/cards/FeatureCardGrid/index.tsx`. I only have a desktop screenshot right now.",
+      "expected_output": "Agent does not proceed silently from incomplete evidence and requests the missing screenshots before implementation.",
       "files": []
     },
     {
       "id": 4,
-      "prompt": "Use resort-visual-rebuild flow for `apps/resort/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, single CTA. If eyebrow or CTA prop is undefined, those elements must not appear in the DOM. No placeholders.",
-      "expected_output": "Optional prop pattern enforced; no empty headings or CTA wrappers. Self-audit + final review sections present. Single file default unless split justified.",
+      "prompt": "Use this flow for `apps/resort/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, and single CTA. If eyebrow or CTA is undefined, those elements must not appear in the DOM.",
+      "expected_output": "Optional prop pattern is enforced, empty wrappers are avoided, and the component shape stays reusable instead of hard-coded to a single banner instance.",
       "files": []
     },
     {
@@ -33,8 +33,20 @@
     },
     {
       "id": 6,
-      "prompt": "Rebuild ImageTextCallout at apps/resort/src/app/rebuild-components/ImageTextCallout/index.tsx. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before you write any file.",
-      "expected_output": "Step 2 requests all three screenshots in one turn; intake light until pre-flight; structured prompts in Step 6; Rebuild plan then confirmation before code; props reflect hints.",
+      "prompt": "Rebuild `apps/resort/src/app/rebuild-components/ImageTextCallout/index.tsx`. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before writing any file.",
+      "expected_output": "Structured prompts are used to shape reusable props and variants, but the build still stays grounded in screenshots and asks when a hint conflicts with visible evidence.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Create a reusable split media/content section at `apps/web/src/components/rebuild/SideBySideFeature/index.tsx`. I have mobile, tablet, and desktop screenshots. My old notes say the image belongs on the right, but the screenshots show image left on desktop and stacked first on mobile.",
+      "expected_output": "Agent surfaces the conflict instead of silently following one source, uses the evidence-priority rules, and keeps the solution generic enough to support layout variants without overfitting to this one example.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Build a generic editorial quote block from screenshots at `apps/web/src/components/rebuild/QuoteBlock/index.tsx`. No interaction, no extra dependencies, just a clean presentational component with optional quote, attribution, role, and image.",
+      "expected_output": "Agent does not force unnecessary complexity like client boundaries, extra dependencies, or overengineered variants; it keeps the output lean and reusable for a simple component.",
       "files": []
     }
   ]

@@ -19,7 +19,7 @@ Use the same headings so repeated runs produce comparable reports.
 - **Applied to code (not prose only):** (one line tying the above to what shipped)
 - `cn` object-form conditionals for layout/boolean flags: (yes / N/A — why)
 - CVA used for multi-node variants (e.g. theme): (yes — variants: … / no — justify per non-negotiable rules)
-- Non-negotiables spot-check: section `aria-labelledby`+heading `id` if applicable; **`next/image`**; **CTA `<a>`** (no URL parsers); **no** sanitize / `dangerouslySetInnerHTML` in rebuild file; **DOM order = focus order** (no `order-*` on main columns—see `SKILL.md` “Focus order and DOM”); **`<figure>`** when applicable; **`as const` + `isDark`/CVA**; no `unoptimized` unless documented; note **integration** follow-ups (`Link`, `rel`, rich HTML) if needed
+- Non-negotiables spot-check: section `aria-labelledby`+heading `id` if applicable; **`next/image`**; no URL-parsing helpers; **no** sanitize / `dangerouslySetInnerHTML` in rebuild file; **DOM order = focus order** (no `order-*` on main columns—see `SKILL.md` “Focus order and DOM”); **themed colors come from resort tokens, not hardcoded hex/neutrals, when tokens exist**; **`as const` + `isDark`/CVA**; no `unoptimized` unless documented; note **integration** follow-ups (`Link`, `rel`, rich HTML) if needed
 
 ## Pre-flight alignment
 
@@ -57,7 +57,7 @@ Use the same headings so repeated runs produce comparable reports.
 ## Visual fidelity (screenshots)
 
 - Pre-flight **visual tokens** summarized for each breakpoint (or “unchanged across widths”)
-- Where code uses **arbitrary values** (`text-[…]`, `bg-[#…]`, etc.), one line tying each to **what was visible** in captures
+- Where code uses **arbitrary values** (`text-[…]`, `bg-[#…]`, etc.), one line tying each to **what was visible** in captures and why no resort token was suitable
 - Assumptions when pixels were ambiguous (cross-link **Assumptions** above if needed)
 
 ## Before wiring to Contentstack

@@ -9,7 +9,7 @@
 
 ## What to measure
 
-1. **Process adherence** — Does the run use **one intake step per turn** (no wall of Steps 1–6), **Step 2 asks for all three screenshots in one message**, intake stays **light** (no deep image analysis until pre-flight), then **pre-flight + confirmation** before coding? **After confirmation**, did the agent **read all eight supporting `SKILL.md` files** and **apply them at the right phase** (per “When to apply each supporting skill” in `SKILL.md`)—not a single undifferentiated read? Does the **first** code pass reflect **CVA + `cn` objects**, **Next built-ins by default**, **enums + `isDark`/CVA**, **`<figure>`** when appropriate, and a11y—without a later cleanup pass?
+1. **Process adherence** — Does the run use **one intake step per turn** (no wall of Steps 1–6), **Step 2 asks for all three screenshots in one message**, intake stays **light** (no deep image analysis until pre-flight), then **pre-flight + confirmation** before coding? **After confirmation**, did the agent read the **core supporting skills** plus the **relevant conditional ones** and apply them at the right phase (see `references/supporting-skills.md`) rather than doing a single undifferentiated read? Does the **first** code pass reflect reusable styling, appropriate Next built-ins, a11y, and screenshot-grounded decisions without depending on a cleanup pass?
 2. **Non-goals** — No fetch, no CMS hooks, no analytics in output?
 3. **Tailwind prefixes vs captures** — Did the agent read the app’s `@theme` (e.g. resort `md` 992 / `lg` 1200) so **tablet ~1024** uses **`md:`**, not **`lg:`**, for layout seen on the tablet screenshot?
 4. **Conditional rendering** — Missing props omit UI (spot-check generated JSX)?
@@ -43,6 +43,6 @@ After substantive edits to `SKILL.md`, add a one-line note under `## Changelog` 
 
 - 2026-03-31 — **Global principles** anchor in `SKILL.md`; iteration goals add **global-first edits**; `skill-creator` gains **Global principles before reactive patches**.
 - 2026-03-31 — Qualitative review adds **tab order vs DOM**; rebuild output should omit **sanitize** / URL parsers; **`<a>`** CTAs by default.
-- 2026-03-31 — Process checks require **phased application** of all eight supporting skills (see `SKILL.md` “When to apply each supporting skill”).
+- 2026-04-01 — Process checks now expect **core + relevant conditional** supporting-skill reads, aligned with `references/supporting-skills.md`, rather than a mandatory read of all eight every time.
 - 2026-03-31 — Process checks include first-pass **Next built-ins by default**, **enum + `isDark`/CVA**, **`<figure>`** for informative images, and no refactor-dependent handoff.
 - 2026-03-31 — Process checks now include mandatory `.agents/skills/.../SKILL.md` reads and first-pass CVA / `cn` / a11y / Image compliance.
