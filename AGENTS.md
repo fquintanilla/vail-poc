@@ -10,7 +10,7 @@ A Turborepo monorepo with two Next.js applications and shared packages:
 nextjs-foundations-starter/
 ├── apps/
 │   ├── web/          # Primary Next.js app (port 3000)
-│   └── snow/         # Snow / Vail experience (port 3001)
+│   └── resort/       # Resort / Vail experience (port 3001)
 ├── packages/
 │   ├── tsconfig/     # Shared TypeScript bases (@repo/tsconfig)
 │   ├── ui/           # Shared design system: Tailwind tokens, globals.css (@repo/ui)
@@ -65,11 +65,11 @@ vercel env pull
 # Start both apps in dev mode
 pnpm dev
 # web: http://localhost:3000
-# snow: http://localhost:3001
+# resort: http://localhost:3001
 
 # Start a specific app
 pnpm dev --filter @repo/web
-pnpm dev --filter @repo/snow
+pnpm dev --filter @repo/resort
 ```
 
 ### Vercel CLI
@@ -115,7 +115,7 @@ pnpm build
 
 # Build specific app
 pnpm build --filter @repo/web
-pnpm build --filter @repo/snow
+pnpm build --filter @repo/resort
 ```
 
 Only the Next.js apps define a `build` script. Shared packages (`@repo/ui`, `@repo/api`) ship TypeScript source and are typechecked via `check-types`; they do not emit a separate `dist` for the apps (Next transpiles `@repo/ui` via `transpilePackages`).
@@ -159,12 +159,12 @@ pnpm add -D @repo/tsconfig@workspace:* --filter <your-package>
 
 Shared compiler defaults live in **`@repo/tsconfig`** (`packages/tsconfig/`):
 
-| Preset            | File                 | Used by                          |
-| ----------------- | -------------------- | -------------------------------- |
-| Base              | `base.json`          | Extended by the presets below    |
-| Next.js apps      | `next-app.json`      | `apps/web`, `apps/snow`          |
-| React library     | `react-library.json` | `packages/ui`                    |
-| Non-React library | `node-library.json`  | `packages/api`                    |
+| Preset            | File                 | Used by                       |
+| ----------------- | -------------------- | ----------------------------- |
+| Base              | `base.json`          | Extended by the presets below |
+| Next.js apps      | `next-app.json`      | `apps/web`, `apps/resort`     |
+| React library     | `react-library.json` | `packages/ui`                 |
+| Non-React library | `node-library.json`  | `packages/api`                |
 
 Each app or package keeps its own `tsconfig.json` with `"extends"` pointing at the shared presets (relative paths like `../../packages/tsconfig/next-app.json` so the editor and `tsc` resolve them reliably) plus local `paths`, `include`, and `exclude`.
 
@@ -178,7 +178,7 @@ Strict options enabled in the base include:
 
 Path aliases (defined per app/package, not in the shared base):
 
-- `@/*` — local app imports (`apps/web`, `apps/snow`)
+- `@/*` — local app imports (`apps/web`, `apps/resort`)
 - `@repo/ui/*` — shared UI (`packages/ui/src`)
 - `@repo/api/*` — shared API helpers
 
@@ -288,7 +288,7 @@ Use the ESLint and Prettier editor extensions; the repo root config is `eslint.c
 This starter is designed for the Next.js Foundations certification. As you progress through lessons:
 
 1. **Don't modify shared packages** unless instructed
-2. **Focus on `apps/web` and `apps/snow`** for exercises
+2. **Focus on `apps/web` and `apps/resort`** for exercises
 3. **Use `@repo/api` functions** for mock data
 4. **Follow the lesson structure** - each builds on previous work
 

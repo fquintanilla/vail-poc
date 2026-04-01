@@ -21,7 +21,7 @@
     },
     {
       "id": 4,
-      "prompt": "Use vail-visual-rebuild flow for `apps/snow/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, single CTA. If eyebrow or CTA prop is undefined, those elements must not appear in the DOM. No placeholders.",
+      "prompt": "Use vail-visual-rebuild flow for `apps/resort/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, single CTA. If eyebrow or CTA prop is undefined, those elements must not appear in the DOM. No placeholders.",
       "expected_output": "Optional prop pattern enforced; no empty headings or CTA wrappers. Self-audit + final review sections present. Single file default unless split justified.",
       "files": []
     },
@@ -33,7 +33,7 @@
     },
     {
       "id": 6,
-      "prompt": "Rebuild ImageTextCallout at apps/snow/src/app/rebuild-components/ImageTextCallout/index.tsx. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before you write any file.",
+      "prompt": "Rebuild ImageTextCallout at apps/resort/src/app/rebuild-components/ImageTextCallout/index.tsx. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before you write any file.",
       "expected_output": "Step 2 requests all three screenshots in one turn; intake light until pre-flight; structured prompts in Step 6; Rebuild plan then confirmation before code; props reflect hints.",
       "files": []
     }

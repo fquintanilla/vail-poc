@@ -11,25 +11,25 @@
 }
 
 @layer components {
-  .snow-container {
+  .resort-container {
     margin-inline: auto;
     padding-inline: 15px;
   }
 
   @media (min-width: 768px) {
-    .snow-container {
+    .resort-container {
       width: 750px;
     }
   }
 
   @media (min-width: 992px) {
-    .snow-container {
+    .resort-container {
       width: 970px;
     }
   }
 
   @media (min-width: 1200px) {
-    .snow-container {
+    .resort-container {
       width: 1170px;
     }
   }

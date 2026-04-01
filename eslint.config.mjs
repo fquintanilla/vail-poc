@@ -6,7 +6,7 @@ export default defineConfig([
   {
     settings: {
       next: {
-        rootDir: ["apps/web/", "apps/snow/"],
+        rootDir: ["apps/web/", "apps/resort/"],
       },
     },
   },
@@ -34,7 +34,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["apps/snow/src/app/layout.tsx"],
+    files: ["apps/resort/src/app/layout.tsx"],
     rules: {
       "@next/next/no-css-tags": "off",
     },

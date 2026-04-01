@@ -52,7 +52,7 @@ Use the same headings so repeated runs produce comparable reports.
 
 ## Responsive behavior
 
-- How mobile / tablet / desktop map to Tailwind breakpoints **in this app** (read `@theme`: e.g. snow tablet ~1024px → **`md:`** when `md` = 992px and `lg` = 1200px—not `lg:` for tablet)
+- How mobile / tablet / desktop map to Tailwind breakpoints **in this app** (read `@theme`: e.g. resort tablet ~1024px → **`md:`** when `md` = 992px and `lg` = 1200px—not `lg:` for tablet)
 
 ## Visual fidelity (screenshots)
 

@@ -10,7 +10,7 @@ A Turborepo monorepo powering the Vail project, with Next.js apps and shared pac
 Vail/
 ├── apps/
 │   ├── web/                    # Main Next.js app (localhost:3000)
-│   └── snow/                   # Snow site app (localhost:3001)
+│   └── resort/                 # Resort site app (localhost:3001)
 │       ├── src/
 │       │   └── app/            # App Router pages & layouts
 │       │       └── preview/    # Preview routes (draft/live content from Contentstack)
@@ -47,10 +47,10 @@ pnpm lint
 
 ## Apps
 
-| App      | Path        | Port | Description                    |
-| -------- | ----------- | ---- | ------------------------------ |
-| **web**  | `apps/web`  | 3000 | Main site (marketing, pages)   |
-| **snow** | `apps/snow` | 3001 | Snow site (lift-and-shift app) |
+| App        | Path          | Port | Description                      |
+| ---------- | ------------- | ---- | -------------------------------- |
+| **web**    | `apps/web`    | 3000 | Main site (marketing, pages)     |
+| **resort** | `apps/resort` | 3001 | Resort site (lift-and-shift app) |
 
 ## Packages
 
@@ -113,12 +113,12 @@ The app supports **Contentstack Live Preview** so editors can see draft and unpu
 
 Preview pages accept these search params (from Contentstack’s preview iframe or manual URLs):
 
-| Param               | Purpose                                      |
-| ------------------- | -------------------------------------------- |
-| `live_preview`      | Enables live preview for the request         |
-| `content_type_uid`  | Content type (e.g. `page`)                   |
-| `entry_uid`         | Entry UID being previewed                    |
-| `preview_timestamp` | Optional; used for draft versioning          |
+| Param               | Purpose                              |
+| ------------------- | ------------------------------------ |
+| `live_preview`      | Enables live preview for the request |
+| `content_type_uid`  | Content type (e.g. `page`)           |
+| `entry_uid`         | Entry UID being previewed            |
+| `preview_timestamp` | Optional; used for draft versioning  |
 
 ### Supporting future pages (SSG + preview)
 
@@ -142,9 +142,10 @@ When adding new pages that should be **statically generated** but also **preview
 ## Notes for Developers
 
 1. **Monorepo commands**
-  - Run a single app: `pnpm dev --filter @repo/web` or `pnpm dev --filter @repo/snow`
-  - Add a dependency to an app: `pnpm add <pkg> --filter @repo/web` (or `@repo/snow`)
-   - Add to a package: `pnpm add <pkg> --filter @repo/ui` (or `@repo/api`).
+
+- Run a single app: `pnpm dev --filter @repo/web` or `pnpm dev --filter @repo/resort`
+- Add a dependency to an app: `pnpm add <pkg> --filter @repo/web` (or `@repo/resort`)
+- Add to a package: `pnpm add <pkg> --filter @repo/ui` (or `@repo/api`).
 
 2. **Shared code**
    - Use `@repo/ui` for components shared across apps.
