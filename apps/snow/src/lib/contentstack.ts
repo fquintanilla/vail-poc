@@ -6,7 +6,7 @@ import {
   getContentstackEndpoints,
   getRegionForString,
 } from "@timbenniks/contentstack-endpoints";
-import { Page } from "@repo/ui/lib/types/pages";
+import { Page } from "@/lib/types/pages";
 
 // Region and endpoint configuration - computed once at module load time
 const region = getRegionForString(

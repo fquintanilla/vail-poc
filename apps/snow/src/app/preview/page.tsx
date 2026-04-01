@@ -1,6 +1,6 @@
 import { PreviewSkeleton } from "@/components/CMS/PreviewSkeleton";
 import { HomePageShell } from "@/components/HomePageShell";
-import { PreviewPageProps } from "@repo/ui/lib/types/app";
+import { PreviewPageProps } from "@/lib/types/app";
 import { Suspense } from "react";
 
 export default function PreviewHomePage({ searchParams }: PreviewPageProps) {

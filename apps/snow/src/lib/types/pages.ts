@@ -1,4 +1,4 @@
-import { Component } from "@repo/ui/lib/types/component";
+import { Component } from "@/lib/types/component";
 
 type Seo = {
   enable_search_indexing: boolean;
