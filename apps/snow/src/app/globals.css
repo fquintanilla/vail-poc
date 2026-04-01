@@ -2,8 +2,6 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
-@source "..";
-
 @theme {
   --breakpoint-sm: 768px;
   --breakpoint-md: 992px;
@@ -49,5 +47,3 @@
     outline-width: 2px;
   }
 }
-
-/* @import "../../../../packages/ui/src/styles/globals.css"; */
