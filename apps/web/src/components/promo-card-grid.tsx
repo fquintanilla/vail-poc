@@ -45,9 +45,11 @@ export function PromoCardGrid(props: PromoCardGridProps) {
                 <div
                   {...(card.$?.card_body as {})}
                   className="text-left font-sans text-base leading-relaxed text-neutral-600"
-                >
-                  {sanitizeHtml(jsonToHtml(card.card_body))}
-                </div>
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeHtml(jsonToHtml(card.card_body)),
+                  }}
+                />
+
                 <Link
                   href={card.call_to_action.href}
                   className="mt-auto inline-flex items-center gap-1 font-sans text-sm font-semibold text-[#4B6373] transition hover:text-[#3a4d5a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4B6373]"
