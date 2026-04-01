@@ -6,7 +6,7 @@ export function HomePageShell({ livePreview }: HomePageShellProps) {
   console.log("livePreview", livePreview);
 
   return (
-    <div className="wrapper">
+    <div>
       <h1>Home Page Shell</h1>
     </div>
   );
