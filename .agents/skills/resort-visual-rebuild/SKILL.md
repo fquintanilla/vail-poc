@@ -1,6 +1,6 @@
 ---
-name: vail-visual-rebuild
-description: Rebuild existing website UI as **lean** presentational Next.js 16 components (Tailwind CSS 4) from screenshots + optional legacy notes. **Global principles:** rebuild vs integration boundary; structural a11y; **screenshots drive quantitative styling** (type scale, weight, color, spacing, radii—not only layout); read **@theme** + **eight** skills **by phase**; **as const** + **isDark**/CVA, **next/image**, **md/lg** map (e.g. resort tablet ~1024 → **md:**). Pre-flight must list **visual tokens from images**. Closing copy-paste JSX. Next 16 App Router. Sitecore→Contentstack-style rebuilds; not CMS SDK wiring alone.
+name: resort-visual-rebuild
+description: Rebuild existing website UI as **lean** presentational Next.js 16 components (Tailwind CSS 4) from screenshots + optional legacy notes—**resort app**, marketing migrations, or any Next target. **Global principles:** rebuild vs integration boundary; structural a11y; **screenshots drive quantitative styling** (type scale, weight, color, spacing, radii—not only layout); read **@theme** + **eight** skills **by phase**; **as const** + **isDark**/CVA, **next/image**, **md/lg** map (e.g. resort tablet ~1024 → **md:**). Pre-flight must list **visual tokens from images**. Closing copy-paste JSX. Next 16 App Router. Sitecore→Contentstack-style rebuilds; not CMS SDK wiring alone. **Trigger:** resort visual rebuild, `apps/resort` components from screenshots, presentational migration shells.
 ---
 
 # Next.js 16 visual component rebuild (Sitecore → Contentstack prep)
@@ -27,7 +27,7 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 
 5. **Screenshots = quantitative design spec, not only wireframes** — The **three attachments** are the main source for **concrete** styling: approximate **font size, weight, tracking, line-height, casing**, **text and background colors**, **padding/margin/gap**, **borders and radius**, **shadows**, **image aspect / crop**. In **pre-flight** and **implementation**, derive **the closest defensible Tailwind/CSS values** per breakpoint (compare mobile vs tablet vs desktop when type or spacing **changes**). Prefer **project tokens** when they match pixels; otherwise use **`text-[length]`**, **`leading-[…]`**, **`tracking-[…]`**, arbitrary **`text-[#…]` / `bg-[…]` / `border-[…]`** when captures justify it. **Do not** substitute generic defaults (`text-lg`, `p-4`, `rounded-md`) when screenshots clearly show something else. **Do not** invent UI that is not visible—**do** push fidelity on everything that **is** visible; **log assumptions** when compression or blur blocks exact pixels ([Visual extraction from screenshots](#visual-extraction-from-screenshots)).
 
-6. **Skill maintenance (meta)** — When editing `vail-visual-rebuild`, **fold** new requirements into **Global principles** or **one** linked subsection—**avoid** append-only reactive bullets that repeat the same idea under Strict non-goals, Code generation, Non-negotiables, and Self-audit without pointing here first.
+6. **Skill maintenance (meta)** — When editing `resort-visual-rebuild`, **fold** new requirements into **Global principles** or **one** linked subsection—**avoid** append-only reactive bullets that repeat the same idea under Strict non-goals, Code generation, Non-negotiables, and Self-audit without pointing here first.
 
 ## Strict non-goals
 
@@ -297,7 +297,7 @@ Per **`accessibility-a11y`:** keyboard and screen-reader order follow the **DOM*
 
 ## Mandatory skill file reads (blocking before code)
 
-After the user confirms the **Rebuild plan**, you **must not** write or edit component TS/TSX/CSS until each applicable project skill file below has been **read into context** (e.g. editor Read tool on the file). **Paraphrasing this `vail-visual-rebuild` page from memory does not count** as having applied `accessibility-a11y`, `next-best-practices`, etc.
+After the user confirms the **Rebuild plan**, you **must not** write or edit component TS/TSX/CSS until each applicable project skill file below has been **read into context** (e.g. editor Read tool on the file). **Paraphrasing this `resort-visual-rebuild` page from memory does not count** as having applied `accessibility-a11y`, `next-best-practices`, etc.
 
 **Canonical paths** (relative to the workspace root; this monorepo keeps skills under `.agents/skills/`):
 
@@ -326,7 +326,7 @@ After the user confirms the **Rebuild plan**, you **must not** write or edit com
 
 These are the **installed skills** this monorepo expects under `.agents/skills/`. **Read all** after the user confirms the rebuild plan ([Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)); **apply** each at the **stage** below so guidance lands on the right decisions.
 
-| Skill | Primary moment in `vail-visual-rebuild` | What to apply there |
+| Skill | Primary moment in `resort-visual-rebuild` | What to apply there |
 | --- | --- | --- |
 | `tailwindcss-mobile-first` | **Pre-flight + step 8** (layout / breakpoint plan) **and** while writing class lists | Mobile-first ordering; **read the app’s `@theme` breakpoints** and map mobile / tablet / desktop screenshots to **`sm:` / `md:` / `lg:`** per [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)—**tablet ~1024 often maps to `md:`**, not `lg:`, when `md` ≥ 992 and `lg` is 1200px. |
 | `tailwindcss-advanced-layouts` | **Pre-flight + step 8** **and** while structuring the component DOM | Grid/flex patterns, alignment, full-bleed vs contained rows—match screenshots **without** flex/grid **`order`** to swap primary columns ([Focus order and DOM](#focus-order-and-dom-accessibility)). |
@@ -529,6 +529,7 @@ Minimum content:
 
 ## Changelog
 
+- 2026-03-31 — **Renamed skill and folder:** `resort-visual-rebuild` (was `vail-visual-rebuild`).
 - 2026-03-31 — **Screenshots as quantitative spec:** new Global principle **#5** (type, color, spacing, radii, shadows, media—closest defensible Tailwind; arbitrary values when tokens don’t match; no generic defaults when captures differ). New section [Visual extraction from screenshots](#visual-extraction-from-screenshots). Evidence priority #1 expanded; pre-flight **Rebuild plan** gains **Visual tokens** bullet; collect-first clarifies quantitative pass after Step 6; code generation + `frontend-design` row + self-audit + frontmatter; `references/final-review-template.md` **Visual fidelity** subsection.
 - 2026-03-31 — **Global principles (canonical):** single anchor section after Purpose—rebuild vs integration, project/skills truth, structural a11y, styling discipline, **meta rule** (fold changes into principles, not reactive patch bullets). Strict non-goals shortened; pre-flight, code generation, non-negotiables, self-audit point here; self-audit deduplicated. Frontmatter points at Global principles.
 - 2026-03-31 — **Simplify rebuild scope:** **no** sanitization / `dangerouslySetInnerHTML` in generated files; **no** `isExternalHref`-style helpers—**default CTA `<a>`**, **`Link`/`rel`/sanitization** at **integration**. **[Focus order and DOM](#focus-order-and-dom-accessibility):** forbid flex/grid **`order`** to swap main columns; prefer **JSX branch order**. Strict non-goals, code generation, non-negotiables (dropped mandatory external-`rel` rule for rebuild layer), screenshot prefix note, supporting-skills rows, self-audit, frontmatter, `references/final-review-template.md`, `references/structured-prompts.md`, dependency policy updated.

@@ -1,4 +1,4 @@
-# Iterating on `vail-visual-rebuild`
+# Iterating on `resort-visual-rebuild`
 
 ## Goals when changing the skill
 
