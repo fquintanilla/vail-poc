@@ -2,6 +2,9 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
+/* Import theme colors */
+@import "./colors.css";
+
 @theme {
   --breakpoint-sm: 768px;
   --breakpoint-md: 992px;
@@ -11,25 +14,25 @@
 }
 
 @layer components {
-  .resort-container {
+  .wrapper {
     margin-inline: auto;
     padding-inline: 15px;
   }
 
   @media (min-width: 768px) {
-    .resort-container {
+    .wrapper {
       width: 750px;
     }
   }
 
   @media (min-width: 992px) {
-    .resort-container {
+    .wrapper {
       width: 970px;
     }
   }
 
   @media (min-width: 1200px) {
-    .resort-container {
+    .wrapper {
       width: 1170px;
     }
   }
