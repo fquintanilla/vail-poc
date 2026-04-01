@@ -3,6 +3,7 @@ import Link from "next/link";
 import sanitizeHtml from "sanitize-html";
 
 import type { PromoCardGrid } from "@/lib/types";
+import { jsonToHtml } from "@contentstack/json-rte-serializer";
 
 type PromoCardGridProps = {
   promoCardGrid: PromoCardGrid;
@@ -45,7 +46,7 @@ export function PromoCardGrid(props: PromoCardGridProps) {
                   {...(card.$?.card_body as {})}
                   className="text-left font-sans text-base leading-relaxed text-neutral-600"
                 >
-                  {sanitizeHtml(card.card_body)}
+                  {sanitizeHtml(jsonToHtml(card.card_body))}
                 </div>
                 <Link
                   href={card.call_to_action.href}

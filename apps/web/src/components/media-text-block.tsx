@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { MediaTextBlock } from "@/lib/types";
 import sanitizeHtml from "sanitize-html";
+import { jsonToHtml } from "@contentstack/json-rte-serializer";
 
 type MediaTextBlockProps = {
   mediaTextBlock: MediaTextBlock;
@@ -30,7 +31,7 @@ export function MediaTextBlock(props: MediaTextBlockProps) {
               {...(mediaTextBlock.$?.body as {})}
               className="mt-4 max-w-xl text-pretty font-sans text-base leading-relaxed text-neutral-600 sm:text-lg"
             >
-              {sanitizeHtml(mediaTextBlock.body)}
+              {sanitizeHtml(jsonToHtml(mediaTextBlock.body))}
             </div>
             <Link
               href={mediaTextBlock.call_to_action.href}
