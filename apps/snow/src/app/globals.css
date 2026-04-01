@@ -1,5 +1,53 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @source "..";
 
-@import "../../../../packages/ui/src/styles/vail.css";
+@theme {
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 992px;
+  --breakpoint-lg: 1200px;
+  /* Set by next/font in layout.tsx via --font-prompt */
+  --font-sans: var(--font-prompt), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer components {
+  .snow-container {
+    margin-inline: auto;
+    padding-inline: 15px;
+  }
+
+  @media (min-width: 768px) {
+    .snow-container {
+      width: 750px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .snow-container {
+      width: 970px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .snow-container {
+      width: 1170px;
+    }
+  }
+
+  .container-fluid {
+    margin-inline: auto;
+    padding-inline: 15px;
+  }
+}
+
+@layer base {
+  *:focus-visible {
+    outline-offset: 2px;
+    outline-style: auto;
+    outline-width: 2px;
+  }
+}
+
+/* @import "../../../../packages/ui/src/styles/globals.css"; */
