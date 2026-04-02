@@ -1,9 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin "@tailwindcss/typography";
-
-/* Import theme colors */
 @import "./colors.css";
+
+@plugin "@tailwindcss/typography";
 
 @theme {
   --breakpoint-sm: 768px;
