@@ -5,6 +5,8 @@
     "start": "turbo run start",
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "storybook": "turbo run storybook --filter=@repo/storybook",
+    "build-storybook": "turbo run build-storybook --filter=@repo/storybook",
     "check-types": "turbo run check-types",
     "lint": "turbo run lint",
     "lint:fix": "eslint . --fix",
@@ -12,9 +14,14 @@
     "check": "turbo run lint && turbo run check-types"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^10.3.4",
+    "@storybook/addon-docs": "^10.3.4",
+    "@storybook/nextjs-vite": "^10.3.4",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.2.1",
+    "eslint-plugin-storybook": "^10.3.4",
     "prettier": "^3.7.4",
+    "storybook": "^10.3.4",
     "turbo": "^2.8.21",
     "typescript": "5.9.3"
   },
