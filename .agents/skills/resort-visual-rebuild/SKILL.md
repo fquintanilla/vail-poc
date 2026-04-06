@@ -19,7 +19,7 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 
 1. **Rebuild vs integration boundary** — Generated files are a **lean presentational shell**: layout, tokens, semantics, framework-native primitives, and optional props. Prefer the appropriate **Next.js primitives** when they fit the job cleanly, such as **`next/image`**, **`next/link`**, and **`next/script`**. **Integration / final components** own: CMS wiring, rich-text handling, **HTML sanitization**, `dangerouslySetInnerHTML`, analytics, fetch, and other application-specific behavior. Keep the rebuild output focused on presentational structure that can be re-created or wired later in Contentstack or another CMS.
 
-2. **Resort project context = source of truth** — This skill assumes the component belongs to **`apps/resort`**. Read **`apps/resort/src/app/globals.css`** first, then follow and read the stylesheet imports it pulls in that affect theme, tokens, layout utilities, or component styling. Use that import graph as the source of truth for `@theme`, breakpoint mapping, wrapper sizing, and theme-aware design tokens. **When a resort token exists for a color, surface, border, ring, or similar themed value, use that token instead of a hardcoded hex or generic Tailwind neutral color.** Read the **supporting skill files that are relevant to this component and repo** and apply them by phase (see `references/supporting-skills.md`). **Do not** substitute memory or generic Tailwind defaults for repo facts.
+2. **Resort project context = source of truth** — This skill assumes the component belongs to **`apps/resort`**. Read **`apps/resort/src/app/globals.css`** first, then follow and read the stylesheet imports it pulls in that affect theme, tokens, layout utilities, or component styling. Use that import graph as the source of truth for `@theme`, breakpoint mapping, wrapper sizing, and theme-aware design tokens. **When a resort token exists for a color, surface, border, ring, or similar themed value, use that token instead of a hardcoded hex or generic Tailwind neutral color.** Also treat **Storybook** as part of the deliverable: new rebuild components should ship with a story under **`apps/storybook/src/stories`** using the repo’s Storybook conventions. Read the **supporting skill files that are relevant to this component and repo** and apply them by phase (see `references/supporting-skills.md`). **Do not** substitute memory or generic Tailwind defaults for repo facts.
 
 3. **Accessibility is structural** — Follow **`accessibility-a11y`** while writing markup: landmarks, headings, names, focus, contrast, alt. **Tab and reading order follow the DOM**—**no** flex/grid **`order`** to swap major regions (image vs copy); use **JSX child order** ([Focus order and DOM](#focus-order-and-dom-accessibility)). A11y is not a post-hoc checklist after bad structure.
 
@@ -316,6 +316,7 @@ These apply from the **first** implementation pass:
 4. **Use reusable styling patterns** — prefer project `cn`, centralize shared variants with CVA when a variant affects multiple surfaces, and avoid repetitive per-node string comparisons.
 5. **Prefer resort tokens when they fit** — use resort theme tokens for themed colors and shared visual variables whenever they exist, so the component responds correctly to the active theme. Do **not** use hardcoded hex values or generic Tailwind neutral colors for themed roles when a resort token exists. Fall back to arbitrary values only when screenshots justify it and the token system does not provide an equivalent.
 6. **Render optional content conditionally** — no empty shells or placeholder DOM unless layout stability truly requires it.
+7. **Ship a Storybook story** — create a story file for the rebuilt component with sensible variants/states so the component can be reviewed in isolation.
 
 The detailed implementation checklist, `cn`/CVA guidance, and dependency rules live in `references/implementation-checklist.md`.
 
@@ -335,8 +336,9 @@ Skipping this pass is a **process failure**; the deliverable is not complete unt
 
 ## Output defaults
 
-- Default to one file at the requested path.
-- Split only when interactivity or structure clearly justifies it.
+- Default to one component file at the requested path plus one Storybook story file for that component.
+- Put stories under **`apps/storybook/src/stories/resort`**, mirroring the component domain/path as closely as practical for the existing Storybook setup.
+- Split component files only when interactivity or structure clearly justifies it.
 - Default to a Server Component and keep optional props truly optional.
 
 Detailed file-shape and prop-shape checks live in `references/implementation-checklist.md`.
@@ -357,9 +359,10 @@ Execute **in order**:
 10. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — read the core `SKILL.md` files and any additional supporting skills that are relevant to the component  
 11. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — apply the relevant supporting skills, then run the checklist in `references/implementation-checklist.md`  
 12. Generate code at the provided path  
-13. Add extra files only if justified, same folder only  
-14. [Self-audit](#self-audit)  
-15. [Final code review](#final-code-review) — include [copy-paste usage example](#copy-paste-usage-example)  
+13. Create the matching Storybook story with variants under `apps/storybook/src/stories/resort`  
+14. Add extra files only if justified  
+15. [Self-audit](#self-audit)  
+16. [Final code review](#final-code-review) — include [copy-paste usage example](#copy-paste-usage-example)  
 
 ## Self-audit
 
@@ -368,7 +371,7 @@ Before finishing, verify **in order**:
 1. **[Global principles](#global-principles)** — integration boundary (no sanitize / URL parsers / CMS in rebuild file), **DOM = focus order** (no column `order-*`), **`@theme`-aligned** prefixes, **phased** skills, **[Visual extraction from screenshots](#visual-extraction-from-screenshots)** (pre-flight tokens reflected in classes).  
 2. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — final review lists the `SKILL.md` **paths actually read** (or missing); not “read once” only.  
 3. **[Non-negotiable implementation standards](#non-negotiable-implementation-standards-first-draft-must-comply)** + **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** completed, including `references/implementation-checklist.md`.  
-4. **Quality spot-checks** — semantic headings; `next/image` + `sizes`; **`cn`/CVA/enums**; server/client boundary; deps policy; no unnecessary file splits; honest evidence gaps; **major type/color/spacing** in code **align** with screenshot-derived pre-flight notes (not generic-only defaults).  
+4. **Quality spot-checks** — semantic headings; `next/image` + `sizes`; **`cn`/CVA/enums**; server/client boundary; deps policy; no unnecessary file splits; story file created with variants; honest evidence gaps; **major type/color/spacing** in code **align** with screenshot-derived pre-flight notes (not generic-only defaults).  
 5. **[Copy-paste usage example](#copy-paste-usage-example)** in the closing message (`placehold.co` / `remotePatterns` note when used).  
 
 ## Copy-paste usage example

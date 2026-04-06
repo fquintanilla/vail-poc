@@ -5,11 +5,13 @@ Use the same headings so repeated runs produce comparable reports.
 ## Files created
 
 - `path/to/Component/index.tsx` (…)
+- `apps/storybook/src/stories/resort/.../Component.stories.tsx` (…)
 - (optional) `path/to/Component/ComponentClient.tsx` (…)
 
 ## Structure decision
 
 - Single file / split files — **why**
+- Story path — why this Storybook location/title fits the repo convention
 
 ## Implementation quality pass
 
@@ -17,6 +19,7 @@ Use the same headings so repeated runs produce comparable reports.
 - **Skill files read (paths):** list each `.agents/skills/<slug>/SKILL.md` actually loaded (expect: `accessibility-a11y`, `next-best-practices`, `tailwind-design-system`, `tailwindcss-advanced-layouts`, `tailwindcss-mobile-first`, `vercel-react-best-practices`, `frontend-design`), or note any missing file in this repo
 - **Phased use (not load-and-forget):** one line per stage—mobile-first/layouts, Next/RSC + `next/*`, a11y, tokens/theme, Vercel React if client, frontend-design on polish
 - **Applied to code (not prose only):** (one line tying the above to what shipped)
+- **Storybook coverage:** list the created story and which variants/states it covers
 - `cn` object-form conditionals for layout/boolean flags: (yes / N/A — why)
 - CVA used for multi-node variants (e.g. theme): (yes — variants: … / no — justify per non-negotiable rules)
 - Non-negotiables spot-check: section `aria-labelledby`+heading `id` if applicable; **`next/image`**; no URL-parsing helpers; **no** sanitize / `dangerouslySetInnerHTML` in rebuild file; **DOM order = focus order** (no `order-*` on main columns—see `SKILL.md` “Focus order and DOM”); **themed colors come from resort tokens, not hardcoded hex/neutrals, when tokens exist**; **`as const` + `isDark`/CVA**; no `unoptimized` unless documented; note **integration** follow-ups (`Link`, `rel`, rich HTML) if needed
@@ -46,6 +49,12 @@ Use the same headings so repeated runs produce comparable reports.
 
 - None / **Proposed:** `package` — reason (approved: yes/no)
 
+## Storybook
+
+- Story title and path
+- Variants/states covered
+- Any limits or assumptions in the story setup
+
 ## Accessibility
 
 - Notable choices (landmarks, headings, focus, alt strategy)
@@ -70,7 +79,7 @@ Use the same headings so repeated runs produce comparable reports.
 
 **Mandatory:** one short JSX snippet the user can paste into a page (not the full component file). Use the **real** export name and prop names from this run. Prefer realistic placeholder strings.
 
-**Images:** when `src` is needed, use `https://placehold.co/{width}x{height}` with fitting dimensions.
+**Images:** when `src` is needed, use `https://placehold.co/{width}x{height}` with fitting dimensions. You may append `?text=...` if it helps distinguish story variants.
 
 **`next/image`:** one line stating whether the target app’s `next.config` `images.remotePatterns` already includes `placehold.co` (or any other host in the snippet); say to add it if missing.
 

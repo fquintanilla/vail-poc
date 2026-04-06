@@ -12,6 +12,8 @@ Use this after the user confirms the rebuild plan and before you ship code.
 6. Ensure major typography, color, spacing, radius, and image decisions trace back to screenshot evidence or an explicit assumption.
 7. For themed roles, use actual resort tokens from `globals.css` and its imported stylesheets. Do not use hardcoded hex values or generic Tailwind neutrals when a resort token exists.
 8. If the image comes from CMS or variable upstream assets, do not force crop behavior unless the screenshots clearly show it.
+9. Create a Storybook story under `apps/storybook/src/stories/resort` for the component.
+10. Include meaningful variants/states in the story, not just a single default case, when the component exposes variants or optional slots.
 
 ## `cn` and conditional classes
 
@@ -37,6 +39,8 @@ Use this after the user confirms the rebuild plan and before you ship code.
 
 - `next/image` is used correctly, with `sizes` aligned to the app breakpoints.
 - Resort colors and shared tokens come from `globals.css` and its imported stylesheets. Hardcoded hex values or generic Tailwind neutrals for themed roles are a failure when a resort token exists.
+- Storybook story uses `@storybook/nextjs-vite` conventions already present in the repo.
+- Story examples use `https://placehold.co/` for placeholder images when image props are needed. Per [Placehold docs](https://placehold.co/), use `https://placehold.co/{width}x{height}` and optionally `?text=...` when useful.
 - Client code exists only where interactivity truly requires it.
 - Optional content props do not render empty wrappers.
 - Section labeling and heading structure are coherent.
