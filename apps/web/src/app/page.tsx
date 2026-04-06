@@ -1,18 +1,12 @@
 import { HomeMain } from "@/components/home-main";
-import { Suspense } from "react";
+import { getPage } from "@/lib/contentstack";
+import customMetadata from "@/lib/customMetadata";
+
+export async function generateMetadata() {
+  const page = await getPage("/");
+  return customMetadata({ seo: page?.seo });
+}
 
 export default async function Home() {
-  return (
-    <Suspense
-      fallback={
-        <main className="max-w-(--breakpoint-md) mx-auto">
-          <section className="p-4">
-            <p className="text-muted-foreground">Loading…</p>
-          </section>
-        </main>
-      }
-    >
-      <HomeMain />
-    </Suspense>
-  );
+  return <HomeMain />;
 }
