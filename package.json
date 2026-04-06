@@ -5,6 +5,8 @@
     "start": "turbo run start",
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=@repo/web",
+    "dev:resort": "turbo run dev --filter=@repo/resort",
     "storybook": "turbo run storybook --filter=@repo/storybook",
     "build-storybook": "turbo run build-storybook --filter=@repo/storybook",
     "check-types": "turbo run check-types",
