@@ -7,7 +7,7 @@ export default async function Home() {
       fallback={
         <main className="max-w-(--breakpoint-md) mx-auto">
           <section className="p-4">
-            <p className="text-muted-foreground">Loading…</p>
+            <p className="text-muted-foreground">Loading the page…</p>
           </section>
         </main>
       }
