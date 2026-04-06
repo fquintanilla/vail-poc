@@ -9,7 +9,7 @@ description: Rebuild existing website UI as lean presentational Next.js 16 compo
 
 Recreate **existing website components as presentational Next.js 16 code** for **`apps/resort`** using **Tailwind CSS 4**, driven primarily by **mobile, tablet, and desktop screenshots**, with **optional** legacy HTML/CSS and **optional written style notes** from the user (see Step 3) when useful.
 
-This skill is for reusable **presentational rebuilds** across components in **`apps/resort`** such as heroes, promo banners, callouts, cards, media/text blocks, feature sections, and similar marketing UI. It is **not** a logic or CMS migration skill. Output must stay easy to wire into the later Contentstack integration layer.
+This skill is for reusable **presentational rebuilds** across marketing-style components in **`apps/resort`**. It is **not** a logic or CMS migration skill. Output must stay easy to wire into the later Contentstack integration layer.
 
 <a id="global-principles"></a>
 
@@ -87,7 +87,7 @@ Intake must feel like a **guided chat**, not a form dumped in one message.
 2. Tablet  
 3. Desktop  
 
-**Recommended viewport widths (soft guidance, not blocking):** Ask the user to capture at **approximately** **375px** (mobile), **1024px** (tablet), and **1440px** (desktop) when they can—DevTools responsive mode or equivalent. **Important:** derive prefix mapping from **`apps/resort/src/app/globals.css`** and its imported stylesheet graph. In the current resort setup, `globals.css` defines **`sm: 768px`**, **`md: 992px`**, and **`lg: 1200px`**, so **tablet at 1024px** maps to **`md:`**, not `lg:`. If their design uses different canonical widths, they may state actual widths in the reply; note them in pre-flight for implementation.
+**Recommended viewport widths (soft guidance, not blocking):** Ask the user to capture at **approximately** **375px** (mobile), **1024px** (tablet), and **1440px** (desktop) when they can. Derive prefix mapping from **`apps/resort/src/app/globals.css`** and its imported stylesheet graph. In the current resort setup, **1024px** maps to **`md:`**, not `lg:`. If their design uses different canonical widths, note them in pre-flight.
 
 User may attach three files in one reply or in follow-up messages in the same step—do not advance to Step 3 until all three are present (or user says one is unavailable—in which case note it for pre-flight **Open questions** and still proceed).
 
@@ -123,7 +123,7 @@ Ask whether the user can share **any** optional legacy input, such as:
 
 **When implementing:**
 
-- Treat **user-authored style notes** as **high-signal** when they describe the legacy component: map them to Tailwind v4 classes or project tokens (`@repo/ui` / `globals.css`) where possible.
+- Treat **user-authored style notes** as **high-signal** when they describe the legacy component: map them to Tailwind v4 classes or project tokens where possible.
 - For **HTML/CSS**: use only when **structurally meaningful**; strip CMS noise and Sitecore artifacts unless clearly useful.
 - **Conflict resolution:** If written notes or markup **contradict** the screenshots on something visible (layout side, background color, spacing), **screenshots win** for composition—**flag the conflict** in pre-flight **Open questions** and ask unless the user already said “trust the notes over pixels.”
 

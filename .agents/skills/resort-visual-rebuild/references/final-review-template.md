@@ -14,8 +14,8 @@ Use the same headings so repeated runs produce comparable reports.
 ## Implementation quality pass
 
 - **Global principles (`SKILL.md`):** confirm rebuild vs integration boundary, DOM=focus order, `@theme` prefix map, phased skills, **visual extraction** (screenshot-backed type/color/spacing in pre-flight + code)—yes / gaps noted
-- **Skill files read (paths):** list each `.agents/skills/<slug>/SKILL.md` actually loaded (expect: `accessibility-a11y`, `next-best-practices`, `tailwind-design-system`, `tailwind-theme-builder`, `tailwindcss-advanced-layouts`, `tailwindcss-mobile-first`, `vercel-react-best-practices`, `frontend-design`), or note any missing file in this repo
-- **Phased use (not load-and-forget):** one line per stage—e.g. mobile-first + layouts in plan/classes; Next/RSC + `next/*` first; a11y on markup; tokens/theme on utilities; Vercel React if client; frontend-design on polish
+- **Skill files read (paths):** list each `.agents/skills/<slug>/SKILL.md` actually loaded (expect: `accessibility-a11y`, `next-best-practices`, `tailwind-design-system`, `tailwindcss-advanced-layouts`, `tailwindcss-mobile-first`, `vercel-react-best-practices`, `frontend-design`), or note any missing file in this repo
+- **Phased use (not load-and-forget):** one line per stage—mobile-first/layouts, Next/RSC + `next/*`, a11y, tokens/theme, Vercel React if client, frontend-design on polish
 - **Applied to code (not prose only):** (one line tying the above to what shipped)
 - `cn` object-form conditionals for layout/boolean flags: (yes / N/A — why)
 - CVA used for multi-node variants (e.g. theme): (yes — variants: … / no — justify per non-negotiable rules)
@@ -70,7 +70,7 @@ Use the same headings so repeated runs produce comparable reports.
 
 **Mandatory:** one short JSX snippet the user can paste into a page (not the full component file). Use the **real** export name and prop names from this run. Prefer realistic placeholder strings.
 
-**Images:** when `src` is needed, use `https://placehold.co/{width}x{height}` and choose dimensions that fit the layout (e.g. `600x400`, `1200x800`).
+**Images:** when `src` is needed, use `https://placehold.co/{width}x{height}` with fitting dimensions.
 
 **`next/image`:** one line stating whether the target app’s `next.config` `images.remotePatterns` already includes `placehold.co` (or any other host in the snippet); say to add it if missing.
 
