@@ -3,7 +3,11 @@
   "private": true,
   "scripts": {
     "start": "turbo run start",
+    "start:web": "turbo run start --filter=@repo/web",
+    "start:resort": "turbo run start --filter=@repo/resort",
     "build": "turbo run build",
+    "build:web": "turbo run build --filter=@repo/web",
+    "build:resort": "turbo run build --filter=@repo/resort",
     "dev": "turbo run dev",
     "dev:web": "turbo run dev --filter=@repo/web",
     "dev:resort": "turbo run dev --filter=@repo/resort",
