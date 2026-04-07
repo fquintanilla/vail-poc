@@ -52,7 +52,13 @@
     {
       "id": 9,
       "prompt": "Make a component named `Featured Stories Slider` from three screenshots. The desktop and tablet screenshots clearly show multiple cards with previous/next controls and pagination dots. I am not giving extra implementation guidance beyond the screenshots.",
-      "expected_output": "Agent infers carousel behavior from the screenshots, checks the installed brands stack before considering any new dependency, and does not ask the user to declare whether the component is interactive.",
+      "expected_output": "Agent infers carousel behavior from the screenshots, checks whether the brands app already has a carousel package, installs Embla if it does not, and does not ask the user to declare whether the component is interactive.",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "Build a component named `Mountain Questions` from three screenshots. The screenshots show stacked disclosure rows with chevrons and one expanded answer state, but I am not providing any extra behavior notes.",
+      "expected_output": "Agent infers accordion behavior from the screenshots, checks whether the brands app already has the needed accordion primitives, installs Radix UI if they are missing, and keeps the intake focused on the screenshots instead of asking the user to specify the interaction.",
       "files": []
     }
   ]

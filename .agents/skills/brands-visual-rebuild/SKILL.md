@@ -23,7 +23,7 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 
 3. **Accessibility is structural** — Follow **`accessibility-a11y`** while writing markup: landmarks, headings, names, focus, contrast, alt. **Tab and reading order follow the DOM**—**no** flex/grid **`order`** to swap major regions (image vs copy); use **JSX child order** ([Focus order and DOM](#focus-order-and-dom-accessibility)). A11y is not a post-hoc checklist after bad structure.
 
-4. **Interactivity is inferred from evidence** — Do **not** make the user declare obvious behavior such as carousel, accordion, tabs, or dismissible panels when the screenshots already show it. Detect likely interaction patterns from the visual evidence and implement them when the design clearly calls for them. Prefer the platform and the packages already installed in `apps/brands`; do not reach for new dependencies when React, Next.js, semantic HTML, and the current workspace stack are enough. If the screenshots are ambiguous about whether something actually interacts, surface that uncertainty in pre-flight instead of silently inventing behavior.
+4. **Interactivity is inferred from evidence** — Do **not** make the user declare obvious behavior such as carousel, accordion, tabs, or dismissible panels when the screenshots already show it. Detect likely interaction patterns from the visual evidence and implement them when the design clearly calls for them. First check whether the needed package already exists in `apps/brands`; if not, install the default top-tier option for that pattern: **Radix UI** for accordion / dialog / tabs / dropdown / tooltip / select / slider, **shadcn/ui** for broader UI-base primitives, **Embla** for carousel, **React Hook Form + Zod** for forms, **TanStack Table** for tables, **React Day Picker** for calendars, **Sonner** for toasts, **Motion** for animation, **dnd-kit** for drag and drop, **TanStack Query** for API fetching/cache, and **Zustand** for simple global state. If the needed interaction is not covered by that list, pick another top-tier library and justify it in the final review. If the screenshots are ambiguous about whether something actually interacts, surface that uncertainty in pre-flight instead of silently inventing behavior.
 
 5. **One styling system per component** — **`as const`** theme/layout keys, **`isDark`** (or equivalent) + **boolean CVA**, **`cn`** object maps for safe flags; avoid repeated string theme compares across nodes.
 
@@ -172,23 +172,19 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
 **Mandatory gate.** After Steps 1–4 are complete (and optional steps skipped or answered “none”), **do not generate code yet**. This is the **first** place where you perform full cross-screenshot analysis and consolidation.
 
 1. **Synthesize** everything received: raw component name, resolved component path, breakpoint evidence, optional markup + **style notes** verdict, inferred interaction needs, inferred content slots, and any user corrections or extra hints from Step 4.  
-2. **Summarize in a short, fixed block** for the user (use the same headings every run):
+2. **Summarize in a short, fixed block** for the user (use the same headings every run). Keep this intentionally compact: prefer short phrases, compress related points onto one line, and avoid re-explaining rules that already live elsewhere in the skill.
 
    ```markdown
    ## Rebuild plan (confirm before implementation)
 
    - **Component name:** raw input `…` → resolved `…`
    - **Destination:** `apps/brands/src/components/<CleanComponentName>/index.tsx`
-   - **Evidence:** mobile / tablet / desktop screenshots (+ legacy HTML/CSS: used / ignored / partial; **style notes:** summarized bullets or *none*)
-   - **Field names & extra hints:** screenshot-inferred defaults `…`; user adjustments `…` or *none*
-   - **Layout & responsiveness:** …  
-   - **Interaction inferred from screenshots:** none / carousel / accordion / tabs / dismissible / uncertain … and whether the current `apps/brands` stack can support it without new dependencies
-   - **Visual tokens from screenshots (per breakpoint where they differ):** typography, surfaces, borders, spacing, radius/shadow, media treatment, and the **specific shared theme tokens** chosen from **`packages/ui/src/styles/globals.css`** for each themed value—see [Visual extraction from screenshots](#visual-extraction-from-screenshots)  
-   - **Tailwind prefix map (from `apps/brands/src/app/globals.css`):** which screenshot (mobile / tablet / desktop) maps to `sm:` / `md:` / `lg:` in `apps/brands`—see [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
-   - **Theme / variants:** … (e.g. light/dark, image left/right)
-   - **Interactivity & dependencies:** … (prefer built-ins and installed packages first; call out if anything truly needs approval)
-   - **Props (optional slots):** … (from screenshots first, then renamed/extended only where the user asked)
-   - **Implementation standards (after you confirm):** satisfy **[Global principles](#global-principles)**; read supporting `SKILL.md` files and draft with CVA + `cn`, structural a11y, `next/image`, tokens
+   - **Evidence:** mobile / tablet / desktop + legacy HTML/CSS (**used / ignored / partial**) + style notes (**summary / none**)
+   - **Fields & hints:** screenshot-inferred `…`; user adjustments `…` or *none*
+   - **Layout / variants / interaction:** …; dependency plan `installed / add <preferred library> / justified alternative`  
+   - **Key visual tokens:** …  
+   - **Breakpoint map:** mobile / tablet / desktop → `…`
+   - **Props:** … (optional slots only)
    - **Open questions:** … *(must be non-empty if anything is unclear)*
    ```
 
@@ -236,7 +232,7 @@ Treat each capture as a **frozen design spec** at that viewport. Goal: **match v
 - Prefer the semantic colors and variables exposed through **`packages/ui/src/styles/globals.css`**. If a matching theme token exists for the visible role, use it. Do **not** fall back to hex values or generic Tailwind neutrals just because they look close. Use arbitrary values only when the screenshots clearly require a value that the token set does not provide.
 - Encode **responsive type** (e.g. title larger on desktop) by **different utilities at the correct prefix** (`md:text-…`, `lg:text-…`) **derived from comparing** the three screenshots—not one size for all widths unless all three look the same.
 - **CTA and chips:** match border thickness, padding, and gradient/solid fill from pixels when visible.
-- **Interactive patterns from screenshots:** if the screenshots clearly show repeated slides, accordion disclosures, tab sets, dismiss controls, or similar UI, implement that behavior instead of asking the user to declare it up front. Prefer semantic HTML, React state, and packages already installed in `apps/brands`. If the workspace lacks a dedicated library and the pattern is straightforward, implement it without adding a new dependency.
+- **Interactive patterns from screenshots:** if the screenshots clearly show repeated slides, accordion disclosures, tab sets, dismiss controls, or similar UI, implement that behavior instead of asking the user to declare it up front. First use an already-installed package when the right one exists in `apps/brands`. If it does not exist, install the default top-tier library for that interaction pattern from [Global principles](#global-principles). If the pattern is outside that preferred list, choose another top-tier library and document why it was the best fit.
 - **Images from CMS:** do **not** assume cropping by default. If screenshots do not clearly show a fixed-ratio or cropped treatment, keep the image responsive and preserve its natural aspect ratio.
 
 **Honesty:** If the image is too small or compressed to justify a number, state an **assumption** (`references/assumption-log.md`) and pick the nearest step; **do not** claim pixel-perfect without evidence.
@@ -274,7 +270,7 @@ Treat each capture as a **frozen design spec** at that viewport. Goal: **match v
 - Prefer appropriate **Next.js primitives** (`next/image`, `next/link`, `next/script`, etc.) instead of raw HTML when they fit cleanly.
 - Use reusable variant patterns: shared `as const` keys, a resolved flag such as `isDark`, and CVA/`cn` instead of repeated per-node string comparisons.
 - Keep major class decisions traceable to screenshot-backed pre-flight notes.
-- Infer interaction from the screenshots when the pattern is visually clear; do not bounce that responsibility back to the user during intake.
+- Infer interaction from the screenshots when the pattern is visually clear; do not bounce that responsibility back to the user during intake. If the inferred interaction needs a library and `apps/brands` does not already include it, install the preferred top-tier option for that pattern before implementing.
 - If a whole-card or whole-section link pattern is clearly intended by the design or interaction model, that is acceptable. Do not treat a single clickable wrapper as a bug by default; judge it against the visible pattern and accessibility requirements.
 - Ship the first generated version in a usable state; do not rely on a later cleanup pass.
 
@@ -321,7 +317,7 @@ These apply from the **first** implementation pass:
 4. **Use reusable styling patterns** — prefer project `cn`, centralize shared variants with CVA when a variant affects multiple surfaces, and avoid repetitive per-node string comparisons.
 5. **Prefer shared theme tokens when they fit** — use theme tokens for themed colors and shared visual variables whenever they exist, so the component responds correctly to the active theme. Do **not** use hardcoded hex values or generic Tailwind neutral colors for themed roles when a matching token exists. Fall back to arbitrary values only when screenshots justify it and the token system does not provide an equivalent.
 6. **Render optional content conditionally** — no empty shells or placeholder DOM unless layout stability truly requires it.
-7. **Infer and implement clear interaction patterns** — if the screenshots clearly depict carousel, accordion, tabs, dismiss controls, or similar behavior, implement that behavior using semantic HTML, React/Next primitives, and the packages already installed in `apps/brands` before considering any new dependency.
+7. **Infer and implement clear interaction patterns** — if the screenshots clearly depict carousel, accordion, tabs, dismiss controls, or similar behavior, implement that behavior using the installed brands stack when available; otherwise install the preferred top-tier library for that pattern from [Global principles](#global-principles), or a justified top-tier alternative if the pattern is not covered there.
 8. **Ship a Storybook story** — create a story file for the rebuilt component with sensible variants/states so the component can be reviewed in isolation.
 
 The detailed implementation checklist, `cn`/CVA guidance, and dependency rules live in `references/implementation-checklist.md`.
@@ -360,7 +356,7 @@ Execute **in order**:
 4. Optional naming and hints — confirm screenshot-inferred field names, rename props if needed, and add extra variant/style/behavior hints only where the screenshots are incomplete  
 5. **[Pre-flight](#pre-flight-analysis-and-user-confirmation-before-code)** — full analysis: screenshots per breakpoint, inferred interaction needs, inferred content structure, HTML/CSS + **style notes** usefulness, conflicts, open questions; **wait for go-ahead**  
 6. After confirmation: detailed layout/Tailwind plan if not fully settled in pre-flight—**include prefix map** from [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
-7. Resolve whether the current installed stack is sufficient for any inferred interaction; only escalate if something truly needs approval  
+7. Resolve inferred interaction dependencies: use the installed brands stack when it already covers the pattern, otherwise install the preferred top-tier library for that pattern; only escalate to a justified alternative when the preferred list does not cover the need  
 8. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — read the core `SKILL.md` files and any additional supporting skills that are relevant to the component  
 9. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — apply the relevant supporting skills, then run the checklist in `references/implementation-checklist.md`  
 10. Generate code at the resolved component path  
@@ -385,7 +381,7 @@ The closing report must include one short usage snippet under `## Copy-paste usa
 
 ## Final code review
 
-End every run with a **short, fixed-structure** summary. Follow `references/final-review-template.md` for the exact bullets.
+End every run with a **short, fixed-structure** summary. Follow `references/final-review-template.md` for the exact bullets. Keep the close-out concise: prefer 1 short line per section, skip low-signal recap, and keep the analysis lighter than the implementation work itself unless the user explicitly asks for depth.
 
 Minimum content:
 
