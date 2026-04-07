@@ -9,7 +9,7 @@
 
 ## What to measure
 
-1. **Process adherence** — Does the run use **one intake step per turn** (no wall of Steps 1–6), **Step 2 asks for all three screenshots in one message**, intake stays **light** (no deep image analysis until pre-flight), then **pre-flight + confirmation** before coding? **After confirmation**, did the agent read the **core supporting skills** plus the **relevant conditional ones** and apply them at the right phase (see `references/supporting-skills.md`) rather than doing a single undifferentiated read? Does the **first** code pass reflect reusable styling, appropriate Next built-ins, a11y, and screenshot-grounded decisions without depending on a cleanup pass?
+1. **Process adherence** — Does the run use **one intake step per turn** (no wall of Steps 1–5), **Step 2 asks for all three screenshots in one message**, intake stays **light** (no deep image analysis until pre-flight), then **pre-flight + confirmation** before coding? **After confirmation**, did the agent read the **core supporting skills** plus the **relevant conditional ones** and apply them at the right phase (see `references/supporting-skills.md`) rather than doing a single undifferentiated read? Does the **first** code pass reflect reusable styling, appropriate Next built-ins, a11y, screenshot-grounded decisions, and inferred interaction when the screenshots clearly call for it, without depending on a cleanup pass?
 2. **Non-goals** — No fetch, no CMS hooks, no analytics in output?
 3. **Tailwind prefixes vs captures** — Did the agent read the app’s `@theme` (e.g. brands `md` 992 / `lg` 1200) so **tablet ~1024** uses **`md:`**, not **`lg:`**, for layout seen on the tablet screenshot?
 4. **Conditional rendering** — Missing props omit UI (spot-check generated JSX)?
@@ -21,7 +21,7 @@
 - Side-by-side: output vs screenshots at three breakpoints; **tab order** matches **DOM order** (no `order-*` inverting image vs copy columns).
 - **Visual metrics:** do title/body/CTA **sizes, weights, colors, and spacing** match what pre-flight extracted from the images (arbitrary Tailwind values justified when tokens don’t fit)?
 - Is Tailwind readable and maintainable?
-- Any new dependency without approval?
+- Any unnecessary new dependency when the installed stack should have been enough?
 
 ## Quantitative checks (optional)
 

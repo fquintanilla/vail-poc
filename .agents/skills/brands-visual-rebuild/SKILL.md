@@ -23,11 +23,13 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 
 3. **Accessibility is structural** — Follow **`accessibility-a11y`** while writing markup: landmarks, headings, names, focus, contrast, alt. **Tab and reading order follow the DOM**—**no** flex/grid **`order`** to swap major regions (image vs copy); use **JSX child order** ([Focus order and DOM](#focus-order-and-dom-accessibility)). A11y is not a post-hoc checklist after bad structure.
 
-4. **One styling system per component** — **`as const`** theme/layout keys, **`isDark`** (or equivalent) + **boolean CVA**, **`cn`** object maps for safe flags; avoid repeated string theme compares across nodes.
+4. **Interactivity is inferred from evidence** — Do **not** make the user declare obvious behavior such as carousel, accordion, tabs, or dismissible panels when the screenshots already show it. Detect likely interaction patterns from the visual evidence and implement them when the design clearly calls for them. Prefer the platform and the packages already installed in `apps/brands`; do not reach for new dependencies when React, Next.js, semantic HTML, and the current workspace stack are enough. If the screenshots are ambiguous about whether something actually interacts, surface that uncertainty in pre-flight instead of silently inventing behavior.
 
-5. **Screenshots = quantitative design spec, not only wireframes** — The **three attachments** are the main source for **concrete** styling: approximate **font size, weight, tracking, line-height, casing**, **text and background colors**, **padding/margin/gap**, **borders and radius**, **shadows**, **image aspect / treatment**. In **pre-flight** and **implementation**, derive **the closest defensible Tailwind/CSS values** per breakpoint (compare mobile vs tablet vs desktop when type or spacing **changes**). Prefer **project tokens** when they match pixels. Use arbitrary values only when the shared theme token system genuinely has no suitable equivalent and the screenshots clearly justify the deviation. **Do not** substitute generic defaults (`text-lg`, `p-4`, `rounded-md`) when screenshots clearly show something else. **Do not** invent UI, layout variants, interactions, or image-cropping behavior that are not supported by the visible evidence. **Log assumptions** when compression or blur blocks exact pixels ([Visual extraction from screenshots](#visual-extraction-from-screenshots)).
+5. **One styling system per component** — **`as const`** theme/layout keys, **`isDark`** (or equivalent) + **boolean CVA**, **`cn`** object maps for safe flags; avoid repeated string theme compares across nodes.
 
-6. **Skill maintenance (meta)** — When editing `brands-visual-rebuild`, **fold** new requirements into **Global principles** or **one** linked subsection—**avoid** append-only reactive bullets that repeat the same idea under Strict non-goals, Code generation, Non-negotiables, and Self-audit without pointing here first.
+6. **Screenshots = quantitative design spec, not only wireframes** — The **three attachments** are the main source for **concrete** styling: approximate **font size, weight, tracking, line-height, casing**, **text and background colors**, **padding/margin/gap**, **borders and radius**, **shadows**, **image aspect / treatment**. In **pre-flight** and **implementation**, derive **the closest defensible Tailwind/CSS values** per breakpoint (compare mobile vs tablet vs desktop when type or spacing **changes**). Prefer **project tokens** when they match pixels. Use arbitrary values only when the shared theme token system genuinely has no suitable equivalent and the screenshots clearly justify the deviation. **Do not** substitute generic defaults (`text-lg`, `p-4`, `rounded-md`) when screenshots clearly show something else. **Do not** invent UI, layout variants, interactions, or image-cropping behavior that are not supported by the visible evidence. **Log assumptions** when compression or blur blocks exact pixels ([Visual extraction from screenshots](#visual-extraction-from-screenshots)).
+
+7. **Skill maintenance (meta)** — When editing `brands-visual-rebuild`, **fold** new requirements into **Global principles** or **one** linked subsection—**avoid** append-only reactive bullets that repeat the same idea under Strict non-goals, Code generation, Non-negotiables, and Self-audit without pointing here first.
 
 ## Strict non-goals
 
@@ -52,13 +54,13 @@ To keep runs **highly similar** across sessions:
 
 ## Collect first, analyze later (latency and focus)
 
-During **Steps 1–6**, behave as **intake only**:
+During **Steps 1–5**, behave as **intake only**:
 
 - **Do not** deeply analyze screenshots, compare breakpoints, infer grid structure, or write long design commentary.
 - **Do not** read image pixels beyond a **one-line acknowledgment** (e.g. “Got all three—continuing to Step 3.”).
 - **Do** store mentally / rely on the thread for answers and move to the next step quickly.
 
-**Full** visual analysis—including **quantitative** pass on typography, color, spacing, and radii from the images—layout decisions, Tailwind strategy, conflicts between screenshot vs markup vs prompts, and **Open questions** belong in the **pre-flight** block **after** Step 6—and in implementation **after** user confirmation.
+**Full** visual analysis—including **quantitative** pass on typography, color, spacing, radii, and likely interaction patterns from the images—layout decisions, Tailwind strategy, conflicts between screenshot vs markup vs prompts, and **Open questions** belong in the **pre-flight** block **after** Step 5—and in implementation **after** user confirmation.
 
 This keeps each intake turn short and avoids “thinking” on every step like a final implementation pass. **After** pre-flight, screenshots are still the authority for **how big / how bold / which hex**—not only box structure.
 
@@ -68,20 +70,20 @@ Intake must feel like a **guided chat**, not a form dumped in one message.
 
 **Do:**
 
-- Send **only one main intake step** per assistant turn. Label it: `Step X of 6 — <short title>`.
+- Send **only one main intake step** per assistant turn. Label it: `Step X of 5 — <short title>`.
 - **Wait for the user’s reply** before sending the next step.
 - Keep each message **short** (few sentences + bullets if needed).
-- For **optional** steps (3–6), offer **fast exits**, e.g. “Reply **none** / **skip** if you have no HTML/CSS **and no style notes**” or “**A)** no interaction **B)** needs interaction—describe.” (Plain text; no dependency on client UI affordances.)
-- After **Step 6**, send the **Rebuild plan** pre-flight block **alone**, **then** do consolidated analysis—still wait for confirmation before coding.
+- For **optional** steps (3–5), offer **fast exits**, e.g. “Reply **none** / **skip** if you have no HTML/CSS **and no style notes**”. (Plain text; no dependency on client UI affordances.)
+- After **Step 5**, send the **Rebuild plan** pre-flight block **alone**, **then** do consolidated analysis—still wait for confirmation before coding.
 
 **Do not:**
 
-- List **all** steps (1–6) in a single message.
+- List **all** steps (1–5) in a single message.
 - Ask for Step 3+ before Step 1 and Step 2 are satisfied.
-- Combine the pre-flight block with Step 6 in the same turn unless the user already finished every prior step in earlier messages.
+- Combine the pre-flight block with Step 5 in the same turn unless the user already finished every prior step in earlier messages.
 - Spend intake turns on analysis that belongs in pre-flight.
 
-**Screenshots (Step 2) — single message:** In **one** Step 2 turn, request **all three** attachments in **this order** and state they are the primary evidence for **layout and for concrete styling** (sizes, weights, colors, spacing)—with full **measurement-style** extraction in **pre-flight** after Step 6, not during intake:
+**Screenshots (Step 2) — single message:** In **one** Step 2 turn, request **all three** attachments in **this order** and state they are the primary evidence for **layout, concrete styling, and likely interaction patterns** (sizes, weights, colors, spacing, carousel/accordion/tab evidence)—with full extraction in **pre-flight** after Step 5, not during intake:
 
 1. Mobile  
 2. Tablet  
@@ -139,31 +141,24 @@ Ask whether the user can share **any** optional legacy input, such as:
 - For **HTML/CSS**: use only when **structurally meaningful**; strip CMS noise and Sitecore artifacts unless clearly useful.
 - **Conflict resolution:** If written notes or markup **contradict** the screenshots on something visible (layout side, background color, spacing), **screenshots win** for composition—**flag the conflict** in pre-flight **Open questions** and ask unless the user already said “trust the notes over pixels.”
 
-### Step 4 — Interactivity and dependencies
+### Step 4 — Optional content structure
 
-**One turn;** Step 4 only. Ask whether the component needs **interaction** (hover menus, carousel, tabs, dialogs, etc.) or behavior that might need a **library**.
-
-- **Default:** implement without new dependencies.
-- If a dependency would clearly help: **propose it**, explain why, and **wait for approval** before adding. If rejected, implement a **no-dependency** version when reasonable.
-
-### Step 5 — Optional content structure
-
-**One turn;** Step 5 only. Ask which **content pieces** the component may contain (optional list), for example:
+**One turn;** Step 4 only. Ask which **content pieces** the component may contain (optional list), for example:
 
 eyebrow, title, subtitle, description, image, CTA, secondary CTA, badge, caption, logo, items, links, etc.
 
 Map these to **optional props**. If a value is absent, **do not render** that UI (no empty wrappers unless layout absolutely requires a stable shell—prefer avoiding placeholder DOM).
 
-### Step 6 — Optional structured prompts (design hints)
+### Step 5 — Optional structured prompts (design hints)
 
-**One turn;** Step 6 only. Ask whether the user wants to supply **structured hints** (freeform bullets or key-value lines) about the component—**this step is optional**.
+**One turn;** Step 5 only. Ask whether the user wants to supply **structured hints** (freeform bullets or key-value lines) about the component—**this step is optional**.
 
 Examples of what users may pass:
 
 - content hints such as `heading`, `description`, `eyebrow`, `body`, `media`, `items`, `caption`, `cta`, `links`, `meta`, `badge`, or other slots that fit the component  
 - layout hints such as `mediaPosition`, `alignment`, `columns`, `stacking`, `density`, or similar structure-related cues  
 - visual hints such as `theme`, `surface`, `emphasis`, `tone`, or contrast direction  
-- behavior hints such as `interactive: true`, `carousel`, `tabs`, `accordion`, or other interaction requirements when they matter  
+- behavior hints such as `interactive: true`, `carousel`, `tabs`, `accordion`, or other interaction requirements when they matter, especially if the screenshots alone do not make the behavior obvious  
 - any additional keys that help clarify the intended structure without replacing the screenshots as primary evidence
 
 **Use structured prompts to:**
@@ -180,9 +175,9 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
 
 ## Pre-flight analysis and user confirmation (before code)
 
-**Mandatory gate.** After Steps 1–6 are complete (and optional steps skipped or answered “none”), **do not generate code yet**. This is the **first** place where you perform full cross-screenshot analysis and consolidation.
+**Mandatory gate.** After Steps 1–5 are complete (and optional steps skipped or answered “none”), **do not generate code yet**. This is the **first** place where you perform full cross-screenshot analysis and consolidation.
 
-1. **Synthesize** everything received: raw component name, resolved component path, breakpoint evidence, optional markup + **style notes** verdict, interactivity/dependency needs, content slots, structured prompts (if any).  
+1. **Synthesize** everything received: raw component name, resolved component path, breakpoint evidence, optional markup + **style notes** verdict, inferred interaction needs, content slots, structured prompts (if any).  
 2. **Summarize in a short, fixed block** for the user (use the same headings every run):
 
    ```markdown
@@ -193,10 +188,11 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
    - **Evidence:** mobile / tablet / desktop screenshots (+ legacy HTML/CSS: used / ignored / partial; **style notes:** summarized bullets or *none*)
    - **Structured prompts:** … or *none*
    - **Layout & responsiveness:** …  
+   - **Interaction inferred from screenshots:** none / carousel / accordion / tabs / dismissible / uncertain … and whether the current `apps/brands` stack can support it without new dependencies
    - **Visual tokens from screenshots (per breakpoint where they differ):** typography, surfaces, borders, spacing, radius/shadow, media treatment, and the **specific shared theme tokens** chosen from **`packages/ui/src/styles/globals.css`** for each themed value—see [Visual extraction from screenshots](#visual-extraction-from-screenshots)  
    - **Tailwind prefix map (from `apps/brands/src/app/globals.css`):** which screenshot (mobile / tablet / desktop) maps to `sm:` / `md:` / `lg:` in `apps/brands`—see [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
    - **Theme / variants:** … (e.g. light/dark, image left/right)
-   - **Interactivity & dependencies:** …
+   - **Interactivity & dependencies:** … (prefer built-ins and installed packages first; call out if anything truly needs approval)
    - **Props (optional slots):** …
    - **Implementation standards (after you confirm):** satisfy **[Global principles](#global-principles)**; read supporting `SKILL.md` files and draft with CVA + `cn`, structural a11y, `next/image`, tokens
    - **Open questions:** … *(must be non-empty if anything is unclear)*
@@ -216,7 +212,7 @@ Apply in this **exact** order when resolving design decisions:
 2. **`apps/brands/src/app/globals.css`** — use for breakpoints, wrappers, and app-level layout utilities  
 3. **`packages/ui/src/styles/globals.css`** — use for shared color tokens, theme variables, and `@theme inline` aliases; these outrank generic Tailwind color choices  
 3. **User-provided style notes** from Step 3 (colors, padding, container rules, typography, DevTools class hints)—use to **inform** Tailwind and tokens; on **visible** conflict with screenshots, prefer screenshots and **surface** in Open questions unless the user prioritized notes  
-4. **Structured prompts** (Step 6): `theme`, `imagePosition`, slot names—on conflict with screenshots, **ask**  
+4. **Structured prompts** (Step 5): `theme`, `imagePosition`, slot names—on conflict with screenshots, **ask**  
 5. Coherent, useful legacy HTML/CSS (when provided)  
 6. Project conventions and **loaded** supporting skill files (see [Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)—not generic “best practices” from memory)  
 7. Careful inference—**document every inference** as an assumption  
@@ -246,6 +242,7 @@ Treat each capture as a **frozen design spec** at that viewport. Goal: **match v
 - Prefer the semantic colors and variables exposed through **`packages/ui/src/styles/globals.css`**. If a matching theme token exists for the visible role, use it. Do **not** fall back to hex values or generic Tailwind neutrals just because they look close. Use arbitrary values only when the screenshots clearly require a value that the token set does not provide.
 - Encode **responsive type** (e.g. title larger on desktop) by **different utilities at the correct prefix** (`md:text-…`, `lg:text-…`) **derived from comparing** the three screenshots—not one size for all widths unless all three look the same.
 - **CTA and chips:** match border thickness, padding, and gradient/solid fill from pixels when visible.
+- **Interactive patterns from screenshots:** if the screenshots clearly show repeated slides, accordion disclosures, tab sets, dismiss controls, or similar UI, implement that behavior instead of asking the user to declare it up front. Prefer semantic HTML, React state, and packages already installed in `apps/brands`. If the workspace lacks a dedicated library and the pattern is straightforward, implement it without adding a new dependency.
 - **Images from CMS:** do **not** assume cropping by default. If screenshots do not clearly show a fixed-ratio or cropped treatment, keep the image responsive and preserve its natural aspect ratio.
 
 **Honesty:** If the image is too small or compressed to justify a number, state an **assumption** (`references/assumption-log.md`) and pick the nearest step; **do not** claim pixel-perfect without evidence.
@@ -283,6 +280,7 @@ Treat each capture as a **frozen design spec** at that viewport. Goal: **match v
 - Prefer appropriate **Next.js primitives** (`next/image`, `next/link`, `next/script`, etc.) instead of raw HTML when they fit cleanly.
 - Use reusable variant patterns: shared `as const` keys, a resolved flag such as `isDark`, and CVA/`cn` instead of repeated per-node string comparisons.
 - Keep major class decisions traceable to screenshot-backed pre-flight notes.
+- Infer interaction from the screenshots when the pattern is visually clear; do not bounce that responsibility back to the user during intake.
 - If a whole-card or whole-section link pattern is clearly intended by the design or interaction model, that is acceptable. Do not treat a single clickable wrapper as a bug by default; judge it against the visible pattern and accessibility requirements.
 - Ship the first generated version in a usable state; do not rely on a later cleanup pass.
 
@@ -329,7 +327,8 @@ These apply from the **first** implementation pass:
 4. **Use reusable styling patterns** — prefer project `cn`, centralize shared variants with CVA when a variant affects multiple surfaces, and avoid repetitive per-node string comparisons.
 5. **Prefer shared theme tokens when they fit** — use theme tokens for themed colors and shared visual variables whenever they exist, so the component responds correctly to the active theme. Do **not** use hardcoded hex values or generic Tailwind neutral colors for themed roles when a matching token exists. Fall back to arbitrary values only when screenshots justify it and the token system does not provide an equivalent.
 6. **Render optional content conditionally** — no empty shells or placeholder DOM unless layout stability truly requires it.
-7. **Ship a Storybook story** — create a story file for the rebuilt component with sensible variants/states so the component can be reviewed in isolation.
+7. **Infer and implement clear interaction patterns** — if the screenshots clearly depict carousel, accordion, tabs, dismiss controls, or similar behavior, implement that behavior using semantic HTML, React/Next primitives, and the packages already installed in `apps/brands` before considering any new dependency.
+8. **Ship a Storybook story** — create a story file for the rebuilt component with sensible variants/states so the component can be reviewed in isolation.
 
 The detailed implementation checklist, `cn`/CVA guidance, and dependency rules live in `references/implementation-checklist.md`.
 
@@ -364,19 +363,18 @@ Execute **in order**:
 1. Collect component name and resolve it to `apps/brands/src/components/<CleanComponentName>/index.tsx` (intake: light)  
 2. Collect **all three** screenshots in **one** Step 2 message—mobile, tablet, desktop order (intake: acknowledge only)  
 3. Ask for optional HTML/CSS **and/or written style notes** (collect only)  
-4. Interactivity and dependencies  
-5. Optional content structure  
-6. Optional structured prompts — theme, `imagePosition`, slots  
-7. **[Pre-flight](#pre-flight-analysis-and-user-confirmation-before-code)** — full analysis: screenshots per breakpoint, HTML/CSS + **style notes** usefulness, conflicts, open questions; **wait for go-ahead**  
-8. After confirmation: detailed layout/Tailwind plan if not fully settled in pre-flight—**include prefix map** from [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
-9. Resolve dependency approval if still open  
-10. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — read the core `SKILL.md` files and any additional supporting skills that are relevant to the component  
-11. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — apply the relevant supporting skills, then run the checklist in `references/implementation-checklist.md`  
-12. Generate code at the resolved component path  
-13. Create the matching Storybook story with variants under `apps/storybook/src/stories/brands`  
-14. Add extra files only if justified  
-15. [Self-audit](#self-audit)  
-16. [Final code review](#final-code-review) — include [copy-paste usage example](#copy-paste-usage-example)  
+4. Optional content structure  
+5. Optional structured prompts — theme, `imagePosition`, slots  
+6. **[Pre-flight](#pre-flight-analysis-and-user-confirmation-before-code)** — full analysis: screenshots per breakpoint, inferred interaction needs, HTML/CSS + **style notes** usefulness, conflicts, open questions; **wait for go-ahead**  
+7. After confirmation: detailed layout/Tailwind plan if not fully settled in pre-flight—**include prefix map** from [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
+8. Resolve whether the current installed stack is sufficient for any inferred interaction; only escalate if something truly needs approval  
+9. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — read the core `SKILL.md` files and any additional supporting skills that are relevant to the component  
+10. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — apply the relevant supporting skills, then run the checklist in `references/implementation-checklist.md`  
+11. Generate code at the resolved component path  
+12. Create the matching Storybook story with variants under `apps/storybook/src/stories/brands`  
+13. Add extra files only if justified  
+14. [Self-audit](#self-audit)  
+15. [Final code review](#final-code-review) — include [copy-paste usage example](#copy-paste-usage-example)  
 
 ## Self-audit
 

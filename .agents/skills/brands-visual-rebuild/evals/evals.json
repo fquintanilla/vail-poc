@@ -9,8 +9,8 @@
     },
     {
       "id": 2,
-      "prompt": "Rebuild this promo stripe from screenshots as component name `Promo Stripe!!!`. Screenshots are attached in chat. I also pasted some very noisy legacy CMS HTML and CSS variables, but it may be unreliable. There is a collapsible FAQ area inside the stripe. Suggest whether we need a dependency or whether a simple local solution is enough.",
-      "expected_output": "Screenshots stay primary, noisy legacy markup is used only if structurally helpful, the component name is normalized into a clean folder name under `apps/brands/src/components`, dependency choice is reasoned rather than automatic, and the result stays generic enough for similar promo stripe components.",
+      "prompt": "Rebuild this promo stripe from screenshots as component name `Promo Stripe!!!`. Screenshots are attached in chat. I also pasted some very noisy legacy CMS HTML and CSS variables, but it may be unreliable. There is a collapsible FAQ area inside the stripe.",
+      "expected_output": "Screenshots stay primary, noisy legacy markup is used only if structurally helpful, the component name is normalized into a clean folder name under `apps/brands/src/components`, the accordion-like behavior is inferred from the screenshots instead of being requested from the user, and the result stays generic enough for similar promo stripe components.",
       "files": []
     },
     {
@@ -47,6 +47,12 @@
       "id": 8,
       "prompt": "Build a generic editorial quote block from screenshots. Component name: `Quote / Block 2026`. No interaction, no extra dependencies, just a clean presentational component with optional quote, attribution, role, and image.",
       "expected_output": "Agent does not force unnecessary complexity like client boundaries, extra dependencies, or overengineered variants; it keeps the output lean and reusable for a simple component and normalizes the raw component name into a clean component folder.",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Make a component named `Featured Stories Slider` from three screenshots. The desktop and tablet screenshots clearly show multiple cards with previous/next controls and pagination dots. I am not giving extra implementation guidance beyond the screenshots.",
+      "expected_output": "Agent infers carousel behavior from the screenshots, checks the installed brands stack before considering any new dependency, and does not ask the user to declare whether the component is interactive.",
       "files": []
     }
   ]

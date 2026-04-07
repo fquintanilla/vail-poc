@@ -31,9 +31,10 @@ Use this after the user confirms the rebuild plan and before you ship code.
 ## Dependency policy
 
 - Default to no new dependencies.
+- If the screenshots clearly imply interactivity, first solve it with semantic HTML, React/Next primitives, and packages already installed in `apps/brands`.
 - If the component benefits from `class-variance-authority` and the target app cannot resolve it directly, add it as a direct dependency only when it matches the shared UI stack already in use.
 - If no package in the workspace uses `class-variance-authority`, ask once before adding it.
-- Any other dependency needs user approval plus a short justification.
+- Any other new dependency needs user approval plus a short justification, and only after confirming the current installed stack is insufficient.
 - Do not add sanitization or CMS-specific helper packages from this skill.
 
 ## Final spot-checks
@@ -42,6 +43,7 @@ Use this after the user confirms the rebuild plan and before you ship code.
 - Shared colors and theme tokens come from `packages/ui/src/styles/globals.css`. Hardcoded hex values or generic Tailwind neutrals for themed roles are a failure when a matching token exists.
 - Storybook story uses `@storybook/nextjs-vite` conventions already present in the repo.
 - Story examples use `https://placehold.co/` for placeholder images when image props are needed. Per [Placehold docs](https://placehold.co/), use `https://placehold.co/{width}x{height}` and optionally `?text=...` when useful. If a placeholder is rendered with `next/image`, set `unoptimized` on that image usage by default.
+- When screenshots clearly show carousel/accordion/tab-like behavior, the implementation includes that behavior instead of pushing the decision back to the user.
 - Client code exists only where interactivity truly requires it.
 - Optional content props do not render empty wrappers.
 - Section labeling and heading structure are coherent.
