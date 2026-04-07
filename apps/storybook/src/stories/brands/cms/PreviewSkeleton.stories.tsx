@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { PreviewSkeleton } from "../../../../../resort/src/components/CMS/PreviewSkeleton";
+import { PreviewSkeleton } from "../../../../../brands/src/components/CMS/PreviewSkeleton";
 
 const meta = {
-  title: "Resort/CMS/Preview Skeleton",
+  title: "Brands/CMS/Preview Skeleton",
   component: PreviewSkeleton,
   tags: ["autodocs"],
   parameters: {

@@ -1,4 +1,4 @@
-@import "../../../resort/src/app/globals.css";
+@import "../../../brands/src/app/globals.css";
 
 @source "../stories";
-@source "../../../resort/src";
+@source "../../../brands/src";

@@ -2,7 +2,7 @@ import type { Preview } from "@storybook/nextjs-vite";
 
 import "../src/styles/storybook.css";
 
-/** Extend this list as new resort brands are added; toolbar and `data-theme` stay in sync. */
+/** Extend this list as new brands are added; toolbar and `data-theme` stay in sync. */
 export const BRAND_THEME_OPTIONS = [
   { value: "ocean", title: "Ocean" },
   { value: "sunset", title: "Sunset" },
@@ -14,7 +14,7 @@ const preview: Preview = {
   globalTypes: {
     brand: {
       name: "Brand",
-      description: "Resort brand theme (sets data-theme on the document root)",
+      description: "Brand theme (sets data-theme on the document root)",
       defaultValue: DEFAULT_BRAND,
       toolbar: {
         title: "Brand",

@@ -21,7 +21,7 @@
     },
     {
       "id": 4,
-      "prompt": "Use this flow for `apps/resort/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, and single CTA. If eyebrow or CTA is undefined, those elements must not appear in the DOM.",
+      "prompt": "Use this flow for `apps/brands/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, and single CTA. If eyebrow or CTA is undefined, those elements must not appear in the DOM.",
       "expected_output": "Optional prop pattern is enforced, empty wrappers are avoided, and the component shape stays reusable instead of hard-coded to a single banner instance.",
       "files": []
     },
@@ -33,7 +33,7 @@
     },
     {
       "id": 6,
-      "prompt": "Rebuild `apps/resort/src/app/rebuild-components/ImageTextCallout/index.tsx`. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before writing any file.",
+      "prompt": "Rebuild `apps/brands/src/app/rebuild-components/ImageTextCallout/index.tsx`. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before writing any file.",
       "expected_output": "Structured prompts are used to shape reusable props and variants, but the build still stays grounded in screenshots and asks when a hint conflicts with visible evidence.",
       "files": []
     },

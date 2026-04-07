@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["../resort/src/*"],
+      "@/*": ["../brands/src/*"],
       "@repo/ui/*": ["../../packages/ui/src/*"]
     }
   },

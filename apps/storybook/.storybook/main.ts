@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import type { StorybookConfig } from "@storybook/nextjs-vite";
 
 const configDir = path.dirname(fileURLToPath(import.meta.url));
-const resortRoot = path.resolve(configDir, "../../resort");
+const resortRoot = path.resolve(configDir, "../../brands");
 
 const config: StorybookConfig = {
   stories: ["../src/stories/**/*.stories.@(ts|tsx)"],
@@ -14,7 +14,7 @@ const config: StorybookConfig = {
       nextConfigPath: path.join(resortRoot, "next.config.ts"),
     },
   },
-  staticDirs: ["../../resort/public"],
+  staticDirs: ["../../brands/public"],
 };
 
 export default config;

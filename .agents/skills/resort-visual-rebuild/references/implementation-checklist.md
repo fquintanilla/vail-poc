@@ -5,15 +5,15 @@ Use this after the user confirms the rebuild plan and before you ship code.
 ## Detailed implementation quality pass
 
 1. Read the core supporting skills plus any conditional ones that clearly affect this component.
-2. Read `apps/resort/src/app/globals.css` before styling for breakpoint mapping and wrappers.
+2. Read `apps/brands/src/app/globals.css` before styling for breakpoint mapping and wrappers.
 3. Read `packages/ui/src/styles/globals.css` before styling for theme colors, shared tokens, and `@theme inline` aliases.
 4. Confirm the component still honors the presentational boundary.
 5. Check that DOM order matches visual reading order.
-6. Check that breakpoint mapping comes from `apps/resort/src/app/globals.css`.
+6. Check that breakpoint mapping comes from `apps/brands/src/app/globals.css`.
 7. Ensure major typography, color, spacing, radius, and image decisions trace back to screenshot evidence or an explicit assumption.
-8. For themed roles, use actual resort tokens from `packages/ui/src/styles/globals.css`. Do not use hardcoded hex values or generic Tailwind neutrals when a resort token exists.
+8. For themed roles, use actual shared theme tokens from `packages/ui/src/styles/globals.css`. Do not use hardcoded hex values or generic Tailwind neutrals when a matching token exists.
 9. If the image comes from CMS or variable upstream assets, do not force crop behavior unless the screenshots clearly show it.
-10. Create a Storybook story under `apps/storybook/src/stories/resort` for the component.
+10. Create a Storybook story under `apps/storybook/src/stories/brands` for the component.
 11. Include meaningful variants/states in the story, not just a single default case, when the component exposes variants or optional slots.
 
 ## `cn` and conditional classes
@@ -39,7 +39,7 @@ Use this after the user confirms the rebuild plan and before you ship code.
 ## Final spot-checks
 
 - `next/image` is used correctly, with `sizes` aligned to the app breakpoints.
-- Resort colors and shared tokens come from `packages/ui/src/styles/globals.css`. Hardcoded hex values or generic Tailwind neutrals for themed roles are a failure when a resort token exists.
+- Shared colors and theme tokens come from `packages/ui/src/styles/globals.css`. Hardcoded hex values or generic Tailwind neutrals for themed roles are a failure when a matching token exists.
 - Storybook story uses `@storybook/nextjs-vite` conventions already present in the repo.
 - Story examples use `https://placehold.co/` for placeholder images when image props are needed. Per [Placehold docs](https://placehold.co/), use `https://placehold.co/{width}x{height}` and optionally `?text=...` when useful. If a placeholder is rendered with `next/image`, set `unoptimized` on that image usage by default.
 - Client code exists only where interactivity truly requires it.

@@ -1,15 +1,15 @@
 ---
 name: resort-visual-rebuild
-description: Rebuild existing website UI as lean presentational Next.js 16 components with Tailwind CSS 4 for the `apps/resort` project from screenshots, optional legacy markup, and implementation notes. Use this whenever the user wants to recreate or migrate an existing resort marketing or content-driven component into a reusable presentational shell for `apps/resort`, especially from screenshots, legacy CMS output, or partial visual references. This skill is for visual rebuilds and reusable component scaffolds, not CMS wiring, business logic migration, or data integration.
+description: Rebuild existing website UI as lean presentational Next.js 16 components with Tailwind CSS 4 for the `apps/brands` project from screenshots, optional legacy markup, and implementation notes. Use this whenever the user wants to recreate or migrate an existing brand marketing or content-driven component into a reusable presentational shell for `apps/brands`, especially from screenshots, legacy CMS output, or partial visual references. This skill is for visual rebuilds and reusable component scaffolds, not CMS wiring, business logic migration, or data integration.
 ---
 
 # Next.js 16 visual component rebuild
 
 ## Purpose
 
-Recreate **existing website components as presentational Next.js 16 code** for **`apps/resort`** using **Tailwind CSS 4**, driven primarily by **mobile, tablet, and desktop screenshots**, with **optional** legacy HTML/CSS and **optional written style notes** from the user (see Step 3) when useful.
+Recreate **existing website components as presentational Next.js 16 code** for **`apps/brands`** using **Tailwind CSS 4**, driven primarily by **mobile, tablet, and desktop screenshots**, with **optional** legacy HTML/CSS and **optional written style notes** from the user (see Step 3) when useful.
 
-This skill is for reusable **presentational rebuilds** across marketing-style components in **`apps/resort`**. It is **not** a logic or CMS migration skill. Output must stay easy to wire into the later Contentstack integration layer.
+This skill is for reusable **presentational rebuilds** across marketing-style components in **`apps/brands`**. It is **not** a logic or CMS migration skill. Output must stay easy to wire into the later Contentstack integration layer.
 
 <a id="global-principles"></a>
 
@@ -19,7 +19,7 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 
 1. **Rebuild vs integration boundary** — Generated files are a **lean presentational shell**: layout, tokens, semantics, framework-native primitives, and optional props. Prefer the appropriate **Next.js primitives** when they fit the job cleanly, such as **`next/image`**, **`next/link`**, and **`next/script`**. **Integration / final components** own: CMS wiring, rich-text handling, **HTML sanitization**, `dangerouslySetInnerHTML`, analytics, fetch, and other application-specific behavior. Keep the rebuild output focused on presentational structure that can be re-created or wired later in Contentstack or another CMS.
 
-2. **Resort project context = source of truth** — This skill assumes the component belongs to **`apps/resort`**. Read **`apps/resort/src/app/globals.css`** first for `@theme`, breakpoint mapping, wrapper sizing, and app-level layout utilities. Read **`packages/ui/src/styles/globals.css`** for shared theme variables, color tokens, and `@theme inline` aliases used by the resort UI system. **When a resort token exists for a color, surface, border, ring, or similar themed value, use that token instead of a hardcoded hex or generic Tailwind neutral color.** Also treat **Storybook** as part of the deliverable: new rebuild components should ship with a story under **`apps/storybook/src/stories`** using the repo’s Storybook conventions. Read the **supporting skill files that are relevant to this component and repo** and apply them by phase (see `references/supporting-skills.md`). **Do not** substitute memory or generic Tailwind defaults for repo facts.
+2. **Brands project context = source of truth** — This skill assumes the component belongs to **`apps/brands`**. Read **`apps/brands/src/app/globals.css`** first for `@theme`, breakpoint mapping, wrapper sizing, and app-level layout utilities. Read **`packages/ui/src/styles/globals.css`** for shared theme variables, color tokens, and `@theme inline` aliases used by the brands UI system. **When a matching theme token exists for a color, surface, border, ring, or similar themed value, use that token instead of a hardcoded hex or generic Tailwind neutral color.** Also treat **Storybook** as part of the deliverable: new rebuild components should ship with a story under **`apps/storybook/src/stories/brands`** using the repo’s Storybook conventions. Read the **supporting skill files that are relevant to this component and repo** and apply them by phase (see `references/supporting-skills.md`). **Do not** substitute memory or generic Tailwind defaults for repo facts.
 
 3. **Accessibility is structural** — Follow **`accessibility-a11y`** while writing markup: landmarks, headings, names, focus, contrast, alt. **Tab and reading order follow the DOM**—**no** flex/grid **`order`** to swap major regions (image vs copy); use **JSX child order** ([Focus order and DOM](#focus-order-and-dom-accessibility)). A11y is not a post-hoc checklist after bad structure.
 
@@ -34,7 +34,7 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 - Do not migrate business logic, hidden legacy application logic, or Sitecore server behavior.
 - Do not add CMS integration, data fetching, analytics, or fake loading patterns.
 - Do not add sanitization libraries, HTML-cleaning helpers, or rich-text rendering pipelines in the rebuild output. If legacy content needs sanitization or special rendering later, that belongs to the integrated Contentstack-backed component layer, not the presentational rebuild.
-- Do not hardcode themed colors with hex values or generic Tailwind neutrals when an equivalent resort token exists in `packages/ui/src/styles/globals.css`.
+- Do not hardcode themed colors with hex values or generic Tailwind neutrals when an equivalent shared theme token exists in `packages/ui/src/styles/globals.css`.
 - Do not claim pixel-perfect fidelity when evidence is incomplete.
 - Do not invent behavior or visual detail not supported by evidence.
 - Do not violate **[Global principles](#global-principles)** (especially the **rebuild vs integration** boundary and **structural a11y**).
@@ -87,7 +87,7 @@ Intake must feel like a **guided chat**, not a form dumped in one message.
 2. Tablet  
 3. Desktop  
 
-**Recommended viewport widths (soft guidance, not blocking):** Ask the user to capture at **approximately** **375px** (mobile), **1024px** (tablet), and **1440px** (desktop) when they can. Derive prefix mapping from **`apps/resort/src/app/globals.css`**. In the current resort setup, **1024px** maps to **`md:`**, not `lg:`. If their design uses different canonical widths, note them in pre-flight.
+**Recommended viewport widths (soft guidance, not blocking):** Ask the user to capture at **approximately** **375px** (mobile), **1024px** (tablet), and **1440px** (desktop) when they can. Derive prefix mapping from **`apps/brands/src/app/globals.css`**. In the current brands setup, **1024px** maps to **`md:`**, not `lg:`. If their design uses different canonical widths, note them in pre-flight.
 
 User may attach three files in one reply or in follow-up messages in the same step—do not advance to Step 3 until all three are present (or user says one is unavailable—in which case note it for pre-flight **Open questions** and still proceed).
 
@@ -180,8 +180,8 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
    - **Evidence:** mobile / tablet / desktop screenshots (+ legacy HTML/CSS: used / ignored / partial; **style notes:** summarized bullets or *none*)
    - **Structured prompts:** … or *none*
    - **Layout & responsiveness:** …  
-   - **Visual tokens from screenshots (per breakpoint where they differ):** typography, surfaces, borders, spacing, radius/shadow, media treatment, and the **specific resort theme tokens** chosen from **`packages/ui/src/styles/globals.css`** for each themed value—see [Visual extraction from screenshots](#visual-extraction-from-screenshots)  
-   - **Tailwind prefix map (from `apps/resort/src/app/globals.css`):** which screenshot (mobile / tablet / desktop) maps to `sm:` / `md:` / `lg:` in `apps/resort`—see [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
+   - **Visual tokens from screenshots (per breakpoint where they differ):** typography, surfaces, borders, spacing, radius/shadow, media treatment, and the **specific shared theme tokens** chosen from **`packages/ui/src/styles/globals.css`** for each themed value—see [Visual extraction from screenshots](#visual-extraction-from-screenshots)  
+   - **Tailwind prefix map (from `apps/brands/src/app/globals.css`):** which screenshot (mobile / tablet / desktop) maps to `sm:` / `md:` / `lg:` in `apps/brands`—see [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
    - **Theme / variants:** … (e.g. light/dark, image left/right)
    - **Interactivity & dependencies:** …
    - **Props (optional slots):** …
@@ -200,7 +200,7 @@ If the user says “proceed” without answering an open question, **re-ask** or
 Apply in this **exact** order when resolving design decisions:
 
 1. Mobile, tablet, and desktop screenshots — **layout and composition** *and* **quantitative styling** (type scale, weight, color, spacing, borders, shadows, image treatment) per [Visual extraction from screenshots](#visual-extraction-from-screenshots). Screenshots **outrank** generic Tailwind presets when both are available.  
-2. **`apps/resort/src/app/globals.css`** — use for breakpoints, wrappers, and app-level layout utilities  
+2. **`apps/brands/src/app/globals.css`** — use for breakpoints, wrappers, and app-level layout utilities  
 3. **`packages/ui/src/styles/globals.css`** — use for shared color tokens, theme variables, and `@theme inline` aliases; these outrank generic Tailwind color choices  
 3. **User-provided style notes** from Step 3 (colors, padding, container rules, typography, DevTools class hints)—use to **inform** Tailwind and tokens; on **visible** conflict with screenshots, prefer screenshots and **surface** in Open questions unless the user prioritized notes  
 4. **Structured prompts** (Step 6): `theme`, `imagePosition`, slot names—on conflict with screenshots, **ask**  
@@ -214,7 +214,7 @@ On conflict between screenshots and legacy markup: **screenshots win** for layou
 
 ## Visual extraction from screenshots
 
-Treat each capture as a **frozen design spec** at that viewport. Goal: **match visible metrics as closely as evidence allows**, then encode with Tailwind v4 using the nearest valid resort tokens from **`packages/ui/src/styles/globals.css`** when they align.
+Treat each capture as a **frozen design spec** at that viewport. Goal: **match visible metrics as closely as evidence allows**, then encode with Tailwind v4 using the nearest valid shared theme tokens from **`packages/ui/src/styles/globals.css`** when they align.
 
 **In pre-flight (mandatory narrative):** For **each** of mobile / tablet / desktop, summarize what you **see** for:
 
@@ -230,7 +230,7 @@ Treat each capture as a **frozen design spec** at that viewport. Goal: **match v
 
 - Map estimates to **`font-sans` / theme fonts** when the app sets them; otherwise use stack defaults.
 - Prefer **`text-sm` / `text-base` / …** only when they **match** the capture; if not, use **`text-[13px]`**, **`leading-[1.35]`**, **`tracking-[0.12em]`**, **`uppercase`**, **`font-bold`** / **`font-normal`** as **justified** by the images.
-- Prefer the semantic colors and variables exposed through **`packages/ui/src/styles/globals.css`**. If a resort token exists for the visible role, use it. Do **not** fall back to hex values or generic Tailwind neutrals just because they look close. Use arbitrary values only when the screenshots clearly require a value that the resort token set does not provide.
+- Prefer the semantic colors and variables exposed through **`packages/ui/src/styles/globals.css`**. If a matching theme token exists for the visible role, use it. Do **not** fall back to hex values or generic Tailwind neutrals just because they look close. Use arbitrary values only when the screenshots clearly require a value that the token set does not provide.
 - Encode **responsive type** (e.g. title larger on desktop) by **different utilities at the correct prefix** (`md:text-…`, `lg:text-…`) **derived from comparing** the three screenshots—not one size for all widths unless all three look the same.
 - **CTA and chips:** match border thickness, padding, and gradient/solid fill from pixels when visible.
 - **Images from CMS:** do **not** assume cropping by default. If screenshots do not clearly show a fixed-ratio or cropped treatment, keep the image responsive and preserve its natural aspect ratio.
@@ -247,16 +247,16 @@ Treat each capture as a **frozen design spec** at that viewport. Goal: **match v
 
 <a id="screenshot-viewports-vs-tailwind-prefixes"></a>
 
-### Screenshot viewports vs Tailwind prefixes (read `apps/resort/src/app/globals.css`)
+### Screenshot viewports vs Tailwind prefixes (read `apps/brands/src/app/globals.css`)
 
-**Wrong default:** assuming **tablet ~1024px** should always drive **`lg:`** utilities. Read `apps/resort/src/app/globals.css` before deciding. In the current resort setup, `globals.css` sets **`sm: 768px`**, **`md: 992px`**, and **`lg: 1200px`**, so 1024px belongs to **`md:`**.
+**Wrong default:** assuming **tablet ~1024px** should always drive **`lg:`** utilities. Read `apps/brands/src/app/globals.css` before deciding. In the current brands setup, `globals.css` sets **`sm: 768px`**, **`md: 992px`**, and **`lg: 1200px`**, so 1024px belongs to **`md:`**.
 
 **Process:**
 
-1. Open **`apps/resort/src/app/globals.css`** and read the `@theme` breakpoints and wrapper utilities.  
+1. Open **`apps/brands/src/app/globals.css`** and read the `@theme` breakpoints and wrapper utilities.  
 2. Read **`packages/ui/src/styles/globals.css`** for theme variables, colors, radii, shadows, and shared style tokens relevant to the rebuild.  
-3. Map each capture to prefixes by **numeric comparison**: the **tablet** screenshot shows layout at its capture width (often **~1024px**). Use the **smallest** `min-width` tier that viewport **reaches**. In the current `apps/resort` setup, **1024px** belongs to **`md:`**.  
-4. State this mapping explicitly in **pre-flight** ([Rebuild plan](#pre-flight-analysis-and-user-confirmation-before-code)) and implement classes accordingly (`md:grid-cols-2`, `md:…`, not `lg:…` for behavior visible only up to desktop). **Do not** rely on **`order-*`** to swap major columns—see [Focus order and DOM](#focus-order-and-dom-accessibility).  
+3. Map each capture to prefixes by **numeric comparison**: the **tablet** screenshot shows layout at its capture width (often **~1024px**). Use the **smallest** `min-width` tier that viewport **reaches**. In the current `apps/brands` setup, **1024px** belongs to **`md:`**.  
+4. State this mapping explicitly in **pre-flight** ([Rebuild plan](#pre-flight-analysis-and-user-confirmation-before-code)) and implement classes accordingly (`md:grid-cols-2`, `md:…`, not `lg:…` for behavior visible only up to desktop). **Do not** rely on **`order-*`** to swap major columns; see [Focus order and DOM](#focus-order-and-dom-accessibility).  
 5. Align **`next/image` `sizes`** (and any raw `@media`) with the same pixel thresholds so art direction matches the prefixes.
 
 **Failure mode to avoid:** tablet capture implemented with **`lg:`** when the app’s **`lg`** starts **above** 1024—tablet layout will be wrong until the viewport hits desktop width.
@@ -287,11 +287,11 @@ Per **`accessibility-a11y`:** keyboard and screen-reader order follow the **DOM*
 
 ## Mandatory skill file reads (blocking before code)
 
-After the user confirms the **Rebuild plan**, you **must not** write or edit component TS/TSX/CSS until the **relevant** project skill files below have been **read into context** (e.g. editor Read tool on the file). You must also read **`apps/resort/src/app/globals.css`** for breakpoints and wrapper sizing, plus **`packages/ui/src/styles/globals.css`** for theme colors and shared style tokens. **Paraphrasing this `resort-visual-rebuild` page from memory does not count** as having applied `accessibility-a11y`, `next-best-practices`, etc.
+After the user confirms the **Rebuild plan**, you **must not** write or edit component TS/TSX/CSS until the **relevant** project skill files below have been **read into context** (e.g. editor Read tool on the file). You must also read **`apps/brands/src/app/globals.css`** for breakpoints and wrapper sizing, plus **`packages/ui/src/styles/globals.css`** for theme colors and shared style tokens. **Paraphrasing this `resort-visual-rebuild` page from memory does not count** as having applied `accessibility-a11y`, `next-best-practices`, etc.
 
 Use this rule of thumb:
 
-- **Always read if present:** `accessibility-a11y`, `next-best-practices`, **`apps/resort/src/app/globals.css`**, and **`packages/ui/src/styles/globals.css`**.
+- **Always read if present:** `accessibility-a11y`, `next-best-practices`, **`apps/brands/src/app/globals.css`**, and **`packages/ui/src/styles/globals.css`**.
 - **Read when relevant to the implementation:** Tailwind layout/theme/design-system skills when styling or layout decisions are non-trivial; `vercel-react-best-practices` when client boundaries, list rendering, or render-sensitive patterns matter; `frontend-design` when doing a polish pass after screenshot-grounded structure is in place.
 
 Canonical skill paths and the recommended application order live in `references/supporting-skills.md`.
@@ -314,7 +314,7 @@ These apply from the **first** implementation pass:
 2. **Match DOM order to reading order** — do not use CSS `order-*` to swap major regions.
 3. **Use modern Next.js primitives appropriately** — default to a Server Component, use `next/image` for images, and keep client boundaries narrow when needed.
 4. **Use reusable styling patterns** — prefer project `cn`, centralize shared variants with CVA when a variant affects multiple surfaces, and avoid repetitive per-node string comparisons.
-5. **Prefer resort tokens when they fit** — use resort theme tokens for themed colors and shared visual variables whenever they exist, so the component responds correctly to the active theme. Do **not** use hardcoded hex values or generic Tailwind neutral colors for themed roles when a resort token exists. Fall back to arbitrary values only when screenshots justify it and the token system does not provide an equivalent.
+5. **Prefer shared theme tokens when they fit** — use theme tokens for themed colors and shared visual variables whenever they exist, so the component responds correctly to the active theme. Do **not** use hardcoded hex values or generic Tailwind neutral colors for themed roles when a matching token exists. Fall back to arbitrary values only when screenshots justify it and the token system does not provide an equivalent.
 6. **Render optional content conditionally** — no empty shells or placeholder DOM unless layout stability truly requires it.
 7. **Ship a Storybook story** — create a story file for the rebuilt component with sensible variants/states so the component can be reviewed in isolation.
 
@@ -337,7 +337,7 @@ Skipping this pass is a **process failure**; the deliverable is not complete unt
 ## Output defaults
 
 - Default to one component file at the requested path plus one Storybook story file for that component.
-- Put stories under **`apps/storybook/src/stories/resort`**, mirroring the component domain/path as closely as practical for the existing Storybook setup.
+- Put stories under **`apps/storybook/src/stories/brands`**, mirroring the component domain/path as closely as practical for the existing Storybook setup.
 - Split component files only when interactivity or structure clearly justifies it.
 - Default to a Server Component and keep optional props truly optional.
 
@@ -359,7 +359,7 @@ Execute **in order**:
 10. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — read the core `SKILL.md` files and any additional supporting skills that are relevant to the component  
 11. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — apply the relevant supporting skills, then run the checklist in `references/implementation-checklist.md`  
 12. Generate code at the provided path  
-13. Create the matching Storybook story with variants under `apps/storybook/src/stories/resort`  
+13. Create the matching Storybook story with variants under `apps/storybook/src/stories/brands`  
 14. Add extra files only if justified  
 15. [Self-audit](#self-audit)  
 16. [Final code review](#final-code-review) — include [copy-paste usage example](#copy-paste-usage-example)  

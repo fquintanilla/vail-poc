@@ -5,7 +5,7 @@ Use the same headings so repeated runs produce comparable reports.
 ## Files created
 
 - `path/to/Component/index.tsx` (…)
-- `apps/storybook/src/stories/resort/.../Component.stories.tsx` (…)
+- `apps/storybook/src/stories/brands/.../Component.stories.tsx` (…)
 - (optional) `path/to/Component/ComponentClient.tsx` (…)
 
 ## Structure decision
@@ -22,7 +22,7 @@ Use the same headings so repeated runs produce comparable reports.
 - **Storybook coverage:** list the created story and which variants/states it covers
 - `cn` object-form conditionals for layout/boolean flags: (yes / N/A — why)
 - CVA used for multi-node variants (e.g. theme): (yes — variants: … / no — justify per non-negotiable rules)
-- Non-negotiables spot-check: section `aria-labelledby`+heading `id` if applicable; **`next/image`**; no URL-parsing helpers; **no** sanitize / `dangerouslySetInnerHTML` in rebuild file; **DOM order = focus order** (no `order-*` on main columns—see `SKILL.md` “Focus order and DOM”); **themed colors come from resort tokens in `packages/ui/src/styles/globals.css`, not hardcoded hex/neutrals, when tokens exist**; **`as const` + `isDark`/CVA**; no `unoptimized` unless documented, except placeholder images from `placehold.co`; note **integration** follow-ups (`Link`, `rel`, rich HTML) if needed
+- Non-negotiables spot-check: section `aria-labelledby`+heading `id` if applicable; **`next/image`**; no URL-parsing helpers; **no** sanitize / `dangerouslySetInnerHTML` in rebuild file; **DOM order = focus order** (no `order-*` on main columns—see `SKILL.md` “Focus order and DOM”); **themed colors come from shared theme tokens in `packages/ui/src/styles/globals.css`, not hardcoded hex/neutrals, when tokens exist**; **`as const` + `isDark`/CVA**; no `unoptimized` unless documented, except placeholder images from `placehold.co`; note **integration** follow-ups (`Link`, `rel`, rich HTML) if needed
 
 ## Pre-flight alignment
 
@@ -61,12 +61,12 @@ Use the same headings so repeated runs produce comparable reports.
 
 ## Responsive behavior
 
-- How mobile / tablet / desktop map to Tailwind breakpoints **in this app** (read `@theme`: e.g. resort tablet ~1024px → **`md:`** when `md` = 992px and `lg` = 1200px—not `lg:` for tablet)
+- How mobile / tablet / desktop map to Tailwind breakpoints **in this app** (read `@theme`: e.g. brands tablet ~1024px → **`md:`** when `md` = 992px and `lg` = 1200px, not `lg:` for tablet)
 
 ## Visual fidelity (screenshots)
 
 - Pre-flight **visual tokens** summarized for each breakpoint (or “unchanged across widths”)
-- Where code uses **arbitrary values** (`text-[…]`, `bg-[#…]`, etc.), one line tying each to **what was visible** in captures and why no resort token was suitable
+- Where code uses **arbitrary values** (`text-[…]`, `bg-[#…]`, etc.), one line tying each to **what was visible** in captures and why no shared theme token was suitable
 - Assumptions when pixels were ambiguous (cross-link **Assumptions** above if needed)
 
 ## Before wiring to Contentstack

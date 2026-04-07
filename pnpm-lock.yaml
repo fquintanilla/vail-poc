@@ -44,7 +44,7 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
-  apps/resort:
+  apps/brands:
     dependencies:
       '@contentstack/delivery-sdk':
         specifier: ^4.11.0

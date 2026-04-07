@@ -4,10 +4,10 @@ Use this file as the canonical map for which supporting skills to read and when 
 
 ## Resort app files to read first
 
-- `apps/resort/src/app/globals.css` as the entry point for `@theme` breakpoints, wrapper sizing, and shared layout utilities
+- `apps/brands/src/app/globals.css` as the entry point for `@theme` breakpoints, wrapper sizing, and shared layout utilities
 - `packages/ui/src/styles/globals.css` as the source of shared theme variables, colors, and `@theme inline` token aliases relevant to the rebuild
 
-This skill assumes the output belongs to `apps/resort`, so both app-level `globals.css` and shared UI `globals.css` are part of the core read.
+This skill assumes the output belongs to `apps/brands`, so both app-level `globals.css` and shared UI `globals.css` are part of the core read.
 
 ## Canonical paths
 
@@ -25,7 +25,7 @@ These paths are relative to the workspace root:
 
 ## Core vs conditional reads
 
-- **Core reads when present:** `accessibility-a11y`, `next-best-practices`, `apps/resort/src/app/globals.css`, and `packages/ui/src/styles/globals.css`.
+- **Core reads when present:** `accessibility-a11y`, `next-best-practices`, `apps/brands/src/app/globals.css`, and `packages/ui/src/styles/globals.css`.
 - **Read when the component needs it:** Tailwind layout/theme/design-system skills when layout or styling is non-trivial; `vercel-react-best-practices` for client boundaries or render-sensitive patterns; `frontend-design` for a polish pass after screenshot-grounded structure is in place.
 
 ## When to apply each skill
