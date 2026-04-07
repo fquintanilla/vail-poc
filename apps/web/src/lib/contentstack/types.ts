@@ -659,14 +659,7 @@ export interface Header extends SystemFields {
   navigation_menu?: MaxTuple<
     {
       label?: string;
-      page_reference: (
-        | SuperheroLandingPage
-        | SuperheroGalleryPage
-        | HomeWorld
-        | Page
-        | Character
-        | BlogPost
-      )[];
+      page_reference: Page[];
       $?: {
         label?: CSLPFieldMapping;
         page_reference?: CSLPFieldMapping;

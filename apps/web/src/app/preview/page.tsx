@@ -1,3 +1,4 @@
+import { PreviewSkeleton } from "@/components/cms/PreviewSkeleton";
 import { HomeMain } from "@/components/home-main";
 import { getPage } from "@/lib/contentstack";
 import customMetadata from "@/lib/customMetadata";
@@ -15,15 +16,7 @@ export default async function Home({
   searchParams: Promise<SearchParams>;
 }) {
   return (
-    <Suspense
-      fallback={
-        <main className="max-w-(--breakpoint-md) mx-auto">
-          <section className="p-4">
-            <p className="text-muted-foreground">Loading…</p>
-          </section>
-        </main>
-      }
-    >
+    <Suspense fallback={<PreviewSkeleton />}>
       <HomeMain searchParams={searchParams} />
     </Suspense>
   );

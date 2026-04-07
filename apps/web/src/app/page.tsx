@@ -1,9 +1,9 @@
 import { HomeMain } from "@/components/home-main";
-import { getPage } from "@/lib/contentstack";
 import customMetadata from "@/lib/customMetadata";
+import { getPageCached } from "@/lib/server/contentstack-cached";
 
 export async function generateMetadata() {
-  const page = await getPage("/");
+  const page = await getPageCached("/");
   return customMetadata({ seo: page?.seo });
 }
 

@@ -18,6 +18,7 @@ export default defineConfig([
     ".turbo/**",
     ".agents/**",
     "pnpm-lock.yaml",
+    "apps/web/src/lib/contentstack/types.ts",
   ]),
   ...nextVitals,
   ...nextTs,
