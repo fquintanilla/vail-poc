@@ -25,7 +25,7 @@
 
 ## Quantitative checks (optional)
 
-- Assert output file path matches user destination.
+- Assert output file path matches the resolved destination under `apps/brands/src/components/<CleanComponentName>/index.tsx`.
 - Assert no forbidden substrings in new component files: `getEntry`, `fetch(`, `@contentstack`, `analytics`, `useEffect` unless client component justified.
 - Count `"use client"` occurrences (expect 0 or 1 with justification).
 

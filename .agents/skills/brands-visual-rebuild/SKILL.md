@@ -95,14 +95,26 @@ User may attach three files in one reply or in follow-up messages in the same st
 
 Collect inputs **in this order only**. Within each step, use the **same short prompts** each run (adjust wording minimally). Obey [Conversational intake](#conversational-intake-one-step-per-turn).
 
-### Step 1 — Destination path
+### Step 1 — Component name
 
-Ask for the **exact** path where the component must live, including the entry file, for example:
+Ask for the **component name only**, not a path. The user may reply with spaces, punctuation, symbols, mixed casing, or other messy input.
 
-- `components/Hero/index.tsx`
-- `src/components/PromoBanner/index.tsx`
+Derive the component folder yourself using the brands repo convention:
 
-Confirm whether the project uses `src/` and align with repo conventions.
+- Base location: **`apps/brands/src/components`**
+- Create the component at **`apps/brands/src/components/<CleanComponentName>/index.tsx`**
+- If the implementation needs extra files, create them in that **same folder**
+
+Normalize the user-provided name into a clean **PascalCase** folder/component name:
+
+- Trim whitespace
+- Split on spaces, dashes, underscores, and punctuation
+- Remove unsupported special characters
+- Collapse the remaining words into **PascalCase**
+- Keep letters and numbers only in the final name
+- If normalization would produce an empty name or a leading digit, repair it into a valid component-style name before continuing
+
+In pre-flight, show both the **raw user-provided name** and the **resolved component path** so the user can correct it before implementation.
 
 **This turn must contain nothing except Step 1** (plus brief greeting if needed).
 
@@ -170,13 +182,14 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
 
 **Mandatory gate.** After Steps 1–6 are complete (and optional steps skipped or answered “none”), **do not generate code yet**. This is the **first** place where you perform full cross-screenshot analysis and consolidation.
 
-1. **Synthesize** everything received: destination path, breakpoint evidence, optional markup + **style notes** verdict, interactivity/dependency needs, content slots, structured prompts (if any).  
+1. **Synthesize** everything received: raw component name, resolved component path, breakpoint evidence, optional markup + **style notes** verdict, interactivity/dependency needs, content slots, structured prompts (if any).  
 2. **Summarize in a short, fixed block** for the user (use the same headings every run):
 
    ```markdown
    ## Rebuild plan (confirm before implementation)
 
-   - **Destination:** …
+   - **Component name:** raw input `…` → resolved `…`
+   - **Destination:** `apps/brands/src/components/<CleanComponentName>/index.tsx`
    - **Evidence:** mobile / tablet / desktop screenshots (+ legacy HTML/CSS: used / ignored / partial; **style notes:** summarized bullets or *none*)
    - **Structured prompts:** … or *none*
    - **Layout & responsiveness:** …  
@@ -336,7 +349,8 @@ Skipping this pass is a **process failure**; the deliverable is not complete unt
 
 ## Output defaults
 
-- Default to one component file at the requested path plus one Storybook story file for that component.
+- Default to one component file at **`apps/brands/src/components/<CleanComponentName>/index.tsx`** plus one Storybook story file for that component.
+- Derive `<CleanComponentName>` from the Step 1 component name using the normalization rules above; do not ask the user for a manual path unless they are correcting the resolved result.
 - Put stories under **`apps/storybook/src/stories/brands`**, mirroring the component domain/path as closely as practical for the existing Storybook setup.
 - Split component files only when interactivity or structure clearly justifies it.
 - Default to a Server Component and keep optional props truly optional.
@@ -347,7 +361,7 @@ Detailed file-shape and prop-shape checks live in `references/implementation-che
 
 Execute **in order**:
 
-1. Collect destination path (intake: light)  
+1. Collect component name and resolve it to `apps/brands/src/components/<CleanComponentName>/index.tsx` (intake: light)  
 2. Collect **all three** screenshots in **one** Step 2 message—mobile, tablet, desktop order (intake: acknowledge only)  
 3. Ask for optional HTML/CSS **and/or written style notes** (collect only)  
 4. Interactivity and dependencies  
@@ -358,7 +372,7 @@ Execute **in order**:
 9. Resolve dependency approval if still open  
 10. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — read the core `SKILL.md` files and any additional supporting skills that are relevant to the component  
 11. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — apply the relevant supporting skills, then run the checklist in `references/implementation-checklist.md`  
-12. Generate code at the provided path  
+12. Generate code at the resolved component path  
 13. Create the matching Storybook story with variants under `apps/storybook/src/stories/brands`  
 14. Add extra files only if justified  
 15. [Self-audit](#self-audit)  

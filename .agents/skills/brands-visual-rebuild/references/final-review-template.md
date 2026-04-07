@@ -4,13 +4,14 @@ Use the same headings so repeated runs produce comparable reports.
 
 ## Files created
 
-- `path/to/Component/index.tsx` (…)
+- `apps/brands/src/components/ComponentName/index.tsx` (…)
 - `apps/storybook/src/stories/brands/.../Component.stories.tsx` (…)
 - (optional) `path/to/Component/ComponentClient.tsx` (…)
 
 ## Structure decision
 
 - Single file / split files — **why**
+- Resolved component name/path — raw user input → cleaned folder/component name
 - Story path — why this Storybook location/title fits the repo convention
 
 ## Implementation quality pass

@@ -3,26 +3,26 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "We are rebuilding a marketing hero from an existing site into a reusable Next 16 component. Destination: `apps/web/src/components/rebuild/Hero/index.tsx`. I have mobile, tablet, and desktop screenshots plus a few notes about spacing and CTA copy. No legacy HTML. Static headline, description, primary CTA, and image area. Walk through whatever intake you need and then implement a presentational component we can wire later.",
-      "expected_output": "Agent uses conversational intake without dumping every step at once, keeps analysis light until pre-flight, confirms plan before code, and produces a reusable presentation-only component rather than a one-off hero patch.",
+      "prompt": "We are rebuilding a marketing hero from an existing site into a reusable Next 16 component. Component name: `Hero Banner`. I have mobile, tablet, and desktop screenshots plus a few notes about spacing and CTA copy. No legacy HTML. Static headline, description, primary CTA, and image area. Walk through whatever intake you need and then implement a presentational component we can wire later.",
+      "expected_output": "Agent uses conversational intake without dumping every step at once, keeps analysis light until pre-flight, resolves the component name to a clean folder under `apps/brands/src/components`, confirms plan before code, and produces a reusable presentation-only component rather than a one-off hero patch.",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "Rebuild this promo stripe from screenshots into `src/components/rebuild/PromoStripe/index.tsx`. Screenshots are attached in chat. I also pasted some very noisy legacy CMS HTML and CSS variables, but it may be unreliable. There is a collapsible FAQ area inside the stripe. Suggest whether we need a dependency or whether a simple local solution is enough.",
-      "expected_output": "Screenshots stay primary, noisy legacy markup is used only if structurally helpful, dependency choice is reasoned rather than automatic, and the result stays generic enough for similar promo stripe components.",
+      "prompt": "Rebuild this promo stripe from screenshots as component name `Promo Stripe!!!`. Screenshots are attached in chat. I also pasted some very noisy legacy CMS HTML and CSS variables, but it may be unreliable. There is a collapsible FAQ area inside the stripe. Suggest whether we need a dependency or whether a simple local solution is enough.",
+      "expected_output": "Screenshots stay primary, noisy legacy markup is used only if structurally helpful, the component name is normalized into a clean folder name under `apps/brands/src/components`, dependency choice is reasoned rather than automatic, and the result stays generic enough for similar promo stripe components.",
       "files": []
     },
     {
       "id": 3,
-      "prompt": "Quick job: put a feature card grid component at `components/cards/FeatureCardGrid/index.tsx`. I only have a desktop screenshot right now.",
+      "prompt": "Quick job: build a component called `feature card grid` for me. I only have a desktop screenshot right now.",
       "expected_output": "Agent does not proceed silently from incomplete evidence and requests the missing screenshots before implementation.",
       "files": []
     },
     {
       "id": 4,
-      "prompt": "Use this flow for `apps/brands/src/components/LiftStatusBanner/index.tsx`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, and single CTA. If eyebrow or CTA is undefined, those elements must not appear in the DOM.",
-      "expected_output": "Optional prop pattern is enforced, empty wrappers are avoided, and the component shape stays reusable instead of hard-coded to a single banner instance.",
+      "prompt": "Use this flow for a component named `Lift Status Banner`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, and single CTA. If eyebrow or CTA is undefined, those elements must not appear in the DOM.",
+      "expected_output": "Optional prop pattern is enforced, empty wrappers are avoided, and the component shape stays reusable instead of hard-coded to a single banner instance. The resolved path lands under `apps/brands/src/components/LiftStatusBanner/index.tsx`.",
       "files": []
     },
     {
@@ -33,20 +33,20 @@
     },
     {
       "id": 6,
-      "prompt": "Rebuild `apps/brands/src/app/rebuild-components/ImageTextCallout/index.tsx`. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before writing any file.",
-      "expected_output": "Structured prompts are used to shape reusable props and variants, but the build still stays grounded in screenshots and asks when a hint conflicts with visible evidence.",
+      "prompt": "Rebuild a component named `Image Text Callout`. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before writing any file.",
+      "expected_output": "Structured prompts are used to shape reusable props and variants, the component name is normalized into the brands components folder, and the build still stays grounded in screenshots and asks when a hint conflicts with visible evidence.",
       "files": []
     },
     {
       "id": 7,
-      "prompt": "Create a reusable split media/content section at `apps/web/src/components/rebuild/SideBySideFeature/index.tsx`. I have mobile, tablet, and desktop screenshots. My old notes say the image belongs on the right, but the screenshots show image left on desktop and stacked first on mobile.",
-      "expected_output": "Agent surfaces the conflict instead of silently following one source, uses the evidence-priority rules, and keeps the solution generic enough to support layout variants without overfitting to this one example.",
+      "prompt": "Create a reusable split media/content section named `Side by Side Feature`. I have mobile, tablet, and desktop screenshots. My old notes say the image belongs on the right, but the screenshots show image left on desktop and stacked first on mobile.",
+      "expected_output": "Agent surfaces the conflict instead of silently following one source, uses the evidence-priority rules, resolves the component name to a clean brands component path, and keeps the solution generic enough to support layout variants without overfitting to this one example.",
       "files": []
     },
     {
       "id": 8,
-      "prompt": "Build a generic editorial quote block from screenshots at `apps/web/src/components/rebuild/QuoteBlock/index.tsx`. No interaction, no extra dependencies, just a clean presentational component with optional quote, attribution, role, and image.",
-      "expected_output": "Agent does not force unnecessary complexity like client boundaries, extra dependencies, or overengineered variants; it keeps the output lean and reusable for a simple component.",
+      "prompt": "Build a generic editorial quote block from screenshots. Component name: `Quote / Block 2026`. No interaction, no extra dependencies, just a clean presentational component with optional quote, attribution, role, and image.",
+      "expected_output": "Agent does not force unnecessary complexity like client boundaries, extra dependencies, or overengineered variants; it keeps the output lean and reusable for a simple component and normalizes the raw component name into a clean component folder.",
       "files": []
     }
   ]
