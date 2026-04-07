@@ -54,13 +54,13 @@ To keep runs **highly similar** across sessions:
 
 ## Collect first, analyze later (latency and focus)
 
-During **Steps 1–5**, behave as **intake only**:
+During **Steps 1–4**, behave as **intake only**:
 
 - **Do not** deeply analyze screenshots, compare breakpoints, infer grid structure, or write long design commentary.
 - **Do not** read image pixels beyond a **one-line acknowledgment** (e.g. “Got all three—continuing to Step 3.”).
 - **Do** store mentally / rely on the thread for answers and move to the next step quickly.
 
-**Full** visual analysis—including **quantitative** pass on typography, color, spacing, radii, and likely interaction patterns from the images—layout decisions, Tailwind strategy, conflicts between screenshot vs markup vs prompts, and **Open questions** belong in the **pre-flight** block **after** Step 5—and in implementation **after** user confirmation.
+**Full** visual analysis—including **quantitative** pass on typography, color, spacing, radii, likely interaction patterns, and inferred content structure from the images—layout decisions, Tailwind strategy, conflicts between screenshot vs markup vs prompts, and **Open questions** belong in the **pre-flight** block **after** Step 4—and in implementation **after** user confirmation.
 
 This keeps each intake turn short and avoids “thinking” on every step like a final implementation pass. **After** pre-flight, screenshots are still the authority for **how big / how bold / which hex**—not only box structure.
 
@@ -70,20 +70,20 @@ Intake must feel like a **guided chat**, not a form dumped in one message.
 
 **Do:**
 
-- Send **only one main intake step** per assistant turn. Label it: `Step X of 5 — <short title>`.
+- Send **only one main intake step** per assistant turn. Label it: `Step X of 4 — <short title>`.
 - **Wait for the user’s reply** before sending the next step.
 - Keep each message **short** (few sentences + bullets if needed).
-- For **optional** steps (3–5), offer **fast exits**, e.g. “Reply **none** / **skip** if you have no HTML/CSS **and no style notes**”. (Plain text; no dependency on client UI affordances.)
-- After **Step 5**, send the **Rebuild plan** pre-flight block **alone**, **then** do consolidated analysis—still wait for confirmation before coding.
+- For **optional** steps (3–4), offer **fast exits**, e.g. “Reply **none** / **skip** if you have no HTML/CSS **and no style notes**”. (Plain text; no dependency on client UI affordances.)
+- After **Step 4**, send the **Rebuild plan** pre-flight block **alone**, **then** do consolidated analysis—still wait for confirmation before coding.
 
 **Do not:**
 
-- List **all** steps (1–5) in a single message.
+- List **all** steps (1–4) in a single message.
 - Ask for Step 3+ before Step 1 and Step 2 are satisfied.
-- Combine the pre-flight block with Step 5 in the same turn unless the user already finished every prior step in earlier messages.
+- Combine the pre-flight block with Step 4 in the same turn unless the user already finished every prior step in earlier messages.
 - Spend intake turns on analysis that belongs in pre-flight.
 
-**Screenshots (Step 2) — single message:** In **one** Step 2 turn, request **all three** attachments in **this order** and state they are the primary evidence for **layout, concrete styling, and likely interaction patterns** (sizes, weights, colors, spacing, carousel/accordion/tab evidence)—with full extraction in **pre-flight** after Step 5, not during intake:
+**Screenshots (Step 2) — single message:** In **one** Step 2 turn, request **all three** attachments in **this order** and state they are the primary evidence for **layout, concrete styling, likely interaction patterns, and content structure** (sizes, weights, colors, spacing, carousel/accordion/tab evidence, visible slots)—with full extraction in **pre-flight** after Step 4, not during intake:
 
 1. Mobile  
 2. Tablet  
@@ -141,33 +141,27 @@ Ask whether the user can share **any** optional legacy input, such as:
 - For **HTML/CSS**: use only when **structurally meaningful**; strip CMS noise and Sitecore artifacts unless clearly useful.
 - **Conflict resolution:** If written notes or markup **contradict** the screenshots on something visible (layout side, background color, spacing), **screenshots win** for composition—**flag the conflict** in pre-flight **Open questions** and ask unless the user already said “trust the notes over pixels.”
 
-### Step 4 — Optional content structure
+### Step 4 — Optional naming and hints
 
-**One turn;** Step 4 only. Ask which **content pieces** the component may contain (optional list), for example:
+**One turn;** Step 4 only. Tell the user which **content pieces and prompts** you expect to infer primarily from the screenshots, for example:
 
-eyebrow, title, subtitle, description, image, CTA, secondary CTA, badge, caption, logo, items, links, etc.
+eyebrow, title, subtitle, description, image, CTA, secondary CTA, badge, caption, logo, items, links, `theme`, `mediaPosition`, `alignment`, `columns`, `density`, or likely interaction patterns.
 
-Map these to **optional props**. If a value is absent, **do not render** that UI (no empty wrappers unless layout absolutely requires a stable shell—prefer avoiding placeholder DOM).
+Ask whether they want to:
 
-### Step 5 — Optional structured prompts (design hints)
+- rename any inferred fields so the props match their vocabulary
+- add extra hints for variants, styling, layout, or behavior that the screenshots do not fully reveal
+- say **none** if the screenshot-derived defaults are good
 
-**One turn;** Step 5 only. Ask whether the user wants to supply **structured hints** (freeform bullets or key-value lines) about the component—**this step is optional**.
+**Use this step to:**
 
-Examples of what users may pass:
+- confirm or rename prop labels inferred from the images  
+- add reusable variants and optional slots when screenshots alone do not show every state  
+- clarify intent only where the screenshots are ambiguous  
 
-- content hints such as `heading`, `description`, `eyebrow`, `body`, `media`, `items`, `caption`, `cta`, `links`, `meta`, `badge`, or other slots that fit the component  
-- layout hints such as `mediaPosition`, `alignment`, `columns`, `stacking`, `density`, or similar structure-related cues  
-- visual hints such as `theme`, `surface`, `emphasis`, `tone`, or contrast direction  
-- behavior hints such as `interactive: true`, `carousel`, `tabs`, `accordion`, or other interaction requirements when they matter, especially if the screenshots alone do not make the behavior obvious  
-- any additional keys that help clarify the intended structure without replacing the screenshots as primary evidence
+Map inferred fields to **optional props**. If a value is absent, **do not render** that UI (no empty wrappers unless layout absolutely requires a stable shell—prefer avoiding placeholder DOM).
 
-**Use structured prompts to:**
-
-- Name props consistently with user vocabulary  
-- Shape reusable variants and optional slots when screenshots alone do not show every state  
-- Clarify intent when screenshots are ambiguous  
-
-**Conflict handling:** If structured prompts **contradict** visible evidence in the screenshots in a way that changes structure, order, styling, or behavior, **stop and ask**—do not silently pick one.
+**Conflict handling:** If user-provided renames or hints **contradict** visible evidence in the screenshots in a way that changes structure, order, styling, or behavior, **stop and ask**—do not silently pick one.
 
 See `references/structured-prompts.md` for the canonical hint table and conflict rules.
 
@@ -175,9 +169,9 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
 
 ## Pre-flight analysis and user confirmation (before code)
 
-**Mandatory gate.** After Steps 1–5 are complete (and optional steps skipped or answered “none”), **do not generate code yet**. This is the **first** place where you perform full cross-screenshot analysis and consolidation.
+**Mandatory gate.** After Steps 1–4 are complete (and optional steps skipped or answered “none”), **do not generate code yet**. This is the **first** place where you perform full cross-screenshot analysis and consolidation.
 
-1. **Synthesize** everything received: raw component name, resolved component path, breakpoint evidence, optional markup + **style notes** verdict, inferred interaction needs, content slots, structured prompts (if any).  
+1. **Synthesize** everything received: raw component name, resolved component path, breakpoint evidence, optional markup + **style notes** verdict, inferred interaction needs, inferred content slots, and any user corrections or extra hints from Step 4.  
 2. **Summarize in a short, fixed block** for the user (use the same headings every run):
 
    ```markdown
@@ -186,14 +180,14 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
    - **Component name:** raw input `…` → resolved `…`
    - **Destination:** `apps/brands/src/components/<CleanComponentName>/index.tsx`
    - **Evidence:** mobile / tablet / desktop screenshots (+ legacy HTML/CSS: used / ignored / partial; **style notes:** summarized bullets or *none*)
-   - **Structured prompts:** … or *none*
+   - **Field names & extra hints:** screenshot-inferred defaults `…`; user adjustments `…` or *none*
    - **Layout & responsiveness:** …  
    - **Interaction inferred from screenshots:** none / carousel / accordion / tabs / dismissible / uncertain … and whether the current `apps/brands` stack can support it without new dependencies
    - **Visual tokens from screenshots (per breakpoint where they differ):** typography, surfaces, borders, spacing, radius/shadow, media treatment, and the **specific shared theme tokens** chosen from **`packages/ui/src/styles/globals.css`** for each themed value—see [Visual extraction from screenshots](#visual-extraction-from-screenshots)  
    - **Tailwind prefix map (from `apps/brands/src/app/globals.css`):** which screenshot (mobile / tablet / desktop) maps to `sm:` / `md:` / `lg:` in `apps/brands`—see [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
    - **Theme / variants:** … (e.g. light/dark, image left/right)
    - **Interactivity & dependencies:** … (prefer built-ins and installed packages first; call out if anything truly needs approval)
-   - **Props (optional slots):** …
+   - **Props (optional slots):** … (from screenshots first, then renamed/extended only where the user asked)
    - **Implementation standards (after you confirm):** satisfy **[Global principles](#global-principles)**; read supporting `SKILL.md` files and draft with CVA + `cn`, structural a11y, `next/image`, tokens
    - **Open questions:** … *(must be non-empty if anything is unclear)*
    ```
@@ -212,7 +206,7 @@ Apply in this **exact** order when resolving design decisions:
 2. **`apps/brands/src/app/globals.css`** — use for breakpoints, wrappers, and app-level layout utilities  
 3. **`packages/ui/src/styles/globals.css`** — use for shared color tokens, theme variables, and `@theme inline` aliases; these outrank generic Tailwind color choices  
 3. **User-provided style notes** from Step 3 (colors, padding, container rules, typography, DevTools class hints)—use to **inform** Tailwind and tokens; on **visible** conflict with screenshots, prefer screenshots and **surface** in Open questions unless the user prioritized notes  
-4. **Structured prompts** (Step 5): `theme`, `imagePosition`, slot names—on conflict with screenshots, **ask**  
+4. **User corrections or extra hints** (Step 4): `theme`, `imagePosition`, slot names, variants—on conflict with screenshots, **ask**  
 5. Coherent, useful legacy HTML/CSS (when provided)  
 6. Project conventions and **loaded** supporting skill files (see [Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)—not generic “best practices” from memory)  
 7. Careful inference—**document every inference** as an assumption  
@@ -363,18 +357,17 @@ Execute **in order**:
 1. Collect component name and resolve it to `apps/brands/src/components/<CleanComponentName>/index.tsx` (intake: light)  
 2. Collect **all three** screenshots in **one** Step 2 message—mobile, tablet, desktop order (intake: acknowledge only)  
 3. Ask for optional HTML/CSS **and/or written style notes** (collect only)  
-4. Optional content structure  
-5. Optional structured prompts — theme, `imagePosition`, slots  
-6. **[Pre-flight](#pre-flight-analysis-and-user-confirmation-before-code)** — full analysis: screenshots per breakpoint, inferred interaction needs, HTML/CSS + **style notes** usefulness, conflicts, open questions; **wait for go-ahead**  
-7. After confirmation: detailed layout/Tailwind plan if not fully settled in pre-flight—**include prefix map** from [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
-8. Resolve whether the current installed stack is sufficient for any inferred interaction; only escalate if something truly needs approval  
-9. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — read the core `SKILL.md` files and any additional supporting skills that are relevant to the component  
-10. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — apply the relevant supporting skills, then run the checklist in `references/implementation-checklist.md`  
-11. Generate code at the resolved component path  
-12. Create the matching Storybook story with variants under `apps/storybook/src/stories/brands`  
-13. Add extra files only if justified  
-14. [Self-audit](#self-audit)  
-15. [Final code review](#final-code-review) — include [copy-paste usage example](#copy-paste-usage-example)  
+4. Optional naming and hints — confirm screenshot-inferred field names, rename props if needed, and add extra variant/style/behavior hints only where the screenshots are incomplete  
+5. **[Pre-flight](#pre-flight-analysis-and-user-confirmation-before-code)** — full analysis: screenshots per breakpoint, inferred interaction needs, inferred content structure, HTML/CSS + **style notes** usefulness, conflicts, open questions; **wait for go-ahead**  
+6. After confirmation: detailed layout/Tailwind plan if not fully settled in pre-flight—**include prefix map** from [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
+7. Resolve whether the current installed stack is sufficient for any inferred interaction; only escalate if something truly needs approval  
+8. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — read the core `SKILL.md` files and any additional supporting skills that are relevant to the component  
+9. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — apply the relevant supporting skills, then run the checklist in `references/implementation-checklist.md`  
+10. Generate code at the resolved component path  
+11. Create the matching Storybook story with variants under `apps/storybook/src/stories/brands`  
+12. Add extra files only if justified  
+13. [Self-audit](#self-audit)  
+14. [Final code review](#final-code-review) — include [copy-paste usage example](#copy-paste-usage-example)  
 
 ## Self-audit
 
