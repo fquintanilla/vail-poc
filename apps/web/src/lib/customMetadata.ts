@@ -15,13 +15,29 @@ export default function customMetadata({
     searchIndexing = false;
   }
 
+  const robots = isPreview
+    ? {
+        index: false as const,
+        follow: false as const,
+        nocache: true as const,
+        googleBot: {
+          index: false as const,
+          follow: false as const,
+          noimageindex: true as const,
+          "max-image-preview": "none" as const,
+          "max-snippet": -1 as const,
+          "max-video-preview": -1 as const,
+        },
+      }
+    : {
+        index: searchIndexing,
+        follow: searchIndexing,
+      };
+
   return {
     ...(title ? { title } : {}),
     ...(description ? { description } : {}),
     ...(keywords ? { keywords } : {}),
-    robots: {
-      index: searchIndexing,
-      follow: searchIndexing,
-    },
+    robots,
   };
 }

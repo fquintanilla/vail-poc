@@ -1,7 +1,20 @@
 import type { NextConfig } from "next";
 
+const previewNoIndexHeaders = [
+  {
+    key: "X-Robots-Tag",
+    value: "noindex, nofollow, noarchive, nosnippet, noimageindex",
+  },
+] as const;
+
 const nextConfig: NextConfig = {
   transpilePackages: ["@repo/ui"],
+  async headers() {
+    return [
+      { source: "/preview", headers: [...previewNoIndexHeaders] },
+      { source: "/preview/:path*", headers: [...previewNoIndexHeaders] },
+    ];
+  },
   images: {
     qualities: [75, 85],
     remotePatterns: [
