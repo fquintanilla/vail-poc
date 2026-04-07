@@ -16,7 +16,7 @@ Use this after the user confirms the rebuild plan and before you ship code.
 10. Keep `index.tsx` as the server entrypoint unless the entire component is genuinely client-only by nature.
 11. If interactivity is needed, isolate it into the smallest practical client file such as `<CleanComponentName>.client.tsx` instead of putting `"use client"` at the top of the whole component tree.
 12. Split cards, items, controls, or other heavy subtrees into additional focused files when that makes the implementation easier to read and maintain.
-13. Create a Storybook story under `apps/storybook/src/stories/brands` for the component.
+13. Create a Storybook story under `apps/storybook/src/stories/brands` for the component, not in another story folder that would need a later move.
 14. Include meaningful variants/states in the story, not just a single default case, when the component exposes variants or optional slots.
 
 ## `cn` and conditional classes
@@ -58,6 +58,7 @@ Use this after the user confirms the rebuild plan and before you ship code.
 - `index.tsx` remains a Server Component by default; `"use client"` appears only in dedicated client subfiles when required.
 - Shared colors and theme tokens come from `packages/ui/src/styles/globals.css`. Hardcoded hex values or generic Tailwind neutrals for themed roles are a failure when a matching token exists.
 - Storybook story uses `@storybook/nextjs-vite` conventions already present in the repo.
+- Storybook file physically lives under `apps/storybook/src/stories/brands` before the run is considered done.
 - Story examples use `https://placehold.co/` for placeholder images when image props are needed. Per [Placehold docs](https://placehold.co/), use `https://placehold.co/{width}x{height}` and optionally `?text=...` when useful. If a placeholder is rendered with `next/image`, set `unoptimized` on that image usage by default.
 - When screenshots clearly show carousel/accordion/tab-like behavior, the implementation includes that behavior instead of pushing the decision back to the user.
 - If interactivity required a package that was not installed, the run adds the preferred top-tier library for that pattern or documents the justified top-tier alternative used instead.

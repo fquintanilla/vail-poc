@@ -21,7 +21,7 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 
 2. **Server-first component architecture** — The **top-level component file must stay a Server Component by default**. Do **not** mark the main `index.tsx` with `"use client"` just because one subsection needs interactivity, viewport observation, animation state, or a third-party client hook. Isolate that behavior into the **smallest possible client boundary**, usually a sibling file such as **`<CleanComponentName>.client.tsx`**, and keep the parent server-rendered shell responsible for layout, semantics, headings, links, images, and data-shaped props. If the component is large enough that cards, controls, or item renderers are carrying too much markup, split them into additional focused files instead of building one oversized client component.
 
-3. **Brands project context = source of truth** — This skill assumes the component belongs to **`apps/brands`**. Read **`apps/brands/src/app/globals.css`** first for `@theme`, breakpoint mapping, wrapper sizing, and app-level layout utilities. Read **`packages/ui/src/styles/globals.css`** for shared theme variables, color tokens, and `@theme inline` aliases used by the brands UI system. **When a matching theme token exists for a color, surface, border, ring, or similar themed value, use that token instead of a hardcoded hex or generic Tailwind neutral color.** Also treat **Storybook** as part of the deliverable: new rebuild components should ship with a story under **`apps/storybook/src/stories/brands`** using the repo’s Storybook conventions. Read the **supporting skill files that are relevant to this component and repo** and apply them by phase (see `references/supporting-skills.md`). **Do not** substitute memory or generic Tailwind defaults for repo facts.
+3. **Brands project context = source of truth** — This skill assumes the component belongs to **`apps/brands`**. Read **`apps/brands/src/app/globals.css`** first for `@theme`, breakpoint mapping, wrapper sizing, and app-level layout utilities. Read **`packages/ui/src/styles/globals.css`** for shared theme variables, color tokens, and `@theme inline` aliases used by the brands UI system. **When a matching theme token exists for a color, surface, border, ring, or similar themed value, use that token instead of a hardcoded hex or generic Tailwind neutral color.** Also treat **Storybook** as part of the deliverable: new rebuild components must ship with a story file created directly under **`apps/storybook/src/stories/brands`** using the repo’s Storybook conventions. Do **not** place the story somewhere else expecting a later manual move. Read the **supporting skill files that are relevant to this component and repo** and apply them by phase (see `references/supporting-skills.md`). **Do not** substitute memory or generic Tailwind defaults for repo facts.
 
 4. **Accessibility is structural** — Follow **`accessibility-a11y`** while writing markup: landmarks, headings, names, focus, contrast, alt. **Tab and reading order follow the DOM**—**no** flex/grid **`order`** to swap major regions (image vs copy); use **JSX child order** ([Focus order and DOM](#focus-order-and-dom-accessibility)). A11y is not a post-hoc checklist after bad structure.
 
@@ -322,7 +322,7 @@ These apply from the **first** implementation pass:
 6. **Render optional content conditionally** — no empty shells or placeholder DOM unless layout stability truly requires it.
 7. **Split files when the architecture calls for it** — if interactivity, animation state, observers, or a heavy item subtree would force the whole component into `"use client"`, split the implementation into multiple focused files such as `index.tsx`, `<CleanComponentName>.client.tsx`, and smaller item/card files when that keeps responsibilities clearer.
 8. **Infer and implement clear interaction patterns** — if the screenshots clearly depict carousel, accordion, tabs, dismiss controls, or similar behavior, implement that behavior using the installed brands stack when available; otherwise install the preferred top-tier library for that pattern from [Global principles](#global-principles), or a justified top-tier alternative if the pattern is not covered there.
-9. **Ship a Storybook story** — create a story file for the rebuilt component with sensible variants/states so the component can be reviewed in isolation.
+9. **Ship a Storybook story** — create a story file for the rebuilt component with sensible variants/states so the component can be reviewed in isolation, and write it directly inside **`apps/storybook/src/stories/brands`** on the first pass.
 
 The detailed implementation checklist, `cn`/CVA guidance, and dependency rules live in `references/implementation-checklist.md`.
 
@@ -344,7 +344,7 @@ Skipping this pass is a **process failure**; the deliverable is not complete unt
 
 - Default to a server entrypoint at **`apps/brands/src/components/<CleanComponentName>/index.tsx`** plus one Storybook story file for that component.
 - Derive `<CleanComponentName>` from the Step 1 component name using the normalization rules above; do not ask the user for a manual path unless they are correcting the resolved result.
-- Put stories under **`apps/storybook/src/stories/brands`**, mirroring the component domain/path as closely as practical for the existing Storybook setup.
+- Put stories under **`apps/storybook/src/stories/brands`**, mirroring the component domain/path as closely as practical for the existing Storybook setup. This is the required destination, not a suggestion.
 - When interactivity is required, keep `index.tsx` server-first and place the client boundary in a sibling file such as **`<CleanComponentName>.client.tsx`**.
 - Split component files whenever that keeps the implementation smaller and clearer; interactive wrappers, controls, cards, and item renderers are valid candidates.
 - Default to a Server Component and keep optional props truly optional.
@@ -366,7 +366,7 @@ Execute **in order**:
 9. **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** — apply the relevant supporting skills, then run the checklist in `references/implementation-checklist.md`  
 10. Generate the server entrypoint at the resolved component path  
 11. Add a dedicated client file when interactivity, observers, or client-only hooks are needed, and split cards/items into smaller files when that improves structure  
-12. Create the matching Storybook story with variants under `apps/storybook/src/stories/brands`  
+12. Create the matching Storybook story with variants directly under `apps/storybook/src/stories/brands`  
 13. Add extra files only if justified  
 14. [Self-audit](#self-audit)  
 15. [Final code review](#final-code-review) — include [copy-paste usage example](#copy-paste-usage-example)  

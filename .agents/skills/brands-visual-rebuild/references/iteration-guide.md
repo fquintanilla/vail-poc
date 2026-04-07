@@ -13,7 +13,7 @@
 2. **Non-goals** — No fetch, no CMS hooks, no analytics in output?
 3. **Tailwind prefixes vs captures** — Did the agent read the app’s `@theme` (e.g. brands `md` 992 / `lg` 1200) so **tablet ~1024** uses **`md:`**, not **`lg:`**, for layout seen on the tablet screenshot?
 4. **Conditional rendering** — Missing props omit UI (spot-check generated JSX)?
-5. **Single-file default** — Unjustified splits = regression.
+5. **File structure quality** — `index.tsx` should stay server-first, client-only behavior should live in focused subfiles when needed, and Storybook should be created directly under `apps/storybook/src/stories/brands`.
 6. **Closing report** — Present every time with consistent sections, including **## Copy-paste usage example** with a short JSX snippet (`placehold.co` for demo images when needed)?
 
 ## Qualitative review (recommended)
@@ -26,6 +26,7 @@
 ## Quantitative checks (optional)
 
 - Assert output file path matches the resolved destination under `apps/brands/src/components/<CleanComponentName>/index.tsx`.
+- Assert Storybook file path lives under `apps/storybook/src/stories/brands`.
 - Assert no forbidden substrings in new component files: `getEntry`, `fetch(`, `@contentstack`, `analytics`, `useEffect` unless client component justified.
 - Count `"use client"` occurrences (expect 0 or 1 with justification).
 

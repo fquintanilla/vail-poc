@@ -12,7 +12,7 @@ Use the same headings so repeated runs produce comparable reports. Keep every se
 
 - Resolved component name/path — raw user input → cleaned folder/component name
 - Structure — single file / split files and why
-- Storybook — path/title and covered states
+- Storybook — exact path under `apps/storybook/src/stories/brands`, title, and covered states
 
 ## Notes
 

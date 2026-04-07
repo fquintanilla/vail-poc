@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "We are rebuilding a marketing hero from an existing site into a reusable Next 16 component. Component name: `Hero Banner`. I have mobile, tablet, and desktop screenshots plus a few notes about spacing and CTA copy. No legacy HTML. Static headline, description, primary CTA, and image area. Walk through whatever intake you need and then implement a presentational component we can wire later.",
-      "expected_output": "Agent uses conversational intake without dumping every step at once, keeps analysis light until pre-flight, resolves the component name to a clean folder under `apps/brands/src/components`, confirms plan before code, and produces a reusable presentation-only component rather than a one-off hero patch.",
+      "expected_output": "Agent uses conversational intake without dumping every step at once, keeps analysis light until pre-flight, resolves the component name to a clean folder under `apps/brands/src/components`, confirms plan before code, produces a reusable presentation-only component rather than a one-off hero patch, and creates the story directly under `apps/storybook/src/stories/brands`.",
       "files": []
     },
     {
@@ -64,7 +64,7 @@
     {
       "id": 11,
       "prompt": "Create `Promo Card Grid` from screenshots. The design includes a heading, a grid of promo cards, and a carousel interaction only for the card rail and dots. Keep the implementation clean and reusable.",
-      "expected_output": "Agent does not turn the whole component into a client component. It keeps the main `index.tsx` server-rendered, creates a focused client file such as `PromoCardGrid.client.tsx` for the carousel behavior, and may split card rendering into smaller files if that keeps the codebase easier to maintain.",
+      "expected_output": "Agent does not turn the whole component into a client component. It keeps the main `index.tsx` server-rendered, creates a focused client file such as `PromoCardGrid.client.tsx` for the carousel behavior, may split card rendering into smaller files if that keeps the codebase easier to maintain, and writes the story directly inside `apps/storybook/src/stories/brands` instead of another folder.",
       "files": []
     }
   ]
