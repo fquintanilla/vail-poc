@@ -1,5 +1,5 @@
 ---
-name: resort-visual-rebuild
+name: brands-visual-rebuild
 description: Rebuild existing website UI as lean presentational Next.js 16 components with Tailwind CSS 4 for the `apps/brands` project from screenshots, optional legacy markup, and implementation notes. Use this whenever the user wants to recreate or migrate an existing brand marketing or content-driven component into a reusable presentational shell for `apps/brands`, especially from screenshots, legacy CMS output, or partial visual references. This skill is for visual rebuilds and reusable component scaffolds, not CMS wiring, business logic migration, or data integration.
 ---
 
@@ -25,9 +25,9 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 
 4. **One styling system per component** — **`as const`** theme/layout keys, **`isDark`** (or equivalent) + **boolean CVA**, **`cn`** object maps for safe flags; avoid repeated string theme compares across nodes.
 
-5. **Screenshots = quantitative design spec, not only wireframes** — The **three attachments** are the main source for **concrete** styling: approximate **font size, weight, tracking, line-height, casing**, **text and background colors**, **padding/margin/gap**, **borders and radius**, **shadows**, **image aspect / treatment**. In **pre-flight** and **implementation**, derive **the closest defensible Tailwind/CSS values** per breakpoint (compare mobile vs tablet vs desktop when type or spacing **changes**). Prefer **project tokens** when they match pixels. Use arbitrary values only when the resort token system genuinely has no suitable equivalent and the screenshots clearly justify the deviation. **Do not** substitute generic defaults (`text-lg`, `p-4`, `rounded-md`) when screenshots clearly show something else. **Do not** invent UI, layout variants, interactions, or image-cropping behavior that are not supported by the visible evidence. **Log assumptions** when compression or blur blocks exact pixels ([Visual extraction from screenshots](#visual-extraction-from-screenshots)).
+5. **Screenshots = quantitative design spec, not only wireframes** — The **three attachments** are the main source for **concrete** styling: approximate **font size, weight, tracking, line-height, casing**, **text and background colors**, **padding/margin/gap**, **borders and radius**, **shadows**, **image aspect / treatment**. In **pre-flight** and **implementation**, derive **the closest defensible Tailwind/CSS values** per breakpoint (compare mobile vs tablet vs desktop when type or spacing **changes**). Prefer **project tokens** when they match pixels. Use arbitrary values only when the shared theme token system genuinely has no suitable equivalent and the screenshots clearly justify the deviation. **Do not** substitute generic defaults (`text-lg`, `p-4`, `rounded-md`) when screenshots clearly show something else. **Do not** invent UI, layout variants, interactions, or image-cropping behavior that are not supported by the visible evidence. **Log assumptions** when compression or blur blocks exact pixels ([Visual extraction from screenshots](#visual-extraction-from-screenshots)).
 
-6. **Skill maintenance (meta)** — When editing `resort-visual-rebuild`, **fold** new requirements into **Global principles** or **one** linked subsection—**avoid** append-only reactive bullets that repeat the same idea under Strict non-goals, Code generation, Non-negotiables, and Self-audit without pointing here first.
+6. **Skill maintenance (meta)** — When editing `brands-visual-rebuild`, **fold** new requirements into **Global principles** or **one** linked subsection—**avoid** append-only reactive bullets that repeat the same idea under Strict non-goals, Code generation, Non-negotiables, and Self-audit without pointing here first.
 
 ## Strict non-goals
 
@@ -287,7 +287,7 @@ Per **`accessibility-a11y`:** keyboard and screen-reader order follow the **DOM*
 
 ## Mandatory skill file reads (blocking before code)
 
-After the user confirms the **Rebuild plan**, you **must not** write or edit component TS/TSX/CSS until the **relevant** project skill files below have been **read into context** (e.g. editor Read tool on the file). You must also read **`apps/brands/src/app/globals.css`** for breakpoints and wrapper sizing, plus **`packages/ui/src/styles/globals.css`** for theme colors and shared style tokens. **Paraphrasing this `resort-visual-rebuild` page from memory does not count** as having applied `accessibility-a11y`, `next-best-practices`, etc.
+After the user confirms the **Rebuild plan**, you **must not** write or edit component TS/TSX/CSS until the **relevant** project skill files below have been **read into context** (e.g. editor Read tool on the file). You must also read **`apps/brands/src/app/globals.css`** for breakpoints and wrapper sizing, plus **`packages/ui/src/styles/globals.css`** for theme colors and shared style tokens. **Paraphrasing this `brands-visual-rebuild` page from memory does not count** as having applied `accessibility-a11y`, `next-best-practices`, etc.
 
 Use this rule of thumb:
 

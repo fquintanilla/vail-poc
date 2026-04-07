@@ -1,4 +1,4 @@
-# Iterating on `resort-visual-rebuild`
+# Iterating on `brands-visual-rebuild`
 
 ## Goals when changing the skill
 
@@ -11,7 +11,7 @@
 
 1. **Process adherence** — Does the run use **one intake step per turn** (no wall of Steps 1–6), **Step 2 asks for all three screenshots in one message**, intake stays **light** (no deep image analysis until pre-flight), then **pre-flight + confirmation** before coding? **After confirmation**, did the agent read the **core supporting skills** plus the **relevant conditional ones** and apply them at the right phase (see `references/supporting-skills.md`) rather than doing a single undifferentiated read? Does the **first** code pass reflect reusable styling, appropriate Next built-ins, a11y, and screenshot-grounded decisions without depending on a cleanup pass?
 2. **Non-goals** — No fetch, no CMS hooks, no analytics in output?
-3. **Tailwind prefixes vs captures** — Did the agent read the app’s `@theme` (e.g. resort `md` 992 / `lg` 1200) so **tablet ~1024** uses **`md:`**, not **`lg:`**, for layout seen on the tablet screenshot?
+3. **Tailwind prefixes vs captures** — Did the agent read the app’s `@theme` (e.g. brands `md` 992 / `lg` 1200) so **tablet ~1024** uses **`md:`**, not **`lg:`**, for layout seen on the tablet screenshot?
 4. **Conditional rendering** — Missing props omit UI (spot-check generated JSX)?
 5. **Single-file default** — Unjustified splits = regression.
 6. **Closing report** — Present every time with consistent sections, including **## Copy-paste usage example** with a short JSX snippet (`placehold.co` for demo images when needed)?
