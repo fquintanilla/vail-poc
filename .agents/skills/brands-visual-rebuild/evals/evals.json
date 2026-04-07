@@ -52,13 +52,19 @@
     {
       "id": 9,
       "prompt": "Make a component named `Featured Stories Slider` from three screenshots. The desktop and tablet screenshots clearly show multiple cards with previous/next controls and pagination dots. I am not giving extra implementation guidance beyond the screenshots.",
-      "expected_output": "Agent infers carousel behavior from the screenshots, checks whether the brands app already has a carousel package, installs Embla if it does not, and does not ask the user to declare whether the component is interactive.",
+      "expected_output": "Agent infers carousel behavior from the screenshots, checks whether the brands app already has a carousel package, installs Embla if it does not, keeps `index.tsx` as the server entrypoint, and pushes Embla plus related client state into a dedicated client subfile instead of marking the whole component tree with `use client`.",
       "files": []
     },
     {
       "id": 10,
       "prompt": "Build a component named `Mountain Questions` from three screenshots. The screenshots show stacked disclosure rows with chevrons and one expanded answer state, but I am not providing any extra behavior notes.",
       "expected_output": "Agent infers accordion behavior from the screenshots, checks whether the brands app already has the needed accordion primitives, installs Radix UI if they are missing, and keeps the intake focused on the screenshots instead of asking the user to specify the interaction.",
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "Create `Promo Card Grid` from screenshots. The design includes a heading, a grid of promo cards, and a carousel interaction only for the card rail and dots. Keep the implementation clean and reusable.",
+      "expected_output": "Agent does not turn the whole component into a client component. It keeps the main `index.tsx` server-rendered, creates a focused client file such as `PromoCardGrid.client.tsx` for the carousel behavior, and may split card rendering into smaller files if that keeps the codebase easier to maintain.",
       "files": []
     }
   ]
