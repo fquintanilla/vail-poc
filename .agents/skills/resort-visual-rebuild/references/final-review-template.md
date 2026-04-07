@@ -22,7 +22,7 @@ Use the same headings so repeated runs produce comparable reports.
 - **Storybook coverage:** list the created story and which variants/states it covers
 - `cn` object-form conditionals for layout/boolean flags: (yes / N/A — why)
 - CVA used for multi-node variants (e.g. theme): (yes — variants: … / no — justify per non-negotiable rules)
-- Non-negotiables spot-check: section `aria-labelledby`+heading `id` if applicable; **`next/image`**; no URL-parsing helpers; **no** sanitize / `dangerouslySetInnerHTML` in rebuild file; **DOM order = focus order** (no `order-*` on main columns—see `SKILL.md` “Focus order and DOM”); **themed colors come from resort tokens, not hardcoded hex/neutrals, when tokens exist**; **`as const` + `isDark`/CVA**; no `unoptimized` unless documented; note **integration** follow-ups (`Link`, `rel`, rich HTML) if needed
+- Non-negotiables spot-check: section `aria-labelledby`+heading `id` if applicable; **`next/image`**; no URL-parsing helpers; **no** sanitize / `dangerouslySetInnerHTML` in rebuild file; **DOM order = focus order** (no `order-*` on main columns—see `SKILL.md` “Focus order and DOM”); **themed colors come from resort tokens in `packages/ui/src/styles/globals.css`, not hardcoded hex/neutrals, when tokens exist**; **`as const` + `isDark`/CVA**; no `unoptimized` unless documented, except placeholder images from `placehold.co`; note **integration** follow-ups (`Link`, `rel`, rich HTML) if needed
 
 ## Pre-flight alignment
 
@@ -79,9 +79,9 @@ Use the same headings so repeated runs produce comparable reports.
 
 **Mandatory:** one short JSX snippet the user can paste into a page (not the full component file). Use the **real** export name and prop names from this run. Prefer realistic placeholder strings.
 
-**Images:** when `src` is needed, use `https://placehold.co/{width}x{height}` with fitting dimensions. You may append `?text=...` if it helps distinguish story variants.
+**Images:** when `src` is needed, use `https://placehold.co/{width}x{height}` with fitting dimensions. You may append `?text=...` if it helps distinguish story variants. If that placeholder is rendered with `next/image`, set `unoptimized`.
 
-**`next/image`:** one line stating whether the target app’s `next.config` `images.remotePatterns` already includes `placehold.co` (or any other host in the snippet); say to add it if missing.
+**`next/image`:** one line stating whether the target app’s `next.config` `images.remotePatterns` already includes `placehold.co` (or any other host in the snippet); say to add it if missing. Even if the host is allowed, placeholder images from `placehold.co` should still be rendered with `unoptimized` in examples/stories.
 
 ```tsx
 

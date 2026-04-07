@@ -19,7 +19,7 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 
 1. **Rebuild vs integration boundary** — Generated files are a **lean presentational shell**: layout, tokens, semantics, framework-native primitives, and optional props. Prefer the appropriate **Next.js primitives** when they fit the job cleanly, such as **`next/image`**, **`next/link`**, and **`next/script`**. **Integration / final components** own: CMS wiring, rich-text handling, **HTML sanitization**, `dangerouslySetInnerHTML`, analytics, fetch, and other application-specific behavior. Keep the rebuild output focused on presentational structure that can be re-created or wired later in Contentstack or another CMS.
 
-2. **Resort project context = source of truth** — This skill assumes the component belongs to **`apps/resort`**. Read **`apps/resort/src/app/globals.css`** first, then follow and read the stylesheet imports it pulls in that affect theme, tokens, layout utilities, or component styling. Use that import graph as the source of truth for `@theme`, breakpoint mapping, wrapper sizing, and theme-aware design tokens. **When a resort token exists for a color, surface, border, ring, or similar themed value, use that token instead of a hardcoded hex or generic Tailwind neutral color.** Also treat **Storybook** as part of the deliverable: new rebuild components should ship with a story under **`apps/storybook/src/stories`** using the repo’s Storybook conventions. Read the **supporting skill files that are relevant to this component and repo** and apply them by phase (see `references/supporting-skills.md`). **Do not** substitute memory or generic Tailwind defaults for repo facts.
+2. **Resort project context = source of truth** — This skill assumes the component belongs to **`apps/resort`**. Read **`apps/resort/src/app/globals.css`** first for `@theme`, breakpoint mapping, wrapper sizing, and app-level layout utilities. Read **`packages/ui/src/styles/globals.css`** for shared theme variables, color tokens, and `@theme inline` aliases used by the resort UI system. **When a resort token exists for a color, surface, border, ring, or similar themed value, use that token instead of a hardcoded hex or generic Tailwind neutral color.** Also treat **Storybook** as part of the deliverable: new rebuild components should ship with a story under **`apps/storybook/src/stories`** using the repo’s Storybook conventions. Read the **supporting skill files that are relevant to this component and repo** and apply them by phase (see `references/supporting-skills.md`). **Do not** substitute memory or generic Tailwind defaults for repo facts.
 
 3. **Accessibility is structural** — Follow **`accessibility-a11y`** while writing markup: landmarks, headings, names, focus, contrast, alt. **Tab and reading order follow the DOM**—**no** flex/grid **`order`** to swap major regions (image vs copy); use **JSX child order** ([Focus order and DOM](#focus-order-and-dom-accessibility)). A11y is not a post-hoc checklist after bad structure.
 
@@ -34,7 +34,7 @@ These apply **every** run. They are the **single anchor** for quality—**not** 
 - Do not migrate business logic, hidden legacy application logic, or Sitecore server behavior.
 - Do not add CMS integration, data fetching, analytics, or fake loading patterns.
 - Do not add sanitization libraries, HTML-cleaning helpers, or rich-text rendering pipelines in the rebuild output. If legacy content needs sanitization or special rendering later, that belongs to the integrated Contentstack-backed component layer, not the presentational rebuild.
-- Do not hardcode themed colors with hex values or generic Tailwind neutrals when an equivalent resort token exists in the `globals.css` stylesheet graph.
+- Do not hardcode themed colors with hex values or generic Tailwind neutrals when an equivalent resort token exists in `packages/ui/src/styles/globals.css`.
 - Do not claim pixel-perfect fidelity when evidence is incomplete.
 - Do not invent behavior or visual detail not supported by evidence.
 - Do not violate **[Global principles](#global-principles)** (especially the **rebuild vs integration** boundary and **structural a11y**).
@@ -87,7 +87,7 @@ Intake must feel like a **guided chat**, not a form dumped in one message.
 2. Tablet  
 3. Desktop  
 
-**Recommended viewport widths (soft guidance, not blocking):** Ask the user to capture at **approximately** **375px** (mobile), **1024px** (tablet), and **1440px** (desktop) when they can. Derive prefix mapping from **`apps/resort/src/app/globals.css`** and its imported stylesheet graph. In the current resort setup, **1024px** maps to **`md:`**, not `lg:`. If their design uses different canonical widths, note them in pre-flight.
+**Recommended viewport widths (soft guidance, not blocking):** Ask the user to capture at **approximately** **375px** (mobile), **1024px** (tablet), and **1440px** (desktop) when they can. Derive prefix mapping from **`apps/resort/src/app/globals.css`**. In the current resort setup, **1024px** maps to **`md:`**, not `lg:`. If their design uses different canonical widths, note them in pre-flight.
 
 User may attach three files in one reply or in follow-up messages in the same step—do not advance to Step 3 until all three are present (or user says one is unavailable—in which case note it for pre-flight **Open questions** and still proceed).
 
@@ -180,8 +180,8 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
    - **Evidence:** mobile / tablet / desktop screenshots (+ legacy HTML/CSS: used / ignored / partial; **style notes:** summarized bullets or *none*)
    - **Structured prompts:** … or *none*
    - **Layout & responsiveness:** …  
-   - **Visual tokens from screenshots (per breakpoint where they differ):** typography, surfaces, borders, spacing, radius/shadow, media treatment, and the **specific resort theme tokens** chosen from the `globals.css` import graph for each themed value—see [Visual extraction from screenshots](#visual-extraction-from-screenshots)  
-   - **Tailwind prefix map (from `apps/resort/src/app/globals.css` and imported styles):** which screenshot (mobile / tablet / desktop) maps to `sm:` / `md:` / `lg:` in `apps/resort`—see [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
+   - **Visual tokens from screenshots (per breakpoint where they differ):** typography, surfaces, borders, spacing, radius/shadow, media treatment, and the **specific resort theme tokens** chosen from **`packages/ui/src/styles/globals.css`** for each themed value—see [Visual extraction from screenshots](#visual-extraction-from-screenshots)  
+   - **Tailwind prefix map (from `apps/resort/src/app/globals.css`):** which screenshot (mobile / tablet / desktop) maps to `sm:` / `md:` / `lg:` in `apps/resort`—see [Screenshot viewports vs Tailwind prefixes](#screenshot-viewports-vs-tailwind-prefixes)  
    - **Theme / variants:** … (e.g. light/dark, image left/right)
    - **Interactivity & dependencies:** …
    - **Props (optional slots):** …
@@ -200,7 +200,8 @@ If the user says “proceed” without answering an open question, **re-ask** or
 Apply in this **exact** order when resolving design decisions:
 
 1. Mobile, tablet, and desktop screenshots — **layout and composition** *and* **quantitative styling** (type scale, weight, color, spacing, borders, shadows, image treatment) per [Visual extraction from screenshots](#visual-extraction-from-screenshots). Screenshots **outrank** generic Tailwind presets when both are available.  
-2. **`apps/resort/src/app/globals.css`** and the stylesheets it imports — use for breakpoints, wrappers, and theme-aware design tokens; these outrank generic Tailwind color choices  
+2. **`apps/resort/src/app/globals.css`** — use for breakpoints, wrappers, and app-level layout utilities  
+3. **`packages/ui/src/styles/globals.css`** — use for shared color tokens, theme variables, and `@theme inline` aliases; these outrank generic Tailwind color choices  
 3. **User-provided style notes** from Step 3 (colors, padding, container rules, typography, DevTools class hints)—use to **inform** Tailwind and tokens; on **visible** conflict with screenshots, prefer screenshots and **surface** in Open questions unless the user prioritized notes  
 4. **Structured prompts** (Step 6): `theme`, `imagePosition`, slot names—on conflict with screenshots, **ask**  
 5. Coherent, useful legacy HTML/CSS (when provided)  
@@ -213,7 +214,7 @@ On conflict between screenshots and legacy markup: **screenshots win** for layou
 
 ## Visual extraction from screenshots
 
-Treat each capture as a **frozen design spec** at that viewport. Goal: **match visible metrics as closely as evidence allows**, then encode with Tailwind v4 using the nearest valid **`apps/resort`** tokens from the `globals.css` stylesheet graph when they align.
+Treat each capture as a **frozen design spec** at that viewport. Goal: **match visible metrics as closely as evidence allows**, then encode with Tailwind v4 using the nearest valid resort tokens from **`packages/ui/src/styles/globals.css`** when they align.
 
 **In pre-flight (mandatory narrative):** For **each** of mobile / tablet / desktop, summarize what you **see** for:
 
@@ -229,7 +230,7 @@ Treat each capture as a **frozen design spec** at that viewport. Goal: **match v
 
 - Map estimates to **`font-sans` / theme fonts** when the app sets them; otherwise use stack defaults.
 - Prefer **`text-sm` / `text-base` / …** only when they **match** the capture; if not, use **`text-[13px]`**, **`leading-[1.35]`**, **`tracking-[0.12em]`**, **`uppercase`**, **`font-bold`** / **`font-normal`** as **justified** by the images.
-- Prefer the semantic colors and variables exposed through **`apps/resort/src/app/globals.css`** and the stylesheets it imports. If a resort token exists for the visible role, use it. Do **not** fall back to hex values or generic Tailwind neutrals just because they look close. Use arbitrary values only when the screenshots clearly require a value that the resort token set does not provide.
+- Prefer the semantic colors and variables exposed through **`packages/ui/src/styles/globals.css`**. If a resort token exists for the visible role, use it. Do **not** fall back to hex values or generic Tailwind neutrals just because they look close. Use arbitrary values only when the screenshots clearly require a value that the resort token set does not provide.
 - Encode **responsive type** (e.g. title larger on desktop) by **different utilities at the correct prefix** (`md:text-…`, `lg:text-…`) **derived from comparing** the three screenshots—not one size for all widths unless all three look the same.
 - **CTA and chips:** match border thickness, padding, and gradient/solid fill from pixels when visible.
 - **Images from CMS:** do **not** assume cropping by default. If screenshots do not clearly show a fixed-ratio or cropped treatment, keep the image responsive and preserve its natural aspect ratio.
@@ -248,12 +249,12 @@ Treat each capture as a **frozen design spec** at that viewport. Goal: **match v
 
 ### Screenshot viewports vs Tailwind prefixes (read `apps/resort/src/app/globals.css`)
 
-**Wrong default:** assuming **tablet ~1024px** should always drive **`lg:`** utilities. Read `apps/resort/src/app/globals.css` and the stylesheets it imports before deciding. In the current resort setup, `globals.css` sets **`sm: 768px`**, **`md: 992px`**, and **`lg: 1200px`**, so 1024px belongs to **`md:`**.
+**Wrong default:** assuming **tablet ~1024px** should always drive **`lg:`** utilities. Read `apps/resort/src/app/globals.css` before deciding. In the current resort setup, `globals.css` sets **`sm: 768px`**, **`md: 992px`**, and **`lg: 1200px`**, so 1024px belongs to **`md:`**.
 
 **Process:**
 
-1. Open **`apps/resort/src/app/globals.css`** and read the `@theme` breakpoints, wrapper utilities, and the stylesheet imports it pulls in.  
-2. Follow those imports and read any stylesheet that defines theme variables, colors, spacing scales, radii, shadows, layout utilities, or other shared style tokens relevant to the rebuild.  
+1. Open **`apps/resort/src/app/globals.css`** and read the `@theme` breakpoints and wrapper utilities.  
+2. Read **`packages/ui/src/styles/globals.css`** for theme variables, colors, radii, shadows, and shared style tokens relevant to the rebuild.  
 3. Map each capture to prefixes by **numeric comparison**: the **tablet** screenshot shows layout at its capture width (often **~1024px**). Use the **smallest** `min-width` tier that viewport **reaches**. In the current `apps/resort` setup, **1024px** belongs to **`md:`**.  
 4. State this mapping explicitly in **pre-flight** ([Rebuild plan](#pre-flight-analysis-and-user-confirmation-before-code)) and implement classes accordingly (`md:grid-cols-2`, `md:…`, not `lg:…` for behavior visible only up to desktop). **Do not** rely on **`order-*`** to swap major columns—see [Focus order and DOM](#focus-order-and-dom-accessibility).  
 5. Align **`next/image` `sizes`** (and any raw `@media`) with the same pixel thresholds so art direction matches the prefixes.
@@ -286,12 +287,11 @@ Per **`accessibility-a11y`:** keyboard and screen-reader order follow the **DOM*
 
 ## Mandatory skill file reads (blocking before code)
 
-After the user confirms the **Rebuild plan**, you **must not** write or edit component TS/TSX/CSS until the **relevant** project skill files below have been **read into context** (e.g. editor Read tool on the file). You must also read **`apps/resort/src/app/globals.css`** and follow the stylesheet imports it pulls in for breakpoints, wrapper sizing, theme colors, and shared style tokens. **Paraphrasing this `resort-visual-rebuild` page from memory does not count** as having applied `accessibility-a11y`, `next-best-practices`, etc.
+After the user confirms the **Rebuild plan**, you **must not** write or edit component TS/TSX/CSS until the **relevant** project skill files below have been **read into context** (e.g. editor Read tool on the file). You must also read **`apps/resort/src/app/globals.css`** for breakpoints and wrapper sizing, plus **`packages/ui/src/styles/globals.css`** for theme colors and shared style tokens. **Paraphrasing this `resort-visual-rebuild` page from memory does not count** as having applied `accessibility-a11y`, `next-best-practices`, etc.
 
 Use this rule of thumb:
 
-- **Always read if present:** `accessibility-a11y`, `next-best-practices`, and **`apps/resort/src/app/globals.css`**.
-- **Always follow relevant stylesheet imports from `globals.css`:** read imported files that define tokens, theme variables, colors, spacing, radii, shadows, layout utilities, or other shared styling inputs used by the app.
+- **Always read if present:** `accessibility-a11y`, `next-best-practices`, **`apps/resort/src/app/globals.css`**, and **`packages/ui/src/styles/globals.css`**.
 - **Read when relevant to the implementation:** Tailwind layout/theme/design-system skills when styling or layout decisions are non-trivial; `vercel-react-best-practices` when client boundaries, list rendering, or render-sensitive patterns matter; `frontend-design` when doing a polish pass after screenshot-grounded structure is in place.
 
 Canonical skill paths and the recommended application order live in `references/supporting-skills.md`.
@@ -372,7 +372,7 @@ Before finishing, verify **in order**:
 2. **[Mandatory skill file reads](#mandatory-skill-file-reads-blocking-before-code)** — final review lists the `SKILL.md` **paths actually read** (or missing); not “read once” only.  
 3. **[Non-negotiable implementation standards](#non-negotiable-implementation-standards-first-draft-must-comply)** + **[Implementation quality pass](#implementation-quality-pass-before-shipping-code)** completed, including `references/implementation-checklist.md`.  
 4. **Quality spot-checks** — semantic headings; `next/image` + `sizes`; **`cn`/CVA/enums**; server/client boundary; deps policy; no unnecessary file splits; story file created with variants; honest evidence gaps; **major type/color/spacing** in code **align** with screenshot-derived pre-flight notes (not generic-only defaults).  
-5. **[Copy-paste usage example](#copy-paste-usage-example)** in the closing message (`placehold.co` / `remotePatterns` note when used).  
+5. **[Copy-paste usage example](#copy-paste-usage-example)** in the closing message (`placehold.co` / `remotePatterns` note when used; placeholder images rendered with `next/image` must set `unoptimized`).  
 
 ## Copy-paste usage example
 
@@ -390,7 +390,7 @@ Minimum content:
 - Dependencies proposed or used  
 - Accessibility and responsive notes  
 - Manual follow-up before Contentstack wiring  
-- **[Copy-paste usage example](#copy-paste-usage-example)** (mandatory JSX block + `placehold.co` / `remotePatterns` note when relevant)  
+- **[Copy-paste usage example](#copy-paste-usage-example)** (mandatory JSX block + `placehold.co` / `remotePatterns` note when relevant; placeholder images rendered with `next/image` must set `unoptimized`)  
 
 ## When stuck or evidence is thin
 
