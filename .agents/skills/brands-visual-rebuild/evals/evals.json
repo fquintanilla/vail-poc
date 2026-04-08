@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "We are rebuilding a marketing hero from an existing site into a reusable Next 16 component. Component name: `Hero Banner`. I have mobile, tablet, and desktop screenshots plus a few notes about spacing and CTA copy. No legacy HTML. Static headline, description, primary CTA, and image area. Walk through whatever intake you need and then implement a presentational component we can wire later.",
-      "expected_output": "Agent uses conversational intake without dumping every step at once, keeps analysis light until pre-flight, resolves the component name to a clean folder under `apps/brands/src/components`, confirms plan before code, produces a reusable presentation-only component rather than a one-off hero patch, and creates the story directly under `apps/storybook/src/stories/brands`.",
+      "expected_output": "Agent uses conversational intake without dumping every step at once, keeps analysis light until pre-flight, resolves the component name to a clean folder under `apps/brands/src/components`, confirms plan before code, gives any open questions their own clearly visible section in the pre-flight summary, produces a reusable presentation-only component rather than a one-off hero patch, and creates the story directly under `apps/storybook/src/stories/brands`.",
       "files": []
     },
     {

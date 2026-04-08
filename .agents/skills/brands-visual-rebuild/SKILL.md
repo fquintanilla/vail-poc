@@ -174,7 +174,7 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
 **Mandatory gate.** After Steps 1–4 are complete (and optional steps skipped or answered “none”), **do not generate code yet**. This is the **first** place where you perform full cross-screenshot analysis and consolidation.
 
 1. **Synthesize** everything received: raw component name, resolved component path, breakpoint evidence, optional markup + **style notes** verdict, inferred interaction needs, inferred content slots, and any user corrections or extra hints from Step 4.  
-2. **Summarize in a short, fixed block** for the user (use the same headings every run). Keep this intentionally compact: prefer short phrases, compress related points onto one line, and avoid re-explaining rules that already live elsewhere in the skill.
+2. **Summarize in a short, fixed block** for the user (use the same headings every run). Keep this intentionally compact: prefer short phrases, compress related points onto one line, and avoid re-explaining rules that already live elsewhere in the skill. **Give `Open questions` extra visual weight**: keep it out of the dense summary list and present it as its own short section at the end so it is hard to miss.
 
    ```markdown
    ## Rebuild plan (confirm before implementation)
@@ -187,10 +187,15 @@ See `references/structured-prompts.md` for the canonical hint table and conflict
    - **Key visual tokens:** …  
    - **Breakpoint map:** mobile / tablet / desktop → `…`
    - **Props:** … (optional slots only)
-   - **Open questions:** … *(must be non-empty if anything is unclear)*
+
+   ### Action required before implementation
+
+   **Open questions**
+
+   - … *(must be non-empty if anything is unclear; use `None` only when nothing needs an answer)*
    ```
 
-3. **Explicitly invite correction:** Ask if the user agrees or wants changes **before** you implement.  
+3. **Explicitly invite correction:** Ask if the user agrees or wants changes **before** you implement, and if `Open questions` is not `None`, tell them to answer that section first.  
 4. **Minimal doubt rule:** If there is **any** ambiguity that would materially change markup, styles, or props (breakpoints, theme, image side, interaction, copy structure), **ask a targeted question** in **Open questions** and **wait**—do not improvise.  
 5. Only after the user **confirms** (or resolves open questions) proceed to implementation.
 
