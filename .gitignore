@@ -37,3 +37,9 @@ yarn-error.log*
 .DS_Store
 *.pem
 .env*.local
+
+# Storybook
+storybook-static
+
+# pnpm
+.pnpm-store

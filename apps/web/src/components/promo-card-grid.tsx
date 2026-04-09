@@ -50,16 +50,18 @@ export function PromoCardGrid(props: PromoCardGridProps) {
                   }}
                 />
 
-                <Link
-                  href={card.call_to_action.href}
-                  className="mt-auto inline-flex items-center gap-1 font-sans text-sm font-semibold text-[#4B6373] transition hover:text-[#3a4d5a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4B6373]"
-                  {...(card.call_to_action.$?.title as {})}
-                >
-                  {card.call_to_action.title}
-                  <span aria-hidden className="text-base leading-none">
-                    ›
-                  </span>
-                </Link>
+                {card.call_to_action ? (
+                  <Link
+                    href={card.call_to_action.href}
+                    className="mt-auto inline-flex items-center gap-1 font-sans text-sm font-semibold text-[#4B6373] transition hover:text-[#3a4d5a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4B6373]"
+                    {...(card.call_to_action.$?.title as {})}
+                  >
+                    {card.call_to_action.title}
+                    <span aria-hidden className="text-base leading-none">
+                      ›
+                    </span>
+                  </Link>
+                ) : null}
               </div>
             </li>
           ))}

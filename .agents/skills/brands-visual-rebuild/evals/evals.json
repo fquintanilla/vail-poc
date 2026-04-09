@@ -1,0 +1,71 @@
+{
+  "skill_name": "brands-visual-rebuild",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We are rebuilding a marketing hero from an existing site into a reusable Next 16 component. Component name: `Hero Banner`. I have mobile, tablet, and desktop screenshots plus a few notes about spacing and CTA copy. No legacy HTML. Static headline, description, primary CTA, and image area. Walk through whatever intake you need and then implement a presentational component we can wire later.",
+      "expected_output": "Agent uses conversational intake without dumping every step at once, keeps analysis light until pre-flight, resolves the component name to a clean folder under `apps/brands/src/components`, confirms plan before code, gives any open questions their own clearly visible section in the pre-flight summary, produces a reusable presentation-only component rather than a one-off hero patch, and creates the story directly under `apps/storybook/src/stories/brands`.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Rebuild this promo stripe from screenshots as component name `Promo Stripe!!!`. Screenshots are attached in chat. I also pasted some very noisy legacy CMS HTML and CSS variables, but it may be unreliable. There is a collapsible FAQ area inside the stripe.",
+      "expected_output": "Screenshots stay primary, noisy legacy markup is used only if structurally helpful, the component name is normalized into a clean folder name under `apps/brands/src/components`, the accordion-like behavior is inferred from the screenshots instead of being requested from the user, and the result stays generic enough for similar promo stripe components.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Quick job: build a component called `feature card grid` for me. I only have a desktop screenshot right now.",
+      "expected_output": "Agent does not proceed silently from incomplete evidence and requests the missing screenshots before implementation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Use this flow for a component named `Lift Status Banner`. Three screenshots provided. Content slots: optional eyebrow, title, description, badge, and single CTA. If eyebrow or CTA is undefined, those elements must not appear in the DOM.",
+      "expected_output": "Optional prop pattern is enforced, empty wrappers are avoided, and the component shape stays reusable instead of hard-coded to a single banner instance. The resolved path lands under `apps/brands/src/components/LiftStatusBanner/index.tsx`.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Migrate our Sitecore search component logic to Contentstack and wire Live Preview.",
+      "expected_output": "Skill should NOT fully trigger this as a visual rebuild—or agent declines CMS/logic migration and redirects to appropriate task; if skill triggers, agent refuses scope and explains non-goals.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Rebuild a component named `Image Text Callout`. I have three screenshots. Hints: eyebrow, heading, description, image, imagePosition right, theme dark. Confirm the plan before writing any file.",
+      "expected_output": "Structured prompts are used to shape reusable props and variants, the component name is normalized into the brands components folder, and the build still stays grounded in screenshots and asks when a hint conflicts with visible evidence.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Create a reusable split media/content section named `Side by Side Feature`. I have mobile, tablet, and desktop screenshots. My old notes say the image belongs on the right, but the screenshots show image left on desktop and stacked first on mobile.",
+      "expected_output": "Agent surfaces the conflict instead of silently following one source, uses the evidence-priority rules, resolves the component name to a clean brands component path, and keeps the solution generic enough to support layout variants without overfitting to this one example.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Build a generic editorial quote block from screenshots. Component name: `Quote / Block 2026`. No interaction, no extra dependencies, just a clean presentational component with optional quote, attribution, role, and image.",
+      "expected_output": "Agent does not force unnecessary complexity like client boundaries, extra dependencies, or overengineered variants; it keeps the output lean and reusable for a simple component and normalizes the raw component name into a clean component folder.",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Make a component named `Featured Stories Slider` from three screenshots. The desktop and tablet screenshots clearly show multiple cards with previous/next controls and pagination dots. I am not giving extra implementation guidance beyond the screenshots.",
+      "expected_output": "Agent infers carousel behavior from the screenshots, checks whether the brands app already has a carousel package, installs Embla if it does not, keeps `index.tsx` as the server entrypoint, and pushes Embla plus related client state into a dedicated client subfile instead of marking the whole component tree with `use client`.",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "Build a component named `Mountain Questions` from three screenshots. The screenshots show stacked disclosure rows with chevrons and one expanded answer state, but I am not providing any extra behavior notes.",
+      "expected_output": "Agent infers accordion behavior from the screenshots, checks whether the brands app already has the needed accordion primitives, installs Radix UI if they are missing, and keeps the intake focused on the screenshots instead of asking the user to specify the interaction.",
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "Create `Promo Card Grid` from screenshots. The design includes a heading, a grid of promo cards, and a carousel interaction only for the card rail and dots. Keep the implementation clean and reusable.",
+      "expected_output": "Agent does not turn the whole component into a client component. It keeps the main `index.tsx` server-rendered, creates a focused client file such as `PromoCardGrid.client.tsx` for the carousel behavior, may split card rendering into smaller files if that keeps the codebase easier to maintain, and writes the story directly inside `apps/storybook/src/stories/brands` instead of another folder.",
+      "files": []
+    }
+  ]
+}

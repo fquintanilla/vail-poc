@@ -1,18 +1,12 @@
 import RenderComponents from "@/components/render-components";
 import { getPage, getStack } from "@/lib/contentstack";
 import { getPageCached } from "@/lib/server/contentstack-cached";
-
-export type HomeMainSearchParams = {
-  live_preview?: string;
-  content_type_uid?: string;
-  entry_uid?: string;
-  preview_timestamp?: string;
-};
+import { SearchParams } from "@/lib/types/app";
 
 export async function HomeMain({
   searchParams,
 }: {
-  searchParams?: Promise<HomeMainSearchParams>;
+  searchParams?: Promise<SearchParams>;
 }) {
   const params = searchParams ? await searchParams : {};
   const { live_preview, entry_uid, content_type_uid, preview_timestamp } =

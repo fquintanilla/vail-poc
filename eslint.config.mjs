@@ -6,7 +6,7 @@ export default defineConfig([
   {
     settings: {
       next: {
-        rootDir: ["apps/web/", "apps/resort/"],
+        rootDir: ["apps/web/", "apps/brands/", "apps/storybook/"],
       },
     },
   },
@@ -14,9 +14,11 @@ export default defineConfig([
     "**/.next/**",
     "**/node_modules/**",
     "**/public/**",
+    "**/storybook-static/**",
     ".turbo/**",
     ".agents/**",
     "pnpm-lock.yaml",
+    "apps/web/src/lib/contentstack/types.ts",
   ]),
   ...nextVitals,
   ...nextTs,
@@ -34,9 +36,15 @@ export default defineConfig([
     },
   },
   {
-    files: ["apps/resort/src/app/layout.tsx"],
+    files: ["apps/brands/src/app/layout.tsx"],
     rules: {
       "@next/next/no-css-tags": "off",
+    },
+  },
+  {
+    files: ["apps/storybook/**/*.{ts,tsx,mts,cts,js,mjs,cjs}"],
+    rules: {
+      "@next/next/no-html-link-for-pages": "off",
     },
   },
 ]);

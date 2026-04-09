@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@import "@repo/ui/globals.css";
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 992px;
+  --breakpoint-lg: 1200px;
+  /* Set by next/font in layout.tsx via --font-prompt */
+  --font-sans: var(--font-prompt), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer components {
+  .wrapper {
+    margin-inline: auto;
+    padding-inline: 15px;
+  }
+
+  @media (min-width: 768px) {
+    .wrapper {
+      width: 750px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .wrapper {
+      width: 970px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .wrapper {
+      width: 1170px;
+    }
+  }
+
+  .container-fluid {
+    margin-inline: auto;
+    padding-inline: 15px;
+  }
+}
+
+@layer base {
+  *:focus-visible {
+    outline-offset: 2px;
+    outline-style: auto;
+    outline-width: 2px;
+  }
+}
