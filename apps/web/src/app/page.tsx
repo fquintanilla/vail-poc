@@ -1,3 +1,7 @@
+import {
+  PageViewTracker,
+  ScrollTracker,
+} from "@/components/analytics/page-analytics-tracker";
 import { HomeMain } from "@/components/home-main";
 import { Suspense } from "react";
 
@@ -12,7 +16,17 @@ export default async function Home() {
         </main>
       }
     >
-      <HomeMain />
+      <>
+        <PageViewTracker
+          pageName="home"
+          resort={process.env.NEXT_PUBLIC_BRAND ?? "unknown"}
+        />
+        <ScrollTracker
+          pageName="home"
+          resort={process.env.NEXT_PUBLIC_BRAND ?? "unknown"}
+        />
+        <HomeMain />
+      </>
     </Suspense>
   );
 }
