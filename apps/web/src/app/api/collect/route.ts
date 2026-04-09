@@ -1,3 +1,5 @@
+// Consider moving this to a server action in the future.
+
 import { NextRequest, NextResponse } from "next/server";
 import {
   type CanonicalEvent,
