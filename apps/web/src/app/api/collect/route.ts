@@ -55,9 +55,6 @@ export async function POST(request: NextRequest) {
 
   const enrichedEvent = enrichEvent(payload, request);
 
-  // sleep for 10 seconds for testing
-  await new Promise((resolve) => setTimeout(resolve, 10000));
-
   // Temporarily disable the Adobe consumer while the integration is being validated.
   // const adobe = await sendEventToAdobe(enrichedEvent);
   console.log("[analytics.collect] Adobe dispatch skipped", {
