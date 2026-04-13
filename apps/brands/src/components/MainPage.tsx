@@ -5,12 +5,10 @@ interface MainPageProps {
   livePreview?: boolean;
 }
 
-export function MainPage({ page, livePreview }: MainPageProps) {
+export function MainPage({ page, livePreview: _livePreview }: MainPageProps) {
   if (!page) {
     return null;
   }
-
-  console.log({ page, livePreview });
 
   return (
     <div>

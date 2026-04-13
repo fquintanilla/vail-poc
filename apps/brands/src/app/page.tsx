@@ -1,14 +1,13 @@
-import { MainPage } from "@/components/MainPage";
-import customMetadata from "@/lib/customMetadata";
-import { getPageCached } from "@/lib/server/contentstack-cached";
+import { CmsMainFromCache } from "@/components/CmsMainFromCache";
+import {
+  CMS_HOME_PATH,
+  publishMetadataForPath,
+} from "@/lib/server/cms-route";
 
 export async function generateMetadata() {
-  const page = await getPageCached("/");
-  const { seo } = page ?? {};
-  return customMetadata({ seo });
+  return publishMetadataForPath(CMS_HOME_PATH);
 }
 
-export default async function HomePage() {
-  const page = await getPageCached("/");
-  return <MainPage page={page} />;
+export default function HomePage() {
+  return <CmsMainFromCache pathname={CMS_HOME_PATH} />;
 }

@@ -1,55 +1,31 @@
 import { PreviewSkeleton } from "@/components/CMS/PreviewSkeleton";
 import { MainPage } from "@/components/MainPage";
-import { getPage, getStack } from "@/lib/contentstack";
-import customMetadata from "@/lib/customMetadata";
-import type { PreviewPageProps, SearchParams } from "@/lib/types/app";
-import { notFound } from "next/navigation";
+import {
+  CMS_HOME_PATH,
+  previewMetadataForHomeRoute,
+  requirePreviewPage,
+} from "@/lib/server/cms-route";
+import type { PreviewPageProps } from "@/lib/types/app";
 import { Suspense } from "react";
-
-function applyLivePreviewFromSearchParams(
-  stack: ReturnType<typeof getStack>,
-  sp: SearchParams,
-) {
-  const { live_preview, entry_uid, content_type_uid, preview_timestamp } = sp;
-  if (live_preview) {
-    stack.livePreviewQuery({
-      live_preview,
-      contentTypeUid: content_type_uid ?? "",
-      entryUid: entry_uid ?? "",
-      preview_timestamp: preview_timestamp ?? "",
-    });
-  }
-}
 
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<SearchParams>;
+  searchParams: PreviewPageProps["searchParams"];
 }) {
-  const sp = await searchParams;
-  const stack = getStack();
-  applyLivePreviewFromSearchParams(stack, sp);
-  const page = await getPage("/", stack);
-  return customMetadata({ seo: page?.seo, isPreview: true });
+  return previewMetadataForHomeRoute(searchParams);
 }
 
 export default function PreviewHomePage({ searchParams }: PreviewPageProps) {
   return (
     <Suspense fallback={<PreviewSkeleton />}>
-      <PreviewHomePageContent searchParams={searchParams} />
+      <PreviewHomeBody searchParams={searchParams} />
     </Suspense>
   );
 }
 
-async function PreviewHomePageContent({ searchParams }: PreviewPageProps) {
+async function PreviewHomeBody({ searchParams }: PreviewPageProps) {
   const sp = await searchParams;
-  const stack = getStack();
-  applyLivePreviewFromSearchParams(stack, sp);
-  const page = await getPage("/", stack);
-
-  if (!page) {
-    notFound();
-  }
-
-  return <MainPage page={page} livePreview={true} />;
+  const page = await requirePreviewPage(CMS_HOME_PATH, sp);
+  return <MainPage page={page} livePreview />;
 }

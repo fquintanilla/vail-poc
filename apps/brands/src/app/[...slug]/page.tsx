@@ -1,46 +1,28 @@
-import { MainPage } from "@/components/MainPage";
-import customMetadata from "@/lib/customMetadata";
-import { getPageCached } from "@/lib/server/contentstack-cached";
-import { notFound } from "next/navigation";
+import { CmsMainFromCache } from "@/components/CmsMainFromCache";
+import {
+  pathFromSlugSegments,
+  publishMetadataForPath,
+} from "@/lib/server/cms-route";
 import { Suspense } from "react";
 
-function cmsPathFromSlug(slug: string[]) {
-  return `/${slug.join("/")}`;
-}
-
-export async function generateMetadata({
-  params,
-}: {
+type SlugPageProps = {
   params: Promise<{ slug: string[] }>;
-}) {
+};
+
+export async function generateMetadata({ params }: SlugPageProps) {
   const { slug } = await params;
-  const page = await getPageCached(cmsPathFromSlug(slug));
-  return customMetadata({ seo: page?.seo });
+  return publishMetadataForPath(pathFromSlugSegments(slug));
 }
 
-export default function CmsPathPage({
-  params,
-}: {
-  params: Promise<{ slug: string[] }>;
-}) {
+export default function CmsPathPage({ params }: SlugPageProps) {
   return (
     <Suspense>
-      <CmsPathPageContent params={params} />
+      <CmsPathBody params={params} />
     </Suspense>
   );
 }
 
-async function CmsPathPageContent({
-  params,
-}: {
-  params: Promise<{ slug: string[] }>;
-}) {
+async function CmsPathBody({ params }: SlugPageProps) {
   const { slug } = await params;
-  const pathname = cmsPathFromSlug(slug);
-  const page = await getPageCached(pathname);
-  if (!page) {
-    notFound();
-  }
-
-  return <MainPage page={page} />;
+  return <CmsMainFromCache pathname={pathFromSlugSegments(slug)} />;
 }
