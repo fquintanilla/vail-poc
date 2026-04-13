@@ -3,7 +3,7 @@ interface HomePageShellProps {
 }
 
 export function HomePageShell({ livePreview }: HomePageShellProps) {
-  console.log("livePreview", livePreview);
+  void livePreview;
 
   return (
     <div>
