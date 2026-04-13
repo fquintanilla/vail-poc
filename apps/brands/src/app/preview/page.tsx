@@ -1,11 +1,9 @@
 import { PreviewSkeleton } from "@/components/CMS/PreviewSkeleton";
 import { MainPage } from "@/components/MainPage";
-import {
-  CMS_HOME_PATH,
-  previewMetadataForHomeRoute,
-  requirePreviewPage,
-} from "@/lib/server/cms-route";
+import customMetadata from "@/lib/customMetadata";
+import { getPreviewPage } from "@/lib/server/get-preview-page";
 import type { PreviewPageProps } from "@/lib/types/app";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 export async function generateMetadata({
@@ -13,7 +11,9 @@ export async function generateMetadata({
 }: {
   searchParams: PreviewPageProps["searchParams"];
 }) {
-  return previewMetadataForHomeRoute(searchParams);
+  const sp = await searchParams;
+  const page = await getPreviewPage("/", sp);
+  return customMetadata({ seo: page?.seo, isPreview: true });
 }
 
 export default function PreviewHomePage({ searchParams }: PreviewPageProps) {
@@ -26,6 +26,7 @@ export default function PreviewHomePage({ searchParams }: PreviewPageProps) {
 
 async function PreviewHomeBody({ searchParams }: PreviewPageProps) {
   const sp = await searchParams;
-  const page = await requirePreviewPage(CMS_HOME_PATH, sp);
+  const page = await getPreviewPage("/", sp);
+  if (!page) notFound();
   return <MainPage page={page} livePreview />;
 }

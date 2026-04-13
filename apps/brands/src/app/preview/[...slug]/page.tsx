@@ -1,11 +1,9 @@
 import { PreviewSkeleton } from "@/components/CMS/PreviewSkeleton";
 import { MainPage } from "@/components/MainPage";
-import {
-  pathFromSlugSegments,
-  previewMetadataForSlugRoute,
-  requirePreviewPage,
-} from "@/lib/server/cms-route";
+import customMetadata from "@/lib/customMetadata";
+import { getPreviewPage } from "@/lib/server/get-preview-page";
 import type { SearchParams } from "@/lib/types/app";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 type PreviewSlugPageProps = {
@@ -17,7 +15,10 @@ export async function generateMetadata({
   params,
   searchParams,
 }: PreviewSlugPageProps) {
-  return previewMetadataForSlugRoute(params, searchParams);
+  const [{ slug }, sp] = await Promise.all([params, searchParams]);
+  const pathname = `/${slug.join("/")}`;
+  const page = await getPreviewPage(pathname, sp);
+  return customMetadata({ seo: page?.seo, isPreview: true });
 }
 
 export default function PreviewSlugPage({
@@ -36,6 +37,8 @@ async function PreviewSlugBody({
   searchParams,
 }: PreviewSlugPageProps) {
   const [{ slug }, sp] = await Promise.all([params, searchParams]);
-  const page = await requirePreviewPage(pathFromSlugSegments(slug), sp);
+  const pathname = `/${slug.join("/")}`;
+  const page = await getPreviewPage(pathname, sp);
+  if (!page) notFound();
   return <MainPage page={page} livePreview />;
 }

@@ -1,8 +1,6 @@
 import { CmsMainFromCache } from "@/components/CmsMainFromCache";
-import {
-  pathFromSlugSegments,
-  publishMetadataForPath,
-} from "@/lib/server/cms-route";
+import customMetadata from "@/lib/customMetadata";
+import { loadPublishedPage } from "@/lib/server/load-published-page";
 import { Suspense } from "react";
 
 type SlugPageProps = {
@@ -11,7 +9,9 @@ type SlugPageProps = {
 
 export async function generateMetadata({ params }: SlugPageProps) {
   const { slug } = await params;
-  return publishMetadataForPath(pathFromSlugSegments(slug));
+  const pathname = `/${slug.join("/")}`;
+  const page = await loadPublishedPage(pathname);
+  return customMetadata({ seo: page?.seo });
 }
 
 export default function CmsPathPage({ params }: SlugPageProps) {
@@ -24,5 +24,6 @@ export default function CmsPathPage({ params }: SlugPageProps) {
 
 async function CmsPathBody({ params }: SlugPageProps) {
   const { slug } = await params;
-  return <CmsMainFromCache pathname={pathFromSlugSegments(slug)} />;
+  const pathname = `/${slug.join("/")}`;
+  return <CmsMainFromCache pathname={pathname} />;
 }
