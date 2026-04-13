@@ -1,12 +1,12 @@
 import { PreviewSkeleton } from "@/components/CMS/PreviewSkeleton";
-import { HomePageShell } from "@/components/HomePageShell";
-import { getPage } from "@/lib/contentstack";
+import { MainPage } from "@/components/MainPage";
 import customMetadata from "@/lib/customMetadata";
+import { getPageCached } from "@/lib/server/contentstack-cached";
 import type { PreviewPageProps } from "@/lib/types/app";
 import { Suspense } from "react";
 
 export async function generateMetadata() {
-  const page = await getPage("/");
+  const page = await getPageCached("/");
   return customMetadata({ seo: page?.seo, isPreview: true });
 }
 
@@ -20,5 +20,6 @@ export default function PreviewHomePage({ searchParams }: PreviewPageProps) {
 
 async function PreviewHomePageContent({ searchParams }: PreviewPageProps) {
   await searchParams;
-  return <HomePageShell livePreview />;
+  const page = await getPageCached("/");
+  return <MainPage page={page} livePreview={true} />;
 }

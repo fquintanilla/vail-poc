@@ -107,14 +107,10 @@ export async function fetchPageByUrl(
   const result = await stack
     .contentType("page")
     .entry()
-    .includeReference(
-      "page_components.from_blog.featured_blogs",
-      "page_components.superheroes.character",
-    )
     .query()
     .where("url", QueryOperation.EQUALS, url)
     .where(
-      "taxonomies.brands",
+      "taxonomies.resorts",
       QueryOperation.EQUALS,
       process.env.NEXT_PUBLIC_BRAND as string,
     )
