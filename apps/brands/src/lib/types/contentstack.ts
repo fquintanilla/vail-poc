@@ -102,7 +102,7 @@ export type ModularBlocksExtension<T> = {
   [P in keyof T]?: T[P] & { _metadata?: { uid?: string } };
 };
 
-export interface FeaturedContentElement {
+export interface FeaturedContentItem {
   _version?: number;
   title?: string;
   subtitle?: string;
@@ -114,8 +114,24 @@ export interface FeaturedContentElement {
     children: JSONRTENode[];
   };
   image?: File | null;
-  action_link?: Cta;
   youtube_link?: string;
+  action_link?: Cta;
+  pricing?: {
+    show_pricing_information: boolean;
+    price?: number | null;
+    $?: {
+      show_pricing_information?: CSLPFieldMapping;
+      price?: CSLPFieldMapping;
+    };
+  };
+  scheduling?: {
+    start_date?: string | null;
+    end_date?: string | null;
+    $?: {
+      start_date?: CSLPFieldMapping;
+      end_date?: CSLPFieldMapping;
+    };
+  };
   layout?: {
     is_image_right: boolean;
     is_pass_detail_view: boolean;
@@ -133,8 +149,10 @@ export interface FeaturedContentElement {
     subtitle?: CSLPFieldMapping;
     body?: CSLPFieldMapping;
     image?: CSLPFieldMapping;
-    action_link?: CSLPFieldMapping;
     youtube_link?: CSLPFieldMapping;
+    action_link?: CSLPFieldMapping;
+    pricing?: CSLPFieldMapping;
+    scheduling?: CSLPFieldMapping;
     layout?: CSLPFieldMapping;
   };
 }
@@ -384,55 +402,15 @@ export interface HeroWithPromotion {
   };
 }
 
-export interface TestFeaturedContent extends SystemFields {
-  _version?: number;
-  title: string;
-  $?: {
-    title?: CSLPFieldMapping;
-  };
-}
-
 export interface FeaturedContentElements extends SystemFields {
   _version?: number;
   title: string;
   taxonomies?: Taxonomy | TaxonomyEntry[];
-  subtitle?: string;
-  body?: {
-    type: string;
-    uid: string;
-    _version: number;
-    attrs: Record<string, any>;
-    children: JSONRTENode[];
-  };
-  image?: File | null;
-  action_link?: Cta;
-  youtube_link?: string;
-  pricing?: {
-    show_pricing_information: boolean;
-    price?: number | null;
-    $?: {
-      show_pricing_information?: CSLPFieldMapping;
-      price?: CSLPFieldMapping;
-    };
-  };
-  scheduling?: {
-    start_date?: string | null;
-    end_date?: string | null;
-    $?: {
-      start_date?: CSLPFieldMapping;
-      end_date?: CSLPFieldMapping;
-    };
-  };
+  item?: FeaturedContentItem;
   $?: {
     title?: CSLPFieldMapping;
     taxonomies?: CSLPFieldMapping;
-    subtitle?: CSLPFieldMapping;
-    body?: CSLPFieldMapping;
-    image?: CSLPFieldMapping;
-    action_link?: CSLPFieldMapping;
-    youtube_link?: CSLPFieldMapping;
-    pricing?: CSLPFieldMapping;
-    scheduling?: CSLPFieldMapping;
+    item?: CSLPFieldMapping;
   };
 }
 
@@ -657,7 +635,9 @@ export interface PageComponents extends SystemFields {
   hero_with_promotion: HeroWithPromotion;
   basic_content: {
     title?: string;
+    center_title: boolean;
     subtitle?: string;
+    center_subtitle: boolean;
     body?: {
       type: string;
       uid: string;
@@ -677,7 +657,9 @@ export interface PageComponents extends SystemFields {
     };
     $?: {
       title?: CSLPFieldMapping;
+      center_title?: CSLPFieldMapping;
       subtitle?: CSLPFieldMapping;
+      center_subtitle?: CSLPFieldMapping;
       body?: CSLPFieldMapping;
       action_link?: CSLPFieldMapping;
     };
@@ -717,8 +699,34 @@ export interface PageComponents extends SystemFields {
   };
   featured_content: {
     featured_item?: FeaturedContentElements[];
+    item?: FeaturedContentItem;
     $?: {
       featured_item?: CSLPFieldMapping;
+      item?: CSLPFieldMapping;
+    };
+  };
+  flip_in_card: {
+    title?: string;
+    flip_in_cards?: {
+      image?: File | null;
+      action_link?: {
+        link_name?: string;
+        page?: (Page | Article)[];
+        external_link?: string;
+        $?: {
+          link_name?: CSLPFieldMapping;
+          page?: CSLPFieldMapping;
+          external_link?: CSLPFieldMapping;
+        };
+      };
+      $?: {
+        image?: CSLPFieldMapping;
+        action_link?: CSLPFieldMapping;
+      };
+    }[];
+    $?: {
+      title?: CSLPFieldMapping;
+      flip_in_cards?: CSLPFieldMapping;
     };
   };
 }
@@ -742,7 +750,6 @@ export interface Article extends SystemFields {
 export interface PageComponents1 extends SystemFields {
   hero_slideshow: HeroSlideshow;
   hero_with_promotion: HeroWithPromotion;
-  featured_content: FeaturedContentElement;
   featured_stories: FeaturedStoriesElement;
   products_card_landing: ProductsCardLanding;
   sliding_card: SlidingCardComponent;
@@ -795,7 +802,9 @@ export interface PageComponents1 extends SystemFields {
   };
   basic_content: {
     title?: string;
+    center_title: boolean;
     subtitle?: string;
+    center_subtitle: boolean;
     body?: {
       type: string;
       uid: string;
@@ -815,7 +824,9 @@ export interface PageComponents1 extends SystemFields {
     };
     $?: {
       title?: CSLPFieldMapping;
+      center_title?: CSLPFieldMapping;
       subtitle?: CSLPFieldMapping;
+      center_subtitle?: CSLPFieldMapping;
       body?: CSLPFieldMapping;
       action_link?: CSLPFieldMapping;
     };
@@ -920,6 +931,14 @@ export interface PageComponents1 extends SystemFields {
       categories?: CSLPFieldMapping;
     };
   };
+  featured_content: {
+    shared_featured_item?: FeaturedContentElements[];
+    item?: FeaturedContentItem;
+    $?: {
+      shared_featured_item?: CSLPFieldMapping;
+      item?: CSLPFieldMapping;
+    };
+  };
 }
 
 export interface Page extends SystemFields {
@@ -927,12 +946,14 @@ export interface Page extends SystemFields {
   title: string;
   url?: string;
   taxonomies?: Taxonomy | TaxonomyEntry[];
+  back_link?: (Page | Article)[];
   page_components?: ModularBlocksExtension<PageComponents1>[];
   seo?: Seo;
   $?: {
     title?: CSLPFieldMapping;
     url?: CSLPFieldMapping;
     taxonomies?: CSLPFieldMapping;
+    back_link?: CSLPFieldMapping;
     page_components?: CSLPFieldMapping;
     seo?: CSLPFieldMapping;
   };
