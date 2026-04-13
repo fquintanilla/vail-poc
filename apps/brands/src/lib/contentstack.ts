@@ -6,7 +6,7 @@ import {
   getContentstackEndpoints,
   getRegionForString,
 } from "@timbenniks/contentstack-endpoints";
-import { Page } from "@/lib/types/pages";
+import { Page } from "@/lib/types/contentstack";
 
 // Region and endpoint configuration - computed once at module load time
 const region = getRegionForString(
@@ -124,7 +124,7 @@ export async function fetchPageByUrl(
     const entry = result.entries[0]!;
 
     if (process.env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true") {
-      contentstack.Utils.addEditableTags(entry, "page", true);
+      contentstack.Utils.addEditableTags(entry as any, "page", true);
     }
 
     return entry;

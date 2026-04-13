@@ -19,6 +19,7 @@ export default defineConfig([
     ".agents/**",
     "pnpm-lock.yaml",
     "apps/web/src/lib/contentstack/types.ts",
+    "apps/brands/src/lib/types/contentstack.ts",
   ]),
   ...nextVitals,
   ...nextTs,

@@ -15,7 +15,7 @@ export function ContentstackLivePreview({
     if (livePreviewEnabled) {
       initLivePreview();
     }
-  }, []);
+  }, [livePreviewEnabled]);
 
   return <>{children}</>;
 }

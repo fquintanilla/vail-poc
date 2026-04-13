@@ -43,3 +43,6 @@ storybook-static
 
 # pnpm
 .pnpm-store
+
+# Logs
+logs/
