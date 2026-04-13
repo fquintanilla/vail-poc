@@ -2,9 +2,13 @@ import { PreviewSkeleton } from "@/components/CMS/PreviewSkeleton";
 import { MainPage } from "@/components/MainPage";
 import { getPage, getStack } from "@/lib/contentstack";
 import customMetadata from "@/lib/customMetadata";
-import type { PreviewPageProps, SearchParams } from "@/lib/types/app";
+import type { SearchParams } from "@/lib/types/app";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+
+function cmsPathFromSlug(slug: string[]) {
+  return `/${slug.join("/")}`;
+}
 
 function applyLivePreviewFromSearchParams(
   stack: ReturnType<typeof getStack>,
@@ -22,30 +26,46 @@ function applyLivePreviewFromSearchParams(
 }
 
 export async function generateMetadata({
+  params,
   searchParams,
 }: {
+  params: Promise<{ slug: string[] }>;
   searchParams: Promise<SearchParams>;
 }) {
-  const sp = await searchParams;
+  const [{ slug }, sp] = await Promise.all([params, searchParams]);
+  const pathname = cmsPathFromSlug(slug);
   const stack = getStack();
   applyLivePreviewFromSearchParams(stack, sp);
-  const page = await getPage("/", stack);
+  const page = await getPage(pathname, stack);
   return customMetadata({ seo: page?.seo, isPreview: true });
 }
 
-export default function PreviewHomePage({ searchParams }: PreviewPageProps) {
+export default function PreviewSlugPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string[] }>;
+  searchParams: Promise<SearchParams>;
+}) {
   return (
     <Suspense fallback={<PreviewSkeleton />}>
-      <PreviewHomePageContent searchParams={searchParams} />
+      <PreviewSlugPageContent params={params} searchParams={searchParams} />
     </Suspense>
   );
 }
 
-async function PreviewHomePageContent({ searchParams }: PreviewPageProps) {
-  const sp = await searchParams;
+async function PreviewSlugPageContent({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string[] }>;
+  searchParams: Promise<SearchParams>;
+}) {
+  const [{ slug }, sp] = await Promise.all([params, searchParams]);
+  const pathname = cmsPathFromSlug(slug);
   const stack = getStack();
   applyLivePreviewFromSearchParams(stack, sp);
-  const page = await getPage("/", stack);
+  const page = await getPage(pathname, stack);
 
   if (!page) {
     notFound();
