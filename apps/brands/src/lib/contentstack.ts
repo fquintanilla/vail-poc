@@ -107,8 +107,11 @@ export async function fetchPageByUrl(
   const result = await stack
     .contentType("page")
     .entry()
-    .includeReference(["page_components.featured_content.shared_featured_item"])
     .query()
+    .addParams({
+      include_all: true,
+      include_all_depth: 1,
+    })
     .where("url", QueryOperation.EQUALS, url)
     .where(
       "taxonomies.resorts",
