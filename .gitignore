@@ -49,3 +49,6 @@ logs/
 
 # Legacy Sitecore
 Sitecore
+
+# Legacy Less
+/legacy/
