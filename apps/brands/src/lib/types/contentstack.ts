@@ -102,6 +102,97 @@ export type ModularBlocksExtension<T> = {
   [P in keyof T]?: T[P] & { _metadata?: { uid?: string } };
 };
 
+export interface SlidingCardItem {
+  _version?: number;
+  title?: string;
+  subtitle?: string;
+  body?: {
+    type: string;
+    uid: string;
+    _version: number;
+    attrs: Record<string, any>;
+    children: JSONRTENode[];
+  };
+  action_link?: Cta;
+  icon?: Icon[];
+  sliding_cards?: {
+    title?: string;
+    body?: {
+      type: string;
+      uid: string;
+      _version: number;
+      attrs: Record<string, any>;
+      children: JSONRTENode[];
+    };
+    logo?: File | null;
+    image?: File | null;
+    action_link?: Cta;
+    $?: {
+      title?: CSLPFieldMapping;
+      body?: CSLPFieldMapping;
+      logo?: CSLPFieldMapping;
+      image?: CSLPFieldMapping;
+      action_link?: CSLPFieldMapping;
+    };
+  }[];
+  layout?: {
+    background_styles?: ("solid" | "white") | null;
+    background_image?: File | null;
+    height_styles?: "fixedheight" | null;
+    $?: {
+      background_styles?: CSLPFieldMapping;
+      background_image?: CSLPFieldMapping;
+      height_styles?: CSLPFieldMapping;
+    };
+  };
+  $?: {
+    title?: CSLPFieldMapping;
+    subtitle?: CSLPFieldMapping;
+    body?: CSLPFieldMapping;
+    action_link?: CSLPFieldMapping;
+    icon?: CSLPFieldMapping;
+    sliding_cards?: CSLPFieldMapping;
+    layout?: CSLPFieldMapping;
+  };
+}
+
+export interface MediaGallery {
+  _version?: number;
+  title?: string;
+  subtitle?: string;
+  body?: {
+    type: string;
+    uid: string;
+    _version: number;
+    attrs: Record<string, any>;
+    children: JSONRTENode[];
+  };
+  media_items?: {
+    image?: File | null;
+    youtube_link?: string;
+    youtube_video_id?: string;
+    $?: {
+      image?: CSLPFieldMapping;
+      youtube_link?: CSLPFieldMapping;
+      youtube_video_id?: CSLPFieldMapping;
+    };
+  }[];
+  $?: {
+    title?: CSLPFieldMapping;
+    subtitle?: CSLPFieldMapping;
+    body?: CSLPFieldMapping;
+    media_items?: CSLPFieldMapping;
+  };
+}
+
+export interface AdobeDamImage {
+  _version?: number;
+  aem_image?: unknown;
+  $?: {
+    aem_image?: CSLPFieldMapping;
+  };
+}
+
 export interface FeaturedContentItem {
   _version?: number;
   title?: string;
@@ -254,97 +345,6 @@ export interface FeaturedStoriesElement {
   };
 }
 
-export interface ProductsCardLanding {
-  _version?: number;
-  title?: string;
-  subtitle?: string;
-  body?: {
-    type: string;
-    uid: string;
-    _version: number;
-    attrs: Record<string, any>;
-    children: JSONRTENode[];
-  };
-  icon?: Icon[];
-  all_product_cards?: ProductCard[];
-  product_card_groups?: ProductCardGroup[];
-  product_card_groups_dropdown_title?: string;
-  layout?: {
-    hide_recommended_card_for_all_filter: boolean;
-    hide_filters: boolean;
-    hide_recommended_card_across_all_filters: boolean;
-    $?: {
-      hide_recommended_card_for_all_filter?: CSLPFieldMapping;
-      hide_filters?: CSLPFieldMapping;
-      hide_recommended_card_across_all_filters?: CSLPFieldMapping;
-    };
-  };
-  $?: {
-    title?: CSLPFieldMapping;
-    subtitle?: CSLPFieldMapping;
-    body?: CSLPFieldMapping;
-    icon?: CSLPFieldMapping;
-    all_product_cards?: CSLPFieldMapping;
-    product_card_groups?: CSLPFieldMapping;
-    product_card_groups_dropdown_title?: CSLPFieldMapping;
-    layout?: CSLPFieldMapping;
-  };
-}
-
-export interface SlidingCardComponent {
-  _version?: number;
-  title?: string;
-  subtitle?: string;
-  body?: {
-    type: string;
-    uid: string;
-    _version: number;
-    attrs: Record<string, any>;
-    children: JSONRTENode[];
-  };
-  action_link?: Cta;
-  icon?: Icon[];
-  sliding_cards?: {
-    title: string;
-    body?: {
-      type: string;
-      uid: string;
-      _version: number;
-      attrs: Record<string, any>;
-      children: JSONRTENode[];
-    };
-    logo?: File | null;
-    image?: File | null;
-    action_link?: Cta;
-    $?: {
-      title?: CSLPFieldMapping;
-      body?: CSLPFieldMapping;
-      logo?: CSLPFieldMapping;
-      image?: CSLPFieldMapping;
-      action_link?: CSLPFieldMapping;
-    };
-  }[];
-  layout?: {
-    background_styles?: ("solid" | "white") | null;
-    background_image?: File | null;
-    height_styles?: "fixed" | null;
-    $?: {
-      background_styles?: CSLPFieldMapping;
-      background_image?: CSLPFieldMapping;
-      height_styles?: CSLPFieldMapping;
-    };
-  };
-  $?: {
-    title?: CSLPFieldMapping;
-    subtitle?: CSLPFieldMapping;
-    body?: CSLPFieldMapping;
-    action_link?: CSLPFieldMapping;
-    icon?: CSLPFieldMapping;
-    sliding_cards?: CSLPFieldMapping;
-    layout?: CSLPFieldMapping;
-  };
-}
-
 export interface Seo {
   _version?: number;
   meta_title?: string;
@@ -399,6 +399,79 @@ export interface HeroWithPromotion {
     body?: CSLPFieldMapping;
     slide?: CSLPFieldMapping;
     promotion_content?: CSLPFieldMapping;
+  };
+}
+
+export interface SlidingCardElements extends SystemFields {
+  _version?: number;
+  title: string;
+  taxonomies?: Taxonomy | TaxonomyEntry[];
+  item?: SlidingCardItem;
+  $?: {
+    title?: CSLPFieldMapping;
+    taxonomies?: CSLPFieldMapping;
+    item?: CSLPFieldMapping;
+  };
+}
+
+export interface MediaGalleryElements extends SystemFields {
+  _version?: number;
+  title: string;
+  taxonomies?: Taxonomy | TaxonomyEntry[];
+  item?: MediaGallery;
+  $?: {
+    title?: CSLPFieldMapping;
+    taxonomies?: CSLPFieldMapping;
+    item?: CSLPFieldMapping;
+  };
+}
+
+export interface TabContainer extends SystemFields {
+  _version?: number;
+  title: string;
+  subtitle?: string;
+  icon?: Icon[];
+  tabs: {
+    title?: string;
+    reference?: (
+      | MediaGalleryElements
+      | FeaturedContentElements
+      | SlidingCardElements
+    )[];
+    $?: {
+      title?: CSLPFieldMapping;
+      reference?: CSLPFieldMapping;
+    };
+  }[];
+  $?: {
+    title?: CSLPFieldMapping;
+    subtitle?: CSLPFieldMapping;
+    icon?: CSLPFieldMapping;
+    tabs?: CSLPFieldMapping;
+  };
+}
+
+export interface TestPage extends SystemFields {
+  _version?: number;
+  title: string;
+  image?: unknown;
+  time?: string;
+  address?: unknown;
+  image_cropper?: unknown;
+  key_value?: unknown;
+  ace_editor?: string;
+  json_editor?: unknown;
+  color_picker?: string;
+  $?: {
+    title?: CSLPFieldMapping;
+    image?: CSLPFieldMapping;
+    time?: CSLPFieldMapping;
+    address?: CSLPFieldMapping;
+    image_cropper?: CSLPFieldMapping;
+    key_value?: CSLPFieldMapping;
+    ace_editor?: CSLPFieldMapping;
+    json_editor?: CSLPFieldMapping;
+    color_picker?: CSLPFieldMapping;
   };
 }
 
@@ -751,8 +824,6 @@ export interface PageComponents1 extends SystemFields {
   hero_slideshow: HeroSlideshow;
   hero_with_promotion: HeroWithPromotion;
   featured_stories: FeaturedStoriesElement;
-  products_card_landing: ProductsCardLanding;
-  sliding_card: SlidingCardComponent;
   faq_accordion: {
     title?: string;
     multiselect: boolean;
@@ -939,6 +1010,79 @@ export interface PageComponents1 extends SystemFields {
       item?: CSLPFieldMapping;
     };
   };
+  image_promotion: {
+    title?: string;
+    body?: string;
+    image?: File | null;
+    icon?: Icon[];
+    action_link?: {
+      link_name?: string;
+      page?: (Page | Article)[];
+      external_link?: string;
+      $?: {
+        link_name?: CSLPFieldMapping;
+        page?: CSLPFieldMapping;
+        external_link?: CSLPFieldMapping;
+      };
+    };
+    layout?: {
+      slope_option?: ("noslope" | "slopedown") | null;
+      $?: {
+        slope_option?: CSLPFieldMapping;
+      };
+    };
+    $?: {
+      title?: CSLPFieldMapping;
+      body?: CSLPFieldMapping;
+      image?: CSLPFieldMapping;
+      icon?: CSLPFieldMapping;
+      action_link?: CSLPFieldMapping;
+      layout?: CSLPFieldMapping;
+    };
+  };
+  media_gallery: MediaGallery;
+  tab_container: {
+    reference?: TabContainer[];
+    $?: {
+      reference?: CSLPFieldMapping;
+    };
+  };
+  products_card_landing: {
+    title?: string;
+    subtitle?: string;
+    body?: {
+      type: string;
+      uid: string;
+      _version: number;
+      attrs: Record<string, any>;
+      children: JSONRTENode[];
+    };
+    icon?: Icon[];
+    all_product_cards?: ProductCard[];
+    product_card_groups?: ProductCardGroup[];
+    product_card_groups_dropdown_title?: string;
+    layout?: {
+      hide_recommended_card_for_all_filter: boolean;
+      hide_filters: boolean;
+      hide_recommended_card_across_all_filters: boolean;
+      $?: {
+        hide_recommended_card_for_all_filter?: CSLPFieldMapping;
+        hide_filters?: CSLPFieldMapping;
+        hide_recommended_card_across_all_filters?: CSLPFieldMapping;
+      };
+    };
+    $?: {
+      title?: CSLPFieldMapping;
+      subtitle?: CSLPFieldMapping;
+      body?: CSLPFieldMapping;
+      icon?: CSLPFieldMapping;
+      all_product_cards?: CSLPFieldMapping;
+      product_card_groups?: CSLPFieldMapping;
+      product_card_groups_dropdown_title?: CSLPFieldMapping;
+      layout?: CSLPFieldMapping;
+    };
+  };
+  sliding_card: SlidingCardItem;
 }
 
 export interface Page extends SystemFields {
