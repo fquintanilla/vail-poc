@@ -17,7 +17,7 @@ export default async function Home({
 }) {
   return (
     <Suspense fallback={<PreviewSkeleton />}>
-      <HomeMain searchParams={searchParams} />
+      <HomeMain pageUrl="/" searchParams={searchParams} />
     </Suspense>
   );
 }

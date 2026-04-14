@@ -25,7 +25,7 @@ export default async function Home() {
           resort={process.env.NEXT_PUBLIC_BRAND ?? "unknown"}
         />
       </Suspense>
-      <HomeMain />
+      <HomeMain pageUrl="/" />
     </>
   );
 }
