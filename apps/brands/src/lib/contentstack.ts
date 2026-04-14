@@ -107,6 +107,7 @@ export async function fetchPageByUrl(
   const result = await stack
     .contentType("page")
     .entry()
+    .includeReference(["page_components.featured_content.shared_featured_item"])
     .query()
     .where("url", QueryOperation.EQUALS, url)
     .where(
@@ -114,6 +115,7 @@ export async function fetchPageByUrl(
       QueryOperation.EQUALS,
       process.env.NEXT_PUBLIC_BRAND as string,
     )
+    .limit(1)
     .find<Page>();
 
   if (result.entries) {

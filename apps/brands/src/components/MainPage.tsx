@@ -1,3 +1,4 @@
+import { RenderPageComponents } from "@/components/RenderPageComponents";
 import type { Page } from "@/lib/types/contentstack";
 
 interface MainPageProps {
@@ -11,8 +12,14 @@ export function MainPage({ page, livePreview: _livePreview }: MainPageProps) {
   }
 
   return (
-    <div>
-      <h1>Home Page Shell</h1>
+    <div className="flex min-h-screen flex-col">
+      <header> Header </header>
+      <hr />
+      <main className="grow">
+        <RenderPageComponents page={page} />
+      </main>
+      <hr />
+      <footer> Footer </footer>
     </div>
   );
 }

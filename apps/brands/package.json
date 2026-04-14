@@ -11,7 +11,7 @@
     "generate:types": "node scripts/contentstack-tsgen.mjs"
   },
   "dependencies": {
-    "@contentstack/delivery-sdk": "^4.11.0",
+    "@contentstack/delivery-sdk": "^5.1.2",
     "@contentstack/json-rte-serializer": "^3.0.5",
     "@contentstack/live-preview-utils": "^4.3.0",
     "@repo/api": "workspace:*",
