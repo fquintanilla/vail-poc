@@ -1,12 +1,7 @@
 import type { Preview } from "@storybook/nextjs-vite";
 
 import "../src/styles/storybook.css";
-
-/** Extend this list as new brands are added; toolbar and `data-theme` stay in sync. */
-export const BRAND_THEME_OPTIONS = [
-  { value: "ocean", title: "Ocean" },
-  { value: "sunset", title: "Sunset" },
-] as const;
+import { BRAND_THEME_OPTIONS } from "@repo/ui/brand-theme-options";
 
 const DEFAULT_BRAND = BRAND_THEME_OPTIONS[0].value;
 
