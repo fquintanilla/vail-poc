@@ -1,3 +1,6 @@
+import { BasicContentElement } from "@/components/CMS/BasicContentElement";
+import { FeaturedContentElement } from "@/components/CMS/FeaturedContentElement";
+import { HeroSlideshow } from "@/components/CMS/HeroSlideshow";
 import type { Page } from "@/lib/types/contentstack";
 
 export type RenderPageComponentsProps = {
@@ -15,14 +18,40 @@ export function RenderPageComponents({ page }: RenderPageComponentsProps) {
   return (
     <>
       {pageComponents.map((component: ModularBlock) => {
+        if (component.hero_slideshow) {
+          const hero = component.hero_slideshow;
+          const uid = hero._metadata?.uid;
+
+          return (
+            <HeroSlideshow
+              key={`hero-slideshow-${uid}`}
+              hero={hero}
+              variant="default"
+            />
+          );
+        }
+
+        if (component.basic_content) {
+          const basicContent = component.basic_content;
+          const uid = basicContent._metadata?.uid;
+
+          return (
+            <BasicContentElement
+              key={`basic-content-${uid}`}
+              content={basicContent}
+            />
+          );
+        }
+
         if (component.featured_content) {
           const content = component.featured_content;
           const uid = content._metadata?.uid;
 
           return (
-            <div key={`featured-content-${uid}`}>
-              <h2>featured_content</h2>
-            </div>
+            <FeaturedContentElement
+              key={`featured-content-${uid}`}
+              content={content}
+            />
           );
         }
 

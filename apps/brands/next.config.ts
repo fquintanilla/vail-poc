@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "images.contentstack.io",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "scene7.vailresorts.com",
         pathname: "/**",
       },

@@ -135,7 +135,7 @@ export interface FeaturedContentItem {
   layout?: {
     is_image_right: boolean;
     is_pass_detail_view: boolean;
-    style?: "solid" | null;
+    style?: ("default" | "image" | "3d" | "slopeUp" | "solid") | null;
     reverse_color: boolean;
     $?: {
       is_image_right?: CSLPFieldMapping;
@@ -200,6 +200,7 @@ export interface HeroSlideshow {
 
 export interface HeroSlide {
   _version?: number;
+  _metadata?: { uid?: string };
   title?: string;
   subtitle?: string;
   body?: {

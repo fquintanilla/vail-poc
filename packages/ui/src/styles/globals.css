@@ -45,6 +45,48 @@
   --notification-fg: oklch(0.18 0.02 40);
   --notification-border: oklch(0.15 0.02 40 / 0.2);
   --notification-close-hover: oklch(0.15 0.02 40 / 0.1);
+  --hero-surface: var(--surface);
+  --hero-panel: var(--surface);
+  --hero-border: color-mix(in oklch, var(--outline-variant, var(--border)) 30%, transparent);
+  --hero-gradient-top: color-mix(in oklch, var(--shadow) 6%, transparent);
+  --hero-gradient-bottom: color-mix(in oklch, var(--shadow) 68%, transparent);
+  --hero-fallback-top: var(--secondary-container, var(--secondary));
+  --hero-fallback-bottom: var(--primary-container, var(--primary));
+  --hero-heading: var(--on-surface);
+  --hero-kicker: var(--secondary);
+  --hero-copy: color-mix(in oklch, var(--on-surface) 82%, white 18%);
+  --hero-link: var(--link-cta, var(--primary));
+  --hero-dot: color-mix(in oklch, var(--surface) 60%, transparent);
+  --hero-dot-active: var(--primary);
+  --hero-dot-border: color-mix(in oklch, var(--outline-variant, var(--border)) 60%, transparent);
+  --hero-control-surface: color-mix(in oklch, var(--surface) 75%, transparent);
+  --hero-control-border: color-mix(in oklch, var(--outline-variant, var(--border)) 40%, transparent);
+  --hero-control-foreground: var(--on-surface);
+  --hero-overlay-shadow: oklch(0 0 0 / 0.22);
+  --featured-surface: var(--surface);
+  --featured-on-surface: var(--on-surface);
+  --featured-surface-reverse: var(--secondary);
+  --featured-on-surface-reverse: var(--on-secondary);
+  --featured-border: color-mix(in oklch, var(--outline-variant, var(--border)) 42%, transparent);
+  --featured-bg-top: var(--secondary-container, var(--secondary));
+  --featured-bg-bottom: var(--primary-container, var(--primary));
+  --featured-bg-accent: color-mix(in oklch, var(--surface) 36%, transparent);
+  --featured-solid-panel: color-mix(in oklch, var(--surface) 94%, black 6%);
+  --featured-kicker: var(--secondary);
+  --featured-kicker-reverse: color-mix(in oklch, var(--on-secondary) 76%, transparent);
+  --featured-copy: color-mix(in oklch, var(--on-surface) 82%, white 18%);
+  --featured-copy-reverse: color-mix(in oklch, var(--on-secondary) 88%, black 12%);
+  --featured-link: var(--link-cta, var(--primary));
+  --featured-link-reverse: var(--on-secondary);
+  --featured-button-border: var(--outline-variant, var(--border));
+  --featured-button-fg: var(--on-surface);
+  --featured-button-border-reverse: color-mix(in oklch, var(--on-secondary) 35%, transparent);
+  --featured-button-fg-reverse: var(--on-secondary);
+  --featured-image-surface: color-mix(in oklch, var(--surface) 82%, var(--primary-container, var(--primary)) 18%);
+  --featured-video-button-bg: oklch(1 0 0 / 0.82);
+  --featured-video-button-fg: var(--primary);
+  --featured-epic-badge: var(--primary);
+  --featured-epic-badge-fg: var(--primary-foreground);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -173,6 +215,62 @@ html[data-theme="sunset"] {
   --notification-fg: oklch(0.22 0.05 35);
   --notification-border: oklch(0.22 0.05 35 / 0.2);
   --notification-close-hover: oklch(0.22 0.05 35 / 0.1);
+}
+
+html[data-theme="standard-freeride-lite"] {
+  --primary: oklch(0.56 0.06 232);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.59 0.03 230);
+  --secondary-foreground: oklch(0.99 0 0);
+  --secondary-container: oklch(0.95 0.02 218);
+  --tertiary: oklch(0.4 0.02 230);
+  --tertiary-container: oklch(0.97 0.02 220);
+  --outline-variant: oklch(0.9 0.02 220);
+  --surface: oklch(1 0 0);
+  --on-surface: oklch(0.43 0.01 240);
+  --link-cta: oklch(0.56 0.06 232);
+  --hero-surface: #ffffff;
+  --hero-panel: #ffffff;
+  --hero-border: #cee4ec;
+  --hero-gradient-top: oklch(0.18 0.01 240 / 0.05);
+  --hero-gradient-bottom: oklch(0.26 0.02 240 / 0.62);
+  --hero-fallback-top: #e7f8ff;
+  --hero-fallback-bottom: #3e728a;
+  --hero-heading: #474e52;
+  --hero-kicker: #637987;
+  --hero-copy: #474e52;
+  --hero-link: #3e728a;
+  --hero-dot: oklch(1 0 0 / 0.55);
+  --hero-dot-active: #3e728a;
+  --hero-dot-border: oklch(1 0 0 / 0.72);
+  --hero-control-surface: oklch(1 0 0 / 0.68);
+  --hero-control-border: oklch(1 0 0 / 0.44);
+  --hero-control-foreground: #474e52;
+  --hero-overlay-shadow: oklch(0.2 0.03 240 / 0.22);
+  --featured-surface: #ffffff;
+  --featured-on-surface: #474e52;
+  --featured-surface-reverse: #637987;
+  --featured-on-surface-reverse: #ffffff;
+  --featured-border: #cee4ec;
+  --featured-bg-top: #e7f8ff;
+  --featured-bg-bottom: #3e728a;
+  --featured-bg-accent: oklch(1 0 0 / 0.18);
+  --featured-solid-panel: #f7f7f7;
+  --featured-kicker: #637987;
+  --featured-kicker-reverse: oklch(1 0 0 / 0.78);
+  --featured-copy: #474e52;
+  --featured-copy-reverse: #ffffff;
+  --featured-link: #3e728a;
+  --featured-link-reverse: #ffffff;
+  --featured-button-border: #637987;
+  --featured-button-fg: #474e52;
+  --featured-button-border-reverse: oklch(1 0 0 / 0.36);
+  --featured-button-fg-reverse: #ffffff;
+  --featured-image-surface: #e7f8ff;
+  --featured-video-button-bg: oklch(1 0 0 / 0.84);
+  --featured-video-button-fg: #3e728a;
+  --featured-epic-badge: #3e728a;
+  --featured-epic-badge-fg: #ffffff;
 }
 
 @theme inline {
