@@ -8,6 +8,11 @@ import {
 } from "@timbenniks/contentstack-endpoints";
 import type { Header, Page } from "@/lib/types/contentstack";
 
+/** Safe to spread as React props for Live Preview editable tags. */
+export function editableProps(value: any): object {
+  return typeof value === "object" && value !== null ? value : {};
+}
+
 // Region and endpoint configuration - computed once at module load time
 const region = getRegionForString(
   process.env.NEXT_PUBLIC_CONTENTSTACK_REGION as string,
