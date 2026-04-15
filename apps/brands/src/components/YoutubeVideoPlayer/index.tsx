@@ -35,13 +35,7 @@ function renderBodyHtml(body: YoutubeVideoPlayerBlock["body"]) {
     return null;
   }
 
-  return sanitizeHtml(jsonToHtml(body), {
-    allowedTags: ["p", "br", "strong", "em", "ul", "ol", "li", "a"],
-    allowedAttributes: {
-      a: ["href", "target", "rel"],
-    },
-    allowedSchemes: ["http", "https", "mailto", "tel"],
-  });
+  return sanitizeHtml(jsonToHtml(body));
 }
 
 export default function YoutubeVideoPlayer({ data }: YoutubeVideoPlayerProps) {
