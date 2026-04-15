@@ -103,6 +103,7 @@ export function initLivePreview() {
 export async function fetchPageByUrl(
   url: string,
   stack: ReturnType<typeof getStack>,
+  brand: string,
 ): Promise<Page | undefined> {
   const result = await stack
     .contentType("page")
@@ -116,7 +117,7 @@ export async function fetchPageByUrl(
     .where(
       "taxonomies.brands",
       QueryOperation.EQUALS,
-      process.env.NEXT_PUBLIC_BRAND as string,
+      brand,
     )
     .find<Page>();
 
@@ -152,13 +153,17 @@ export async function fetchPageByUrl(
  */
 export async function getPage(
   url: string,
+  brand: string,
   stackInstance?: ReturnType<typeof getStack>,
 ) {
   const stack = stackInstance ?? getStack();
-  return fetchPageByUrl(url, stack);
+  return fetchPageByUrl(url, stack, brand);
 }
 
-export async function getHeader(stack: ReturnType<typeof getStack>) {
+export async function getHeader(
+  stack: ReturnType<typeof getStack>,
+  brand: string,
+) {
   const result = await stack
     .contentType("header")
     .entry()
@@ -168,7 +173,7 @@ export async function getHeader(stack: ReturnType<typeof getStack>) {
     .where(
       "taxonomies.brands",
       QueryOperation.EQUALS,
-      process.env.NEXT_PUBLIC_BRAND as string,
+      brand,
     )
     .find<Header>();
 

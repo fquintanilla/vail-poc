@@ -8,6 +8,7 @@ import { HeaderWeather } from "@/components/header/HeaderWeather";
 import { NotificationBar } from "@/components/notification-bar";
 import { ResortDropdown } from "@/components/resort-dropdown";
 import { getHeaderCached } from "@/lib/server/contentstack-cached";
+import { getRequestSiteConfig } from "@/lib/server/request-site";
 import type { ResortHeaderData } from "@/lib/types";
 
 const script = Great_Vibes({
@@ -22,8 +23,9 @@ type ResortHeaderProps = {
 
 export async function ResortHeader({ data }: ResortHeaderProps) {
   const searchHref = data.search_url ?? "#";
+  const site = await getRequestSiteConfig();
 
-  const header = await getHeaderCached();
+  const header = await getHeaderCached(site.brand);
   const otherResorts = header?.other_resort_sites?.[0]?.resort;
 
   return (

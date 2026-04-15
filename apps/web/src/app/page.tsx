@@ -5,27 +5,35 @@ import {
 import { HomeMain } from "@/components/home-main";
 import customMetadata from "@/lib/customMetadata";
 import { getPageCached } from "@/lib/server/contentstack-cached";
+import { getRequestSiteConfig } from "@/lib/server/request-site";
 import { Suspense } from "react";
 
 export async function generateMetadata() {
-  const page = await getPageCached("/");
+  const site = await getRequestSiteConfig();
+  const page = await getPageCached("/", site.brand);
   return customMetadata({ seo: page?.seo });
 }
 
-export default async function Home() {
+async function HomeTrackers() {
+  const site = await getRequestSiteConfig();
+
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <PageViewTracker
-          pageName="home"
-          resort={process.env.NEXT_PUBLIC_BRAND ?? "unknown"}
-        />
-        <ScrollTracker
-          pageName="home"
-          resort={process.env.NEXT_PUBLIC_BRAND ?? "unknown"}
-        />
+      <PageViewTracker pageName="home" resort={site.brand} />
+      <ScrollTracker pageName="home" resort={site.brand} />
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+    <>
+      <Suspense fallback={null}>
+        <HomeTrackers />
       </Suspense>
-      <HomeMain pageUrl="/" />
+      <Suspense fallback={null}>
+        <HomeMain pageUrl="/" />
+      </Suspense>
     </>
   );
 }

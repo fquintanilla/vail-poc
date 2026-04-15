@@ -11,18 +11,18 @@ import { fetchPageByUrl } from "@/lib/contentstack";
  *
  * @param url - The URL path to match against the page entry's url field
  */
-export async function getPageCached(url: string) {
+export async function getPageCached(url: string, brand: string) {
   cacheLife("contentstack");
-  cacheTag("contentstack", `page-${url}`);
+  cacheTag("contentstack", `brand-${brand}`, `page-${brand}-${url}`);
 
   const stack = getStack();
-  return fetchPageByUrl(url, stack);
+  return fetchPageByUrl(url, stack, brand);
 }
 
-export async function getHeaderCached() {
+export async function getHeaderCached(brand: string) {
   cacheLife("contentstack");
-  cacheTag("contentstack", "header");
+  cacheTag("contentstack", `brand-${brand}`, `header-${brand}`);
 
   const stack = getStack();
-  return getHeader(stack);
+  return getHeader(stack, brand);
 }

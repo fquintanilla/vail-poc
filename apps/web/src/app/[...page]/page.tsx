@@ -5,6 +5,7 @@ import {
 import { HomeMain } from "@/components/home-main";
 import customMetadata from "@/lib/customMetadata";
 import { getPageCached } from "@/lib/server/contentstack-cached";
+import { getRequestSiteConfig } from "@/lib/server/request-site";
 import { Suspense } from "react";
 
 function getPageUrl(page: string[]) {
@@ -17,18 +18,13 @@ async function DynamicPageContent({
   params: Promise<{ page: string[] }>;
 }) {
   const { page } = await params;
+  const site = await getRequestSiteConfig();
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <PageViewTracker
-          pageName="home"
-          resort={process.env.NEXT_PUBLIC_BRAND ?? "unknown"}
-        />
-        <ScrollTracker
-          pageName="home"
-          resort={process.env.NEXT_PUBLIC_BRAND ?? "unknown"}
-        />
+      <Suspense fallback={null}>
+        <PageViewTracker pageName="home" resort={site.brand} />
+        <ScrollTracker pageName="home" resort={site.brand} />
       </Suspense>
       <HomeMain pageUrl={getPageUrl(page)} />
     </>
@@ -41,7 +37,8 @@ export async function generateMetadata({
   params: Promise<{ page: string[] }>;
 }) {
   const { page } = await params;
-  const pageData = await getPageCached(getPageUrl(page));
+  const site = await getRequestSiteConfig();
+  const pageData = await getPageCached(getPageUrl(page), site.brand);
 
   return customMetadata({ seo: pageData?.seo });
 }

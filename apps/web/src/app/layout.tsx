@@ -6,6 +6,7 @@ import { ResortHeader } from "@/components/header";
 import { DUMMY_RESORT_HEADER_DATA } from "@/lib/dummy/header-data";
 import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
+import { getRequestSiteConfig } from "@/lib/server/request-site";
 
 export const metadata: Metadata = {
   title: {
@@ -21,14 +22,30 @@ export const viewport: Viewport = {
   width: "device-width",
 };
 
+async function SiteThemeScript() {
+  const site = await getRequestSiteConfig();
+
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `document.documentElement.dataset.theme = ${JSON.stringify(site.theme)};`,
+      }}
+    />
+  );
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme={env.NEXT_PUBLIC_THEME}>
-      <head></head>
+    <html lang="en" data-theme={env.NEXT_PUBLIC_THEME} suppressHydrationWarning>
+      <head>
+        <Suspense fallback={null}>
+          <SiteThemeScript />
+        </Suspense>
+      </head>
       <body>
         {env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true" ? (
           <div

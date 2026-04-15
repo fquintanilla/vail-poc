@@ -15,6 +15,7 @@
 
 import { type NextRequest, NextResponse } from "next/server";
 import { env } from "process";
+import { resolveSiteConfigByHostname } from "@/lib/site-config";
 
 /** HTTP-level noindex for rewritten preview responses (URL may still show / or /path). */
 const PREVIEW_ROBOTS_TAG =
@@ -22,6 +23,11 @@ const PREVIEW_ROBOTS_TAG =
 
 export function proxy(request: NextRequest) {
   const { searchParams, pathname } = request.nextUrl;
+  const siteConfig = resolveSiteConfigByHostname(request.headers.get("host"));
+  const requestHeaders = new Headers(request.headers);
+
+  requestHeaders.set("x-site-brand", siteConfig.brand);
+  requestHeaders.set("x-site-theme", siteConfig.theme);
 
   const previewAllowed =
     env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === "true" &&
@@ -31,12 +37,21 @@ export function proxy(request: NextRequest) {
     const target = pathname === "/" ? "/preview" : `/preview${pathname}`;
     const res = NextResponse.rewrite(
       new URL(`${target}?${searchParams.toString()}`, request.url),
+      {
+        request: {
+          headers: requestHeaders,
+        },
+      },
     );
     res.headers.set("X-Robots-Tag", PREVIEW_ROBOTS_TAG);
     return res;
   }
 
-  return NextResponse.next();
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const proxyConfig = {
