@@ -1,4 +1,5 @@
 import type { Page } from "@/lib/types/contentstack";
+import FeaturedContent from "@/components/FeaturedContent";
 
 export type RenderPageComponentsProps = {
   page: Page;
@@ -14,16 +15,11 @@ export function RenderPageComponents({ page }: RenderPageComponentsProps) {
 
   return (
     <>
-      {pageComponents.map((component: ModularBlock) => {
+      {pageComponents.map((component: ModularBlock, index: number) => {
         if (component.featured_content) {
           const content = component.featured_content;
-          const uid = content._metadata?.uid;
-
-          return (
-            <div key={`featured-content-${uid}`}>
-              <h2>featured_content</h2>
-            </div>
-          );
+          const uid = content._metadata?.uid ?? `featured-content-${index}`;
+          return <FeaturedContent key={uid} data={content} />;
         }
 
         return null;

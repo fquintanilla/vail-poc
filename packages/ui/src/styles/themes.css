@@ -1,4 +1,15 @@
-:root {}
+:root {
+  --featured-content-eyebrow: #5f7380;
+  --featured-content-title: #14212b;
+  --featured-content-body: #46505a;
+  --featured-content-muted-surface: #f4f1eb;
+  --featured-content-reverse-surface: #16324f;
+  --featured-content-reverse-title: #f8fbff;
+  --featured-content-reverse-body: rgba(248, 251, 255, 0.9);
+  --featured-content-action-border: #14212b;
+  --featured-content-action-text: #14212b;
+  --featured-content-play-accent: #16324f;
+}
 
 html[data-theme="beavercreek"] {}
 
@@ -40,7 +51,18 @@ html[data-theme="stevenspass"] {}
 
 html[data-theme="stowe"] {}
 
-html[data-theme="vail"] {}
+html[data-theme="vail"] {
+  --featured-content-eyebrow: #5a6f7f;
+  --featured-content-title: #102030;
+  --featured-content-body: #4e5b66;
+  --featured-content-muted-surface: #f5f2eb;
+  --featured-content-reverse-surface: #102a47;
+  --featured-content-reverse-title: #f6fbff;
+  --featured-content-reverse-body: rgba(246, 251, 255, 0.92);
+  --featured-content-action-border: #102a47;
+  --featured-content-action-text: #102a47;
+  --featured-content-play-accent: #173a60;
+}
 
 html[data-theme="whistlerblackcomb"] {}
 
