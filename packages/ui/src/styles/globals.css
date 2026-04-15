@@ -87,6 +87,32 @@
   --featured-video-button-fg: var(--primary);
   --featured-epic-badge: var(--primary);
   --featured-epic-badge-fg: var(--primary-foreground);
+  --categories-surface: var(--surface);
+  --categories-border: color-mix(in oklch, var(--outline-variant, var(--border)) 44%, transparent);
+  --categories-panel-top: var(--secondary-container, var(--secondary));
+  --categories-panel-bottom: var(--primary-container, var(--primary));
+  --categories-intro-surface: color-mix(in oklch, var(--surface) 88%, transparent);
+  --categories-intro-border: color-mix(in oklch, var(--outline-variant, var(--border)) 38%, transparent);
+  --categories-intro-foreground: var(--on-surface);
+  --categories-kicker: var(--secondary);
+  --categories-divider: var(--primary);
+  --categories-copy: color-mix(in oklch, var(--on-surface) 82%, white 18%);
+  --categories-link: var(--link-cta, var(--primary));
+  --categories-card-surface: var(--surface);
+  --categories-badge-surface: var(--surface);
+  --categories-badge-foreground: var(--on-surface);
+  --categories-fallback-top: var(--secondary-container, var(--secondary));
+  --categories-fallback-bottom: var(--primary-container, var(--primary));
+  --categories-accent-1: var(--primary);
+  --categories-accent-1-dark: color-mix(in oklch, var(--primary) 72%, black 28%);
+  --categories-accent-2: var(--secondary);
+  --categories-accent-2-dark: color-mix(in oklch, var(--secondary) 72%, black 28%);
+  --categories-accent-3: var(--tertiary, var(--primary));
+  --categories-accent-3-dark: color-mix(in oklch, var(--tertiary, var(--primary)) 72%, black 28%);
+  --categories-accent-4: var(--primary-container, var(--primary));
+  --categories-accent-4-dark: color-mix(in oklch, var(--primary-container, var(--primary)) 72%, black 28%);
+  --categories-accent-5: var(--secondary-container, var(--secondary));
+  --categories-accent-5-dark: color-mix(in oklch, var(--secondary-container, var(--secondary)) 72%, black 28%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -271,6 +297,32 @@ html[data-theme="standard-freeride-lite"] {
   --featured-video-button-fg: #3e728a;
   --featured-epic-badge: #3e728a;
   --featured-epic-badge-fg: #ffffff;
+  --categories-surface: #ffffff;
+  --categories-border: #cee4ec;
+  --categories-panel-top: #e7f8ff;
+  --categories-panel-bottom: #3e728a;
+  --categories-intro-surface: oklch(1 0 0 / 0.88);
+  --categories-intro-border: oklch(1 0 0 / 0.38);
+  --categories-intro-foreground: #474e52;
+  --categories-kicker: #637987;
+  --categories-divider: #3e728a;
+  --categories-copy: #474e52;
+  --categories-link: #3e728a;
+  --categories-card-surface: #ffffff;
+  --categories-badge-surface: #ffffff;
+  --categories-badge-foreground: #474e52;
+  --categories-fallback-top: #e7f8ff;
+  --categories-fallback-bottom: #3e728a;
+  --categories-accent-1: #3e728a;
+  --categories-accent-1-dark: #254453;
+  --categories-accent-2: #637987;
+  --categories-accent-2-dark: #474e52;
+  --categories-accent-3: #8fb6c9;
+  --categories-accent-3-dark: #52788c;
+  --categories-accent-4: #4a89aa;
+  --categories-accent-4-dark: #2c5e78;
+  --categories-accent-5: #9fcadf;
+  --categories-accent-5-dark: #5f91ab;
 }
 
 @theme inline {

@@ -1,4 +1,5 @@
 import { BasicContentElement } from "@/components/CMS/BasicContentElement";
+import { CategoriesSection } from "@/components/CMS/CategoriesSection";
 import { FeaturedContentElement } from "@/components/CMS/FeaturedContentElement";
 import { HeroSlideshow } from "@/components/CMS/HeroSlideshow";
 import type { Page } from "@/lib/types/contentstack";
@@ -39,6 +40,18 @@ export function RenderPageComponents({ page }: RenderPageComponentsProps) {
             <BasicContentElement
               key={`basic-content-${uid}`}
               content={basicContent}
+            />
+          );
+        }
+
+        if (component.categories) {
+          const categories = component.categories;
+          const uid = categories._metadata?.uid;
+
+          return (
+            <CategoriesSection
+              key={`categories-${uid}`}
+              content={categories}
             />
           );
         }

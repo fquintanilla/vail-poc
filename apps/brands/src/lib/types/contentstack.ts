@@ -906,6 +906,7 @@ export interface PageComponents1 extends SystemFields {
     };
     categories?: {
       title?: string;
+      _metadata?: { uid?: string };
       icon?: Icon[];
       image?: File | null;
       link?: {
